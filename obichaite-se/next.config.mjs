@@ -12,6 +12,8 @@ const nextConfig = {
 
     return webpackConfig
   },
+  reactStrictMode: true,
+  productionBrowserSourceMaps: false,
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })

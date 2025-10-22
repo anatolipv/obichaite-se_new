@@ -1,8 +1,10 @@
 import React from 'react'
 // import { Metadata } from 'next'
-import './styles.css'
 import { StoreProvider } from '@/store/StoreProvider'
 import '../../assets/styles/general.scss'
+import { Header } from '@/Header/Component'
+import './global.css'
+import { kolka, sansation } from '@/app/fonts'
 
 // const SITE_NAME = 'Обичайте се'
 
@@ -104,9 +106,12 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <StoreProvider>
-      <html lang="en">
+      <html lang="en" className={`${kolka.variable} ${sansation.variable}`}>
         <body>
-          <main>{children}</main>
+          <main id="content" className="min-h-[100svh] overflow-x-clip">
+            <Header />
+            {children}
+          </main>
         </body>
       </html>
     </StoreProvider>
