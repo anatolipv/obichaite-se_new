@@ -1,0 +1,8 @@
+export { default as GenericImage } from './GenericImage'
+export { default as GenericHeading } from './GenericHeading'
+export { default as GenericParagraph } from './GenericParagraph'
+export { default as GenericMedia } from './Media'
+export { default as GenericButton } from './GenericButton'
+export { default as GenericPagination } from './GenericPatination'
+export { default as GenericInput } from './Input'
+export { default as GenericTextarea } from './Textarea'

@@ -1,7 +1,7 @@
 === PROJECT AGENDA ===
 
 **CURRENT**
-- install packages (only required)
+[done] install packages (only required)
 - make the base styles
 - insert the fonts
 - transfer the generic components and utils
