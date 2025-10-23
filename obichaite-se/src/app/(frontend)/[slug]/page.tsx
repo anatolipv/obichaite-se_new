@@ -8,6 +8,8 @@ import { generateMeta } from '@/utils/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import HeroCommon from '@/Hero/Common'
+import { CategoriesSection } from '@/components/Categories'
+import { Category } from '@/payload-types'
 // import { TestimonialStateManager } from '@/components/StateManagers' //TODO?
 // import { AboutUsJsonLd, HomePageJsonLd, OrganizationJsonLd } from '@/components/SEO' //TODO?
 
@@ -59,6 +61,30 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
+  const payload = await getPayload({ config: configPromise })
+
+  const categories = await payload.find({
+    collection: 'category',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    where: {
+      _status: {
+        equals: 'published',
+      },
+    },
+    select: {
+      title: true,
+      slug: true,
+      media: true,
+      description: true,
+      heading: true,
+    },
+  })
+
+  const itIsHome = slug === 'home'
+
   const hero = page.commonHero
   //   const layout = page.layout //TODO
 
@@ -77,6 +103,8 @@ export default async function Page({ params: paramsPromise }: Args) {
         {draft && <LivePreviewListener />}
 
         <HeroCommon {...hero} />
+
+        {!!itIsHome && <CategoriesSection categories={categories.docs as Category[]} />}
 
         {/* <RenderBlocks blocks={layout} /> */}
       </article>

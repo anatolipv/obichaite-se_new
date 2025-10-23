@@ -7,13 +7,13 @@ whitespace-nowrap rounded ring-offset-background transition-colors focus-visible
 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none`
 const classMap = {
   primary:
-    'bg-gradient-to-tr from-primaryWhite to-primaryWhiteAccent border-[1px] border-primaryBlackAccent btn-5',
+    'bg-bordo border-[1px] border-bordo text-white btn-5',
   secondary:
     'bg-transparent border-[1px] border-primaryBlackAccent hover:bg-primaryWhite hover:text-primaryBlack !text-primaryBlack',
   colored:
     'bg-gradient-to-tr from-[#023900] to-[#020202] border-[1px] border-primaryBlackAccent hover:from-[#020202] hover:to-[#023900]',
   gray: 'bg-gradient-to-tr from-primaryGray to-primaryBlack border-[1px] border-primaryBlackAccent hover:from-primaryWhiteAccent hover:to-primaryWhite',
-  outLined: 'bg-transparent border-[1px] border-primaryWhite text-primaryWhite btn-4',
+  outLined: 'bg-pink/50 border-[1px] border-white text-white hover:bg-white hover:text-pink',
 }
 
 type GenericButtonProps = {
@@ -41,7 +41,8 @@ const GenericButton = ({
 
   return (
     <button
-      className={`px-6 py-2 md:px-5 md:py-3 rounded-[16px] ${variantClass} ${constantClass} ${styleClass && styleClass} font-montserrat-semibold uppercase`}
+      className={`px-6 py-2 md:px-5 md:py-3 rounded-[8px] ${variantClass} ${constantClass} ${styleClass && styleClass} 
+      font-sansation font-[400] uppercase`}
       disabled={disabled}
       onClick={() => {
         click()

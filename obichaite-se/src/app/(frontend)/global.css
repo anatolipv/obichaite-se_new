@@ -113,11 +113,11 @@ video::-webkit-media-controls-start-playback-button {
   }
 
   @media all and (min-width: 1440px) {
-    max-width: 1080px;
+    max-width: 1320px;
   }
 
-  @media all and (min-width: 1700px) {
-    max-width: 1320px;
+  @media all and (min-width: 1535px) {
+    max-width: 1440px;
   }
 }
 
@@ -144,11 +144,11 @@ video::-webkit-media-controls-start-playback-button {
   }
 
   @media all and (min-width: 1440px) {
-    max-width: 1080px;
+    max-width: 1320px;
   }
 
-  @media all and (min-width: 1700px) {
-    max-width: 1320px;
+  @media all and (min-width: 1535px) {
+    max-width: 1440px;
   }
 }
 

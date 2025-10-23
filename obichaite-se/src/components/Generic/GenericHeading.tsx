@@ -5,14 +5,13 @@ type heading1Props = {
   extraClass?: string
   headingType?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   fontStyle?:
-    | 'font-montserrat-semibold'
-    | 'font-montserrat-bold'
-    | 'font-montserrat-regular'
-    | 'font-montserrat-extraBoldItalic'
-    | 'font-great-vibes'
-    | 'font-lobster'
-    | 'font-triodion'
-    | 'font-montserrat-semiBoldItalic'
+    | 'font-kolka font-[400]'
+    | 'font-kolka font-[500]'
+    | 'font-kolka font-[700]'
+    | 'font-sansation font-[400]'
+    | 'font-sansation font-[700]'
+    | 'font-sansation font-[400] italic'
+    | 'font-sansation font-[700] italic'
     | 'custom'
   textColor?: 'text-white' | 'text-brown' | 'text-bordo' | 'text-pink'
   align?:
@@ -37,7 +36,7 @@ const GenericHeading = ({
   children,
   extraClass,
   headingType = 'h1',
-  fontStyle = 'font-montserrat-semibold',
+  fontStyle = 'font-sansation font-[700]',
   textColor = 'text-white',
   customStyles = false,
   align = 'text-left',
