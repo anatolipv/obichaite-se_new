@@ -243,21 +243,21 @@ export const MenuIcon = () => {
       <g clipPath="url(#clip0_36_88)">
         <path
           d="M5.8335 8H27.1668"
-          stroke="white"
+          stroke="#574143"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M9.8335 16H27.1668"
-          stroke="white"
+          stroke="#574143"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M13.8335 24H27.1668"
-          stroke="white"
+          stroke="#574143"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -265,7 +265,7 @@ export const MenuIcon = () => {
       </g>
       <defs>
         <clipPath id="clip0_36_88">
-          <rect width="32" height="32" fill="white" transform="translate(0.5)" />
+          <rect width="32" height="32" fill="#574143" transform="translate(0.5)" />
         </clipPath>
       </defs>
     </svg>

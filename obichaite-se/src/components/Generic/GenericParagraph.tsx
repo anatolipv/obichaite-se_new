@@ -5,19 +5,15 @@ type paragraphProps = {
   extraClass?: string
   pType?: 'extraSmall' | 'small' | 'regular' | 'large' | 'custom'
   fontStyle?:
-    | 'font-montserrat-semibold'
-    | 'font-montserrat-bold'
-    | 'font-montserrat-regular'
-    | 'font-great-vibes'
-    | 'font-lobster'
-    | 'font-triodion'
-    | 'font-montserrat-semiBoldItalic'
+    | 'font-kolka font-[400]'
+    | 'font-kolka font-[500]'
+    | 'font-kolka font-[700]'
+    | 'font-sansation font-[400]'
+    | 'font-sansation font-[700]'
+    | 'font-sansation font-[400] italic'
+    | 'font-sansation font-[700] italic'
     | 'custom'
-  textColor?:
-    | 'text-primaryWhite'
-    | 'text-primaryWhiteAccent'
-    | 'text-primaryBlack'
-    | 'text-primaryBlackAccent'
+  textColor?: 'text-brown' | 'text-white' | 'text-bordo' | 'text-pink' | 'text-mixPink'
 }
 
 const fontMap = {
@@ -32,12 +28,12 @@ const GenericParagraph = ({
   children,
   extraClass,
   pType = 'regular',
-  fontStyle = 'font-montserrat-regular',
-  textColor = 'text-primaryWhite',
+  fontStyle = 'font-sansation font-[400]',
+  textColor = 'text-brown',
 }: paragraphProps) => {
   return (
     <div
-      className={`tracking-[0.05em] leading-[150%] ${fontStyle !== 'custom' && fontStyle} ${extraClass} ${
+      className={`${fontStyle !== 'custom' && fontStyle} ${extraClass} ${
         pType !== 'custom' && fontMap[pType]
       } ${textColor}`}
     >

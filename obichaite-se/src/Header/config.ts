@@ -23,6 +23,13 @@ export const Header: GlobalConfig = {
           type: 'array',
           fields: [link({ appearances: false })],
         },
+        {
+          name: 'media',
+          type: 'upload',
+          maxDepth: 2,
+          relationTo: 'media',
+          required: false,
+        },
       ],
       admin: {
         components: {

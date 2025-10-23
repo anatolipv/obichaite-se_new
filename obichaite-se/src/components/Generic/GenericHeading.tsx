@@ -14,7 +14,7 @@ type heading1Props = {
     | 'font-triodion'
     | 'font-montserrat-semiBoldItalic'
     | 'custom'
-  textColor?: 'text-primaryWhite' | 'text-primaryBlack'
+  textColor?: 'text-white' | 'text-brown' | 'text-bordo' | 'text-pink'
   align?:
     | 'text-left'
     | 'text-center'
@@ -38,7 +38,7 @@ const GenericHeading = ({
   extraClass,
   headingType = 'h1',
   fontStyle = 'font-montserrat-semibold',
-  textColor = 'text-primaryWhite',
+  textColor = 'text-white',
   customStyles = false,
   align = 'text-left',
 }: heading1Props) => {

@@ -7,6 +7,7 @@ import React, { cache } from 'react'
 import { generateMeta } from '@/utils/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
+import HeroCommon from '@/Hero/Common'
 // import { TestimonialStateManager } from '@/components/StateManagers' //TODO?
 // import { AboutUsJsonLd, HomePageJsonLd, OrganizationJsonLd } from '@/components/SEO' //TODO?
 
@@ -58,7 +59,7 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  //   const hero = page.commonHero //TODO
+  const hero = page.commonHero
   //   const layout = page.layout //TODO
 
   return (
@@ -75,7 +76,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
         {draft && <LivePreviewListener />}
 
-        {/* <HeroCommon {...hero} /> */}
+        <HeroCommon {...hero} />
 
         {/* <RenderBlocks blocks={layout} /> */}
       </article>

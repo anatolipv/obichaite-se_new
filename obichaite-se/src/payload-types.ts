@@ -883,6 +883,7 @@ export interface Header {
               id?: string | null;
             }[]
           | null;
+        media?: (number | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -921,6 +922,7 @@ export interface HeaderSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        media?: T;
         id?: T;
       };
   logo?: T;
