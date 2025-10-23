@@ -141,8 +141,8 @@ export const FixedCheckboxIcon = () => {
 export const PresentV1Icon = () => {
   return (
     <svg
-      width="362"
-      height="362"
+      width="250"
+      height="250"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 362 362"
       fill="none"
@@ -339,8 +339,8 @@ export const PresentV1Icon = () => {
 export const RibbonIcon = () => {
   return (
     <svg
-      width="498"
-      height="498"
+      width="250"
+      height="250"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 498 498"
       fill="none"
@@ -437,8 +437,8 @@ export const RibbonIcon = () => {
 export const PresentV2Icon = () => {
   return (
     <svg
-      width="468"
-      height="468"
+      width="250"
+      height="250"
       viewBox="0 0 468 468"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -606,8 +606,8 @@ export const PresentV2Icon = () => {
 export const Ribbon2 = () => {
   return (
     <svg
-      width="262"
-      height="262"
+      width="250"
+      height="250"
       viewBox="0 0 262 262"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

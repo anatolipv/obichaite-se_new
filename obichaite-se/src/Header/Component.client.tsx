@@ -182,7 +182,7 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
           </li>
         </ul>
       </nav>
-      <nav className="w-full bg-brown flex justify-between items-center h-[70px]">
+      <nav className="w-full bg-brown justify-between items-center h-[70px] hidden md:flex">
         <ul
           className="content_wrapper_mobile-full w-full flex justify-between items-center gap-2 px-2"
           aria-label="Навигация на категории"
