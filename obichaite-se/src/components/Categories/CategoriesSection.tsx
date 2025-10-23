@@ -29,7 +29,11 @@ const CategoriesSection = ({ categories }: { categories: Category[] }) => {
           updatedAt={media?.updatedAt as string}
         />
 
-        <div className="w-full md:w-[55%] bg-black/70 h-full relative z-[2] flex flex-col justify-center gap-s p-6">
+        <div
+          className={`w-full md:w-[50%] bg-black/70 h-full relative z-[2] flex flex-col justify-center  gap-s p-6
+        ${isIndexOdd ? 'items-start' : 'items-end'}
+        `}
+        >
           {category.description && (
             <GenericParagraph fontStyle="font-kolka font-[500]" textColor="text-pink">
               <RichText data={category.description}></RichText>
@@ -38,14 +42,14 @@ const CategoriesSection = ({ categories }: { categories: Category[] }) => {
           {category.heading && (
             <GenericHeading
               headingType="h4"
-              align="text-left"
+              align={isIndexOdd ? 'text-left' : 'text-right'}
               fontStyle="font-sansation font-[700]"
               textColor="text-white"
             >
               <RichText data={category.heading}></RichText>
             </GenericHeading>
           )}
-          <div className='pt-4'>
+          <div className="pt-4">
             <Link href={`/category/${category.slug}`}>
               <GenericButton variant="outLined">Виж повече</GenericButton>
             </Link>

@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     pages: Page;
     category: Category;
+    product: Product;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -85,6 +86,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     category: CategorySelect<false> | CategorySelect<true>;
+    product: ProductSelect<false> | ProductSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -331,6 +333,79 @@ export interface Category {
     image?: (number | null) | Media;
     description?: string | null;
   };
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product".
+ */
+export interface Product {
+  id: number;
+  title: string;
+  /**
+   * Заглавие на секцията с Продукта
+   */
+  heading: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Описание на Продукта (под заглавието)
+   */
+  shortDescription: string;
+  /**
+   * Описание на Продукта (под заглавието)
+   */
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  mediaArray?:
+    | {
+        file: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  category: number | Category;
+  price: number;
+  quantity: number;
+  havePriceRange?: boolean | null;
+  priceRange?: number | null;
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -598,6 +673,10 @@ export interface PayloadLockedDocument {
         value: number | Category;
       } | null)
     | ({
+        relationTo: 'product';
+        value: number | Product;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -772,6 +851,40 @@ export interface CategorySelect<T extends boolean = true> {
         image?: T;
         description?: T;
       };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product_select".
+ */
+export interface ProductSelect<T extends boolean = true> {
+  title?: T;
+  heading?: T;
+  shortDescription?: T;
+  description?: T;
+  mediaArray?:
+    | T
+    | {
+        file?: T;
+        id?: T;
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  category?: T;
+  price?: T;
+  quantity?: T;
+  havePriceRange?: T;
+  priceRange?: T;
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
@@ -1037,6 +1150,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'category';
           value: number | Category;
+        } | null)
+      | ({
+          relationTo: 'product';
+          value: number | Product;
         } | null);
     global?: string | null;
     user?: (number | null) | User;
