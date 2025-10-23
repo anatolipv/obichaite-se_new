@@ -13,6 +13,7 @@ import { Pages } from './collections/Pages'
 import { plugins } from './plugins'
 import { getServerSideURL } from './utils/getServerSideUrl'
 import { Header } from './Header/config'
+import { Category } from './collections/Categories/Category'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -47,7 +48,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Media, Pages],
+  collections: [Users, Media, Pages, Category],
   globals: [Header],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
