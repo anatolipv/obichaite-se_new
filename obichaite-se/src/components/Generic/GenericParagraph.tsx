@@ -3,7 +3,7 @@ import React from 'react'
 type paragraphProps = {
   children: React.ReactNode
   extraClass?: string
-  pType?: 'extraSmall' | 'small' | 'regular' | 'large' | 'custom'
+  pType?: 'extraSmall' | 'small' | 'semi' | 'regular' | 'large' | 'custom'
   fontStyle?:
     | 'font-kolka font-[400]'
     | 'font-kolka font-[500]'
@@ -18,9 +18,10 @@ type paragraphProps = {
 
 const fontMap = {
   extraSmall: 'text-xs',
-  small: 'text-[12px] md:text-[16px] leading-[120%]',
-  regular: 'text-[16px] md:text-[20px] leading-[120%]',
-  large: 'text-[18px] md:text-[24px] leading-[120%]',
+  small: 'text-[12px] md:text-[16px] leading-[110%]',
+  semi: 'text-[14px] md:text-[18px] leading-[110%]',
+  regular: 'text-[16px] md:text-[20px] leading-[110%]',
+  large: 'text-[18px] md:text-[24px] leading-[110%]',
   custom: 'custom',
 }
 

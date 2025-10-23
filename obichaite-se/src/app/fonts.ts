@@ -28,7 +28,7 @@ export const sansation = localFont({
 export const greatVibes = localFont({
   src: [{ path: "./fonts/GreatVibes-Regular.woff2", weight: "400", style: "normal" }],
   display: "swap",
-  variable: "--font-greatvibes",
+  variable: "--font-great-vibes",
   fallback: ["ui-serif", "Georgia", "Times New Roman"],
   adjustFontFallback: "Arial",
 });
