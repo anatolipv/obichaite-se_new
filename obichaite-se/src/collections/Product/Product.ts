@@ -42,7 +42,7 @@ export const Product: CollectionConfig = {
     media: true,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'category', "promoPrice", "bestSeller"],
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
@@ -181,6 +181,24 @@ export const Product: CollectionConfig = {
       required: true,
       admin: {
         position: 'sidebar',
+      },
+    },
+    {
+      name: 'promoPrice',
+      type: 'number',
+      required: false,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'bestSeller',
+      type: 'checkbox',
+      label: 'Най-продавани продукт',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Ако това поле бъде активирано, продуктър ще излиза в секция най-продавани',
       },
     },
     {

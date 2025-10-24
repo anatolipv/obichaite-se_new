@@ -50,7 +50,7 @@ const config = {
         bordo: '#6D0710',
       },
       fontFamily: {
-        sensation: ['var(--font-sansation)', 'ui-sans-serif', 'system-ui', 'Arial'],
+        sansation: ['var(--font-sansation)', 'ui-sans-serif', 'system-ui', 'Arial'],
         kolka: ['var(--font-kolka)', 'ui-sans-serif', 'system-ui', 'Arial'],
         'great-vibes': ['var(--font-great-vibes)', 'ui-sans-serif', 'system-ui', 'Arial'],
       },

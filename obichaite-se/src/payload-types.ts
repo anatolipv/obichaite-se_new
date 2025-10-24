@@ -404,6 +404,11 @@ export interface Product {
   category: number | Category;
   price: number;
   quantity: number;
+  promoPrice?: number | null;
+  /**
+   * Ако това поле бъде активирано, продуктър ще излиза в секция най-продавани
+   */
+  bestSeller?: boolean | null;
   havePriceRange?: boolean | null;
   priceRange?: number | null;
   publishedAt?: string | null;
@@ -883,6 +888,8 @@ export interface ProductSelect<T extends boolean = true> {
   category?: T;
   price?: T;
   quantity?: T;
+  promoPrice?: T;
+  bestSeller?: T;
   havePriceRange?: T;
   priceRange?: T;
   publishedAt?: T;

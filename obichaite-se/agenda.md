@@ -8,5 +8,8 @@
 [done] start the project to seed the database
 [done] make config for hero
 
+- add promotion configuration for product
+- add most sellers (with field)
+
 **ADDONS**
 - scroll to top - refference - https://qx-plank.myshopify.com/

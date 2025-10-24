@@ -9,7 +9,8 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import HeroCommon from '@/Hero/Common'
 import { CategoriesSection } from '@/components/Categories'
-import { Category } from '@/payload-types'
+import { Category, Product } from '@/payload-types'
+import { PromotionsCardsGrid } from '@/components/Product'
 // import { TestimonialStateManager } from '@/components/StateManagers' //TODO?
 // import { AboutUsJsonLd, HomePageJsonLd, OrganizationJsonLd } from '@/components/SEO' //TODO?
 
@@ -88,6 +89,60 @@ export default async function Page({ params: paramsPromise }: Args) {
   const hero = page.commonHero
   //   const layout = page.layout //TODO
 
+  let promotionProducts: Product[] = []
+
+  if (!!itIsHome) {
+    try {
+      const currentPromotionProducts = await payload.find({
+        collection: 'product',
+        draft: false,
+        limit: 1000,
+        overrideAccess: false,
+        pagination: false,
+        where: {
+          and: [
+            {
+              promoPrice: {
+                exists: true,
+              },
+            },
+            {
+              _status: {
+                equals: 'published',
+              },
+            },
+            {
+              quantity: {
+                not_equals: 0,
+              },
+            },
+          ],
+        },
+        select: {
+          title: true,
+          slug: true,
+          media: true,
+          description: true,
+          heading: true,
+          category: true,
+          price: true,
+          bestSeller: true,
+          promoPrice: true,
+          havePriceRange: true,
+          mediaArray: true,
+          priceRange: true,
+          shortDescription: true,
+        },
+      })
+
+      if (currentPromotionProducts.docs.length > 0) {
+        promotionProducts = currentPromotionProducts.docs as Product[]
+      }
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
+
   return (
     <>
       {/* //TODO? {slug === 'home' && (
@@ -105,6 +160,10 @@ export default async function Page({ params: paramsPromise }: Args) {
         <HeroCommon {...hero} />
 
         {!!itIsHome && <CategoriesSection categories={categories.docs as Category[]} />}
+
+        {!!promotionProducts?.length && (
+          <PromotionsCardsGrid products={promotionProducts} heading="Нашите Промоции" />
+        )}
 
         {/* <RenderBlocks blocks={layout} /> */}
       </article>
