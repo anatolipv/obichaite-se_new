@@ -8,6 +8,7 @@ import { DataFromGlobalSlug } from 'payload'
 import { useAppDispatch } from '@/hooks/redux-hooks'
 import { GenericImage, GenericParagraph } from '@/components/Generic'
 import { ArrowIcon, MenuIcon, SearchLogo, ShoppingCartIcon, UserProfileIcon } from '@/assets/icons'
+import { setOpenSearch } from '@/store/features/root'
 
 const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'> }) => {
   const dispatch = useAppDispatch()
@@ -141,6 +142,9 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
               className="w-[32px] h-[32px] md:w-[48px] md:h-[48px] rounded-full flex justify-center items-center border-[1px] border-brown pb-[7px] pt-[5px]"
               aria-label="Търсене на продукт"
               title="Търсене на продукт"
+              onClick={() => {
+                dispatch(setOpenSearch(true))
+              }}
             >
               <SearchLogo />
             </button>

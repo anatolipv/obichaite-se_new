@@ -6,14 +6,14 @@ const constantClass = `inline-flex items-center justify-center
 whitespace-nowrap rounded ring-offset-background transition-colors focus-visible:outline-none 
 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none`
 const classMap = {
-  primary:
-    'bg-bordo border-[1px] border-bordo text-white btn-5',
+  primary: 'bg-bordo border-[1px] border-bordo text-white btn-5',
   secondary:
     'bg-transparent border-[1px] border-primaryBlackAccent hover:bg-primaryWhite hover:text-primaryBlack !text-primaryBlack',
   colored:
     'bg-gradient-to-tr from-[#023900] to-[#020202] border-[1px] border-primaryBlackAccent hover:from-[#020202] hover:to-[#023900]',
   gray: 'bg-gradient-to-tr from-primaryGray to-primaryBlack border-[1px] border-primaryBlackAccent hover:from-primaryWhiteAccent hover:to-primaryWhite',
   outLined: 'bg-pink/50 border-[1px] border-white text-white hover:bg-white hover:text-pink',
+  white: 'bg-transparent border-[1px] border-white text-white hover:bg-white hover:!text-bordo !font-[700] transition-all duration-300 ease-in-out',
 }
 
 type GenericButtonProps = {
@@ -23,7 +23,7 @@ type GenericButtonProps = {
   click?: () => void
   type?: 'button' | 'submit' | 'reset'
   ariaLabel?: string | null | undefined
-  variant?: 'primary' | 'secondary' | 'colored' | 'gray' | 'outLined'
+  variant?: 'primary' | 'secondary' | 'colored' | 'gray' | 'outLined' | 'white'
   form?: string
 }
 

@@ -48,6 +48,7 @@ const config = {
         pink: '#D19EA2',
         mixPink: '#A9636A',
         bordo: '#6D0710',
+        pinkShade: "#e6cbcd"
       },
       fontFamily: {
         sansation: ['var(--font-sansation)', 'ui-sans-serif', 'system-ui', 'Arial'],

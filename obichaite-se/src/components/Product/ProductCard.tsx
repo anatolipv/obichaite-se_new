@@ -1,7 +1,10 @@
+'use client'
+
 import { Media, Product } from '@/payload-types'
-import React from 'react'
-import { GenericHeading, GenericImage, GenericParagraph } from '../Generic'
+import React, { useState } from 'react'
+import { GenericButton, GenericHeading, GenericImage, GenericParagraph } from '../Generic'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
+import { BestSellerIcon, DetailsIcon, DiscountIcon, ShoppingCartIcon } from '@/assets/icons'
 
 const ProductCard = ({ product }: { product: Product }) => {
   const {
@@ -13,58 +16,159 @@ const ProductCard = ({ product }: { product: Product }) => {
     promoPrice,
     havePriceRange,
     price,
-  } = product
+  } = product //TODO use all of them
 
   const mediaToShow = mediaArray?.[0].file as Media
 
-  return (
-    <article className="w-full border-[1px] border-bordo">
-      <div className="w-full flex flex-col px-4 pt-4">
-        <div className="p-2 border-[1px] border-bordo">
-          <GenericImage
-            src={mediaToShow?.url as string}
-            alt={mediaToShow?.alt}
-            wrapperClassName="w-full h-[320px] rounded-t-[16px] overflow-hidden relative"
-            imageClassName="w-full h-full object-contain"
-            fill={true}
-            updatedAt={mediaToShow?.updatedAt as string}
-          />
-        </div>
+  const [isHover, setIsHover] = useState(false)
 
-        <div className="w-full h-[110px] bg-red-500/20 flex justify-between items-center">
-          <div className="w-full max-w-[66%] px-4">
-            <GenericHeading
-              headingType="h5"
-              fontStyle="font-sansation font-[700] italic"
-              textColor="text-brown"
-              extraClass="line-clamp-3 text-[18px] leading-[110%] break-words"
-              customStyles={true}
+  return (
+    <>
+      {!!promoPrice && (
+        <div className="w-[32px] h-[32px] md:w-[32px] md:h-[32px] absolute z-[3] top-0 left-0 translate-x-[20px] translate-y-[20px]">
+          <DiscountIcon />
+        </div>
+      )}
+      {!!bestSeller && (
+        <div className="w-[32px] h-[32px] md:w-[36px] md:h-[36px] absolute z-[3] top-0 right-0 translate-x-[-20px] translate-y-[20px]">
+          <BestSellerIcon />
+        </div>
+      )}
+      <article
+        className="w-full bg-[#e6cbcd] rounded-[16px] pb-[110px] relative overflow-hidden border-[1px] border-bordo/20"
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        onClick={() => {
+          if (isHover) {
+            setIsHover(false)
+          } else {
+            setIsHover(true)
+          }
+        }}
+      >
+        <div
+          className={`absolute z-[3] left-0 top-0 right-0 h-[270px]
+            transition-[opacity,background-color] duration-500 ease-linear
+            flex justify-center items-center flex-col gap-m
+            ${
+              isHover
+                ? 'bg-bordo/80 opacity-100 pointer-events-auto'
+                : 'bg-transparent opacity-0 pointer-events-none'
+            }`}
+        >
+          <GenericButton
+            variant="white"
+            styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
+            click={() => {}}
+            type="button"
+            ariaLabel="Добави"
+          >
+            <p>Добави</p>
+            <div
+              className="w-[24px] h-[24px] flex justify-center items-center
+          [&>svg_path]:fill-white [&>svg_path]:transition-all duration-300 ease-in-out"
             >
-              <h3>{title}</h3>
-            </GenericHeading>
+              <ShoppingCartIcon />
+            </div>
+          </GenericButton>
+
+          <GenericButton
+            variant="white"
+            styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
+            click={() => {}}
+            type="button"
+            ariaLabel="Добави"
+          >
+            <p>Детайли</p>
+            <div
+              className="w-[20px] h-[20px] flex justify-center items-center
+          [&>svg_path]:fill-white [&>svg_path]:transition-all duration-300 ease-in-out"
+            >
+              <DetailsIcon />
+            </div>
+          </GenericButton>
+        </div>
+        <div className="w-full flex flex-col px-4 pt-4">
+          <div className="p-2 border-[1px] border-bordo/20 rounded-[12px] overflow-hidden bg-white">
+            <GenericImage
+              src={mediaToShow?.url as string}
+              alt={mediaToShow?.alt}
+              wrapperClassName="w-full h-[340px] rounded-[16px] overflow-hidden relative"
+              imageClassName="w-full h-full object-contain"
+              fill={true}
+              updatedAt={mediaToShow?.updatedAt as string}
+            />
           </div>
-          <div className="w-full max-w-[34%] flex flex-col px-1">
-            <GenericParagraph
-              pType="large"
-              fontStyle="font-sansation font-[700]"
-              textColor="text-mixPink"
-              extraClass='text-center'
-            >
-              {price.toFixed(1)}лв
-            </GenericParagraph>
-            <div className="w-full h-[1px] bg-mixPink/80"></div>
-            <GenericParagraph
-              pType="large"
-              fontStyle="font-sansation font-[700]"
-              textColor="text-mixPink"
-              extraClass="text-center"
-            >
-              {priceToEuro(price)}€
-            </GenericParagraph>
+
+          <div
+            className={`w-full h-[220px] flex flex-col absolute bottom-0 left-0 right-0 z-[2] px-4
+            transition-[transform] duration-500 ease-in-out
+         ${!isHover ? 'translate-y-[110px]' : 'translate-y-[0px]'}
+        `}
+          >
+            <div
+              className={`absolute z-[0] top-0 left-0 right-0 h-[220px]
+            transition-[background-color] duration-500 ease-in-out
+          ${isHover ? 'bg-white' : 'bg-transparent'}
+          `}
+            ></div>
+            <div className="w-full flex justify-between items-center h-[110px] relative z-[2]">
+              <div className="w-full max-w-[66%]">
+                <GenericHeading
+                  headingType="h5"
+                  fontStyle="font-sansation font-[700] italic"
+                  textColor="text-brown"
+                  extraClass="line-clamp-3 text-[18px] leading-[110%] break-words"
+                  customStyles={true}
+                >
+                  <h3>{title}</h3>
+                </GenericHeading>
+              </div>
+              <div className="w-full max-w-[40%] flex flex-col px-1">
+                <GenericParagraph
+                  pType="large"
+                  fontStyle="font-sansation font-[700]"
+                  textColor="text-mixPink"
+                  extraClass="text-center"
+                >
+                  <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>
+                    {price.toFixed(1)}
+                  </span>
+                  <span className={`${!!promoPrice && 'text-[16px] md:text-[20px]'}`}>
+                    {promoPrice && ` ${promoPrice.toFixed(1)}`}лв
+                  </span>
+                </GenericParagraph>
+                <div className="w-full h-[1px] bg-mixPink/80"></div>
+                <GenericParagraph
+                  pType="large"
+                  fontStyle="font-sansation font-[700]"
+                  textColor="text-mixPink"
+                  extraClass="text-center"
+                >
+                  <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>
+                    {priceToEuro(price)}
+                  </span>
+                  <span className={`${!!promoPrice && 'text-[16px] md:text-[20px]'}`}>
+                    {!!promoPrice && ` ${priceToEuro(promoPrice)}`}€
+                  </span>
+                </GenericParagraph>
+              </div>
+            </div>
+            <div className="w-full flex justify-between items-center h-[110px] px-2 relative z-[2] border-t-[1px] border-bordo/20">
+              {!!shortDescription && (
+                <GenericParagraph
+                  extraClass="text-center line-clamp-3 text-[18px] leading-[110%] break-words w-full"
+                  fontStyle="font-kolka font-[400]"
+                  textColor="text-brown"
+                >
+                  <p>{shortDescription}</p>
+                </GenericParagraph>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </>
   )
 }
 

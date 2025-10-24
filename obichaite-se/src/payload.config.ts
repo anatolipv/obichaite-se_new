@@ -15,6 +15,7 @@ import { getServerSideURL } from './utils/getServerSideUrl'
 import { Header } from './Header/config'
 import { Category } from './collections/Categories/Category'
 import { Product } from './collections/Product/Product'
+import { Footer } from './Footer/config'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -50,7 +51,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Pages, Category, Product],
-  globals: [Header],
+  globals: [Header, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   cors: [getServerSideURL()].filter(Boolean),

@@ -78,6 +78,31 @@ export const Pages: CollectionConfig<'pages'> = {
                 initCollapsed: false,
               },
             },
+            {
+              name: 'benefits',
+              type: 'array',
+              label: 'Бенефити на сайта',
+              //I need to show that section only if the page slug === home
+              admin: {
+                initCollapsed: false,
+                condition: (data) => data.slug === 'home',
+              },
+              fields: [
+                {
+                  name: 'title',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'media',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: true,
+                  label: 'Снимка',
+                  maxDepth: 2,
+                },
+              ],
+            },
           ],
           label: 'Съдържание',
         },

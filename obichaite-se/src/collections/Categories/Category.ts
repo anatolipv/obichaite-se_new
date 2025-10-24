@@ -110,6 +110,18 @@ export const Category: CollectionConfig = {
       required: true,
     },
     {
+      name: 'mediaMobile',
+      type: 'upload',
+      label: 'Снимка на Категорията (мобилно устройство',
+      maxDepth: 2,
+      relationTo: 'media',
+      admin: {
+        description: 'Снимка към Категорията (мобилно)',
+        position: 'sidebar',
+      },
+      required: true,
+    },
+    {
       type: 'tabs',
       tabs: [
         {

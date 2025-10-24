@@ -11,6 +11,7 @@ import HeroCommon from '@/Hero/Common'
 import { CategoriesSection } from '@/components/Categories'
 import { Category, Product } from '@/payload-types'
 import { PromotionsCardsGrid } from '@/components/Product'
+import BenefitsSection from '@/components/Custom/BenefitsSection'
 // import { TestimonialStateManager } from '@/components/StateManagers' //TODO?
 // import { AboutUsJsonLd, HomePageJsonLd, OrganizationJsonLd } from '@/components/SEO' //TODO?
 
@@ -81,6 +82,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       media: true,
       description: true,
       heading: true,
+      mediaMobile: true,
     },
   })
 
@@ -90,6 +92,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   //   const layout = page.layout //TODO
 
   let promotionProducts: Product[] = []
+  let bestSellers: Product[] = []
 
   if (!!itIsHome) {
     try {
@@ -116,6 +119,11 @@ export default async function Page({ params: paramsPromise }: Args) {
                 not_equals: 0,
               },
             },
+            {
+              bestSeller: {
+                equals: true,
+              },
+            },
           ],
         },
         select: {
@@ -135,8 +143,13 @@ export default async function Page({ params: paramsPromise }: Args) {
         },
       })
 
-      if (currentPromotionProducts.docs.length > 0) {
-        promotionProducts = currentPromotionProducts.docs as Product[]
+      if (currentPromotionProducts.docs.filter((doc) => !!doc.promoPrice).length > 0) {
+        promotionProducts = currentPromotionProducts.docs?.filter(
+          (doc) => !!doc.promoPrice,
+        ) as Product[]
+      }
+      if (currentPromotionProducts.docs.filter((doc) => !!doc.bestSeller).length > 0) {
+        bestSellers = currentPromotionProducts.docs?.filter((doc) => !!doc.bestSeller) as Product[]
       }
     } catch (error) {
       console.log('error', error)
@@ -163,6 +176,14 @@ export default async function Page({ params: paramsPromise }: Args) {
 
         {!!promotionProducts?.length && (
           <PromotionsCardsGrid products={promotionProducts} heading="Нашите Промоции" />
+        )}
+
+        {!!page.benefits && page.benefits?.length > 0 && (
+          <BenefitsSection benefits={page.benefits} />
+        )}
+
+        {!!bestSellers?.length && (
+          <PromotionsCardsGrid products={bestSellers} heading="Най-продавани продукти" />
         )}
 
         {/* <RenderBlocks blocks={layout} /> */}

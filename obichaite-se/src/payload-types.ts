@@ -100,9 +100,11 @@ export interface Config {
   };
   globals: {
     header: Header;
+    footer: Footer;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
   };
   locale: null;
   user: User & {
@@ -189,6 +191,13 @@ export interface Page {
   title: string;
   commonHero: CommonHero;
   layout?: MediaBlock[] | null;
+  benefits?:
+    | {
+        title: string;
+        media: number | Media;
+        id?: string | null;
+      }[]
+    | null;
   meta?: {
     title?: string | null;
     /**
@@ -325,6 +334,10 @@ export interface Category {
    * Снимка към Категорията (Секция в Начална страница)
    */
   media: number | Media;
+  /**
+   * Снимка към Категорията (мобилно)
+   */
+  mediaMobile: number | Media;
   meta?: {
     title?: string | null;
     /**
@@ -791,6 +804,13 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         mediaBlock?: T | MediaBlockSelect<T>;
       };
+  benefits?:
+    | T
+    | {
+        title?: T;
+        media?: T;
+        id?: T;
+      };
   meta?:
     | T
     | {
@@ -849,6 +869,7 @@ export interface CategorySelect<T extends boolean = true> {
   heading?: T;
   description?: T;
   media?: T;
+  mediaMobile?: T;
   meta?:
     | T
     | {
@@ -1104,6 +1125,77 @@ export interface Header {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  navItems?:
+    | {
+        link: {
+          type?: ('reference' | 'custom' | 'anchorSectionId') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  socialLinks?:
+    | {
+        link: {
+          type?: ('reference' | 'custom' | 'anchorSectionId') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        media?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  regulatoryLinks?:
+    | {
+        link: {
+          type?: ('reference' | 'custom' | 'anchorSectionId') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  contacts?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  logo?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1136,6 +1228,60 @@ export interface HeaderSelect<T extends boolean = true> {
         media?: T;
         id?: T;
       };
+  logo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  navItems?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        media?: T;
+        id?: T;
+      };
+  regulatoryLinks?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  contacts?: T;
   logo?: T;
   updatedAt?: T;
   createdAt?: T;

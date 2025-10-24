@@ -6,6 +6,7 @@ export interface RootInitialState {
   sectionName: string | null
   heroAppearAnimationDone: boolean | 'pending'
   heroAnimationDone: boolean
+  openSearch: boolean
 }
 
 const rootInitialState: RootInitialState = {
@@ -14,6 +15,7 @@ const rootInitialState: RootInitialState = {
   sectionName: null,
   heroAppearAnimationDone: 'pending',
   heroAnimationDone: false,
+  openSearch: false,
 }
 
 export const rootSlice = createSlice({
@@ -35,6 +37,9 @@ export const rootSlice = createSlice({
     setHeroAppearAnimationDone: (state, action: PayloadAction<boolean | 'pending'>) => {
       state.heroAppearAnimationDone = action.payload
     },
+    setOpenSearch: (state, { payload }: PayloadAction<boolean>) => {
+      state.openSearch = payload
+    },
   },
 })
 
@@ -44,6 +49,7 @@ export const {
   setSectionName,
   setHeroAnimationDone,
   setHeroAppearAnimationDone,
+  setOpenSearch,
 } = rootSlice.actions
 
 export default rootSlice.reducer

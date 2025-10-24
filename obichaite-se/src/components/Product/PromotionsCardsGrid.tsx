@@ -6,14 +6,14 @@ import ProductCard from './ProductCard'
 const PromotionsCardsGrid = ({ products, heading }: { products: Product[]; heading: string }) => {
   const promotionCardContent = products.map((product) => {
     return (
-      <li key={product.id} className="w-full">
+      <li key={product.id} className="w-full relative">
         <ProductCard product={product} />
       </li>
     )
   })
 
   return (
-    <section className="w-full py-10 md:py-20 relative min-h-[100svh] flex">
+    <section className="w-full py-10 md:py-20 relative min-h-[100svh] flex white-pink-background">
       <div className="w-full flex flex-col gap-m content_wrapper">
         <div className="w-full">
           <GenericHeading
