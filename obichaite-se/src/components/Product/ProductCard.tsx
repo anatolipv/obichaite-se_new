@@ -5,8 +5,11 @@ import React, { useState } from 'react'
 import { GenericButton, GenericHeading, GenericImage, GenericParagraph } from '../Generic'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
 import { BestSellerIcon, DetailsIcon, DiscountIcon, ShoppingCartIcon } from '@/assets/icons'
+import { useAppDispatch } from '@/hooks/redux-hooks'
+import { addProductToShoppingCart } from '@/store/features/checkout'
 
 const ProductCard = ({ product }: { product: Product }) => {
+  const dispatch = useAppDispatch()
   const {
     mediaArray,
     title,
@@ -59,7 +62,9 @@ const ProductCard = ({ product }: { product: Product }) => {
           <GenericButton
             variant="white"
             styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
-            click={() => {}}
+            click={() => {
+              dispatch(addProductToShoppingCart(product))
+            }}
             type="button"
             ariaLabel="Добави"
           >

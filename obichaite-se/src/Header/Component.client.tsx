@@ -5,14 +5,18 @@ import { Header, Media } from '@/payload-types'
 import { generateHref, LinkObject } from '@/utils/generateHref'
 import Link from 'next/link'
 import { DataFromGlobalSlug } from 'payload'
-import { useAppDispatch } from '@/hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
 import { GenericImage, GenericParagraph } from '@/components/Generic'
 import { ArrowIcon, MenuIcon, SearchLogo, ShoppingCartIcon, UserProfileIcon } from '@/assets/icons'
 import { setOpenSearch } from '@/store/features/root'
 import Menu from './Menu'
+import { setShoppingCardOpen } from '@/store/features/checkout'
+import { useCheckout } from '@/hooks/useCheckout'
 
 const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'> }) => {
   const dispatch = useAppDispatch()
+  const { calculateTotalPrice } = useCheckout()
+  const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
   const { categoryItems, logo } = headerData as Header
 
   const [openMenu, setOpenMenu] = useState(false)
@@ -162,21 +166,21 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
                   textColor="text-bordo"
                   extraClass="tracking-tighter"
                 >
-                  0.00 BGN
+                  {calculateTotalPrice().toFixed(2)} BGN
                 </GenericParagraph>
               </div>
               <button
                 className="w-[32px] h-[32px] md:w-[48px] md:h-[48px] rounded-full flex justify-center items-center border-[1px] border-brown p-[3px] relative"
                 aria-label="Потребител количка"
                 title="Потребител количка"
+                onClick={() => dispatch(setShoppingCardOpen(true))}
               >
                 <div
                   className="absolute z-[2] top-[-5px] right-[-5px] w-[16px] h-[16px] md:w-[20px] md:h-[20px] rounded-full bg-bordo text-white
               flex justify-center items-center"
                 >
-                  {/* //TODO dynamic count */}
                   <p className="text-white font-sensation font-[700] text-[10px] md:text-[12px]">
-                    0
+                    {shoppingCartProducts.length}
                   </p>
                 </div>
                 <ShoppingCartIcon />
