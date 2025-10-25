@@ -15,7 +15,7 @@ import { Product } from '@/payload-types'
 
 //TODO!
 // export const metadata: Metadata = {
-//   metadataBase: new URL('https://www.bulgaria-pomni.vercel.app/'),
+//   metadataBase: new URL('https://obichaite-se-new.vercel.app/'),
 //   applicationName: SITE_NAME,
 //   title: {
 //     default: SITE_NAME,
