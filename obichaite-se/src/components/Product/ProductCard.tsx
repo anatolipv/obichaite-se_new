@@ -63,7 +63,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             variant="white"
             styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
             click={() => {
-              dispatch(addProductToShoppingCart(product))
+              dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
             }}
             type="button"
             ariaLabel="Добави"

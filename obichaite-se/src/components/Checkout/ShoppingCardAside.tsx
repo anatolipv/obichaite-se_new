@@ -1,15 +1,122 @@
 'use client'
 
 import React from 'react'
-import { GenericParagraph } from '../Generic'
-import { ArrowIcon, CloseCircle } from '@/assets/icons'
+import { GenericImage, GenericParagraph } from '../Generic'
+import { ArrowIcon, CloseCircle, DeleteIcon, MinusIcon, PlusIcon } from '@/assets/icons'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
-import { setShoppingCardOpen } from '@/store/features/checkout'
+import {
+  addOrderQuantity,
+  removeOrderQuantity,
+  removeProductFromShoppingCart,
+  setShoppingCardOpen,
+} from '@/store/features/checkout'
+import { useCheckout } from '@/hooks/useCheckout'
+import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
+import { Media } from '@/payload-types'
 
 const ShoppingCardAside = () => {
   const dispatch = useAppDispatch()
+  const { calculateTotalPrice, calculateRemainSum } = useCheckout()
   const shoppingCardOpen = useAppSelector((state) => state.checkout.shoppingCardOpen)
-//   const products = useAppSelector((state) => state.checkout.products)
+  const products = useAppSelector((state) => state.checkout.products)
+
+  const productsContent = products.map((product) => {
+    const media = product?.mediaArray?.[0].file as Media
+
+    return (
+      <li key={product.id} className="w-full p-3">
+        <article className="w-full flex flex-col md:flex-row items-center relative border-[1px] border-brown rounded-[16px]">
+          <div className="absolute right-2 top-2 z-[3]">
+            <button
+              className="w-[32px] h-[32px] flex justify-center items-center hover:opacity-50 transition-opacity duration-500 ease-in-out"
+              aria-label="Премахни артикул"
+              onClick={() => {
+                dispatch(removeProductFromShoppingCart(product))
+              }}
+            >
+              <DeleteIcon />
+            </button>
+          </div>
+          <div className="w-full md:w-[30%] md:min-w-[30%] p-2 rounded-[12px] overflow-hidden">
+            <GenericImage
+              src={media.url as string}
+              alt={media.alt}
+              fill={true}
+              wrapperClassName="w-full aspect-square relative rounded-[12px] overflow-hidden"
+              imageClassName="w-full h-full object-contain"
+            />
+          </div>
+          <div className="w-full md:w-[70%] md:min-w-[70%] flex flex-col">
+            <GenericParagraph
+              fontStyle="font-sansation font-[700] italic"
+              pType="large"
+              textColor="text-brown"
+              extraClass="line-clamp-3 min-h-[54px] md:min-h-[72px] pt-3 text-center md:text-left md:max-w-[80%] max-w-[95%] mx-auto md:mx-[unset] md:pl-2"
+            >
+              <h3>{product.title}</h3>
+            </GenericParagraph>
+
+            <div className="mt-auto flex justify-between items-center px-2 py-3">
+              <div className="flex justify-center items-center gap-3">
+                <button
+                  className="p-2 max-w-[32px] max-h-[32px] flex justify-center items-center rounded-full border-[1px] border-brown
+                  disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={() => dispatch(removeOrderQuantity({ id: product.id }))}
+                  disabled={product.orderQuantity === 1}
+                >
+                  <MinusIcon />
+                </button>
+
+                <div className="border-[1px] bg-brown border-brown p-2 flex justify-center items-center">
+                  <GenericParagraph
+                    fontStyle="font-kolka font-[500]"
+                    pType="regular"
+                    textColor="text-white"
+                    extraClass="text-center"
+                  >
+                    {product.orderQuantity}
+                  </GenericParagraph>
+                </div>
+
+                <button
+                  className="p-2 max-w-[32px] max-h-[32px] flex justify-center items-center rounded-full border-[1px] border-brown"
+                  onClick={() => {
+                    dispatch(addOrderQuantity({ id: product.id }))
+                  }}
+                >
+                  <PlusIcon />
+                </button>
+              </div>
+
+              <div>
+                <GenericParagraph
+                  fontStyle="font-sansation font-[700]"
+                  pType="large"
+                  textColor="text-bordo"
+                >
+                  <>
+                    {product?.promoPrice ? (
+                      <>
+                        {(product.promoPrice * product.orderQuantity).toFixed(1)} лв. (
+                        {priceToEuro(product.promoPrice * product.orderQuantity)})€
+                      </>
+                    ) : (
+                      <>
+                        {(product.price * product.orderQuantity).toFixed(1)} лв. (
+                        {priceToEuro(product.price * product.orderQuantity)})€
+                      </>
+                    )}
+                  </>
+                </GenericParagraph>
+              </div>
+            </div>
+          </div>
+        </article>
+      </li>
+    )
+  })
+
+  const remain = Number(calculateRemainSum().toFixed(0))
 
   return (
     <aside
@@ -36,17 +143,45 @@ const ShoppingCardAside = () => {
         </button>
       </div>
       <div className="w-full flex justify-center items-center red_background py-4">
-        <GenericParagraph fontStyle="font-kolka font-[500]" pType="small" textColor="text-white">
-          Добави артикули за още {/*//TODO*/} 0 лева и доставката ще е безплатна
+        <GenericParagraph
+          fontStyle="font-kolka font-[500]"
+          pType="small"
+          textColor="text-white"
+          extraClass="px-1 text-center"
+        >
+          {remain < 0 ? (
+            <span className="uppercase">Доставката е безплатна!</span>
+          ) : (
+            <>
+              Добави артикули за още {calculateRemainSum().toFixed(2)} лева и доставката ще е
+              безплатна
+            </>
+          )}
         </GenericParagraph>
       </div>
 
-      <div className="flex-1 bg-green-500"></div>
+      <div className="flex-1 white_background_bubble overflow-y-auto">
+        {products.length === 0 ? (
+          <GenericParagraph
+            fontStyle="font-kolka font-[500]"
+            pType="regular"
+            textColor="text-bordo"
+            extraClass="text-center py-4"
+          >
+            Вашата количка е празна
+          </GenericParagraph>
+        ) : (
+          <ul className="w-full flex flex-col">{productsContent}</ul>
+        )}
+      </div>
 
-      <div className="w-full py-2 px-4">
+      <div className="w-full py-2 px-4 bg-black/20">
         <button
-          className="w-full rounded-[24px] flex justify-between items-center red_background py-4 px-4"
+          className="w-full rounded-[24px] flex  justify-between items-center red_background py-4 px-4
+          [&>div>div>svg]:hover:animate-bounce disabled:cursor-not-allowed disabled:opacity-50
+          "
           aria-label="Към поръчка"
+          disabled={products.length === 0}
         >
           <div className="flex justify-center items-center">
             <GenericParagraph
@@ -69,7 +204,7 @@ const ShoppingCardAside = () => {
               pType="small"
               textColor="text-white"
             >
-              {/*//TODO*/} 0 лева
+              {calculateTotalPrice().toFixed(2)} лв ({priceToEuro(calculateTotalPrice())}€)
             </GenericParagraph>
           </div>
         </button>

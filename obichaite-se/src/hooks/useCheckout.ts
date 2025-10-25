@@ -8,12 +8,20 @@ export function useCheckout() {
   const calculateTotalPrice = () => {
     return products.reduce((total, product) => {
       if (product?.promoPrice) {
-        return total + product.promoPrice
+        return total + product.promoPrice * product.orderQuantity
       }
 
-      return total + product.price
+      return total + product.price * product.orderQuantity
     }, 0)
   }
 
-  return { calculateTotalPrice }
+  const calculateRemainSum = () => {
+    const BASE_SUM = 100 //todo
+
+    const differences = BASE_SUM - calculateTotalPrice()
+
+    return differences
+  }
+
+  return { calculateTotalPrice, calculateRemainSum }
 }

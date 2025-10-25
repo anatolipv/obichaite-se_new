@@ -11,6 +11,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { Product } from '@/payload-types'
 import ShoppingCardAside from '@/components/Checkout/ShoppingCardAside'
+import ScreenOverlay from '@/components/Custom/ScreenOverlay'
 
 // const SITE_NAME = 'Обичайте се'
 
@@ -157,6 +158,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             {children}
             <Footer />
             <ShoppingCardAside />
+
+            <ScreenOverlay />
           </main>
         </body>
       </html>
