@@ -132,7 +132,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     select: {
       title: true,
       slug: true,
-      media: true,
+      // media: true,
       description: true,
       heading: true,
       category: true,

@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Header, Media } from '@/payload-types'
 import { generateHref, LinkObject } from '@/utils/generateHref'
@@ -75,7 +75,7 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
         return (
           <li
             key={item.id}
-            className="w-[24%] min-w-[24%] h-[60px] hover:border-[1px] hover:border-brown rounded-[16px] 
+            className="w-[24%] min-w-[24%] h-[60px] hover:border-[1px] hover:border-brown rounded-[16px]
             hover:bg-brown transition-[colors,box-shadow] duration-500 ease-in-out [&>a>button>span]:hover:text-white hover:shadow-lg"
           >
             <Link

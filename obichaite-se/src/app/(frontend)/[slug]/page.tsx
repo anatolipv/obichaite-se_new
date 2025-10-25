@@ -129,7 +129,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         select: {
           title: true,
           slug: true,
-          media: true,
+          // media: true,
           description: true,
           heading: true,
           category: true,

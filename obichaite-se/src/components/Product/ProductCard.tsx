@@ -10,11 +10,11 @@ const ProductCard = ({ product }: { product: Product }) => {
   const {
     mediaArray,
     title,
-    category,
+    // category,
     shortDescription,
     bestSeller,
     promoPrice,
-    havePriceRange,
+    // havePriceRange,
     price,
   } = product //TODO use all of them
 

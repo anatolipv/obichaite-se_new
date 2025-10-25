@@ -1,6 +1,7 @@
-import { Blog } from '@/payload-types'
+// import { Blog } from '@/payload-types'
 
-export const sortBlogWithMocks = (blogs: Blog[]) => {
+// export const sortBlogWithMocks = (blogs: Blog[]) => {
+export const sortBlogWithMocks = (blogs: any[]) => {
   const result = blogs.sort((a, b) => {
     const am = a.slug?.toLowerCase().includes('vuprositelen') ? 1 : 0
     const bm = b.slug?.toLowerCase().includes('vuprositelen') ? 1 : 0

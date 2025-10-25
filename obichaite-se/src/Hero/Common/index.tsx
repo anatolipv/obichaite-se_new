@@ -2,7 +2,7 @@ import { greatVibes } from '@/app/fonts'
 import { FixedCheckboxIcon } from '@/assets/icons'
 import { RichText } from '@/components/Custom'
 import Background from '@/components/Custom/Background'
-import { GenericHeading, GenericImage, GenericParagraph } from '@/components/Generic'
+import { GenericImage, GenericParagraph } from '@/components/Generic'
 import { CommonHero, Media } from '@/payload-types'
 import React from 'react'
 

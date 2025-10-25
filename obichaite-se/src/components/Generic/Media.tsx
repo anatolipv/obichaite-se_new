@@ -4,7 +4,7 @@ import GenericImage from './GenericImage'
 import { BackgroundOverlay } from '../Custom'
 import GenericVideo from './GenericVideo'
 
-type ExtraMediaProps = {
+export type ExtraMediaProps = {
   wrapperClassName: string
   backgroundOverlay?: boolean
   videoClassName?: string
@@ -17,6 +17,7 @@ type ExtraMediaProps = {
   unoptimized?: boolean
   mobileImage?: boolean
   fetchPriority?: 'auto' | 'low' | 'high'
+  sizes?: { small?: { url: string } }
 }
 
 export const GenericMedia = (props: MediaProps & ExtraMediaProps) => {

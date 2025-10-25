@@ -16,18 +16,22 @@ export default function NotFound() {
         <div className="relative z-[3]">
           <GenericHeading
             align="text-center"
-            fontStyle="font-lobster"
+            // fontStyle="font-lobster"
+            fontStyle="font-kolka font-[500]"
             headingType="h1"
-            textColor="text-primaryWhite"
+            // textColor="text-primaryWhite"
+            textColor="text-white"
           >
             <h1>404</h1>
           </GenericHeading>
 
           <GenericHeading
             align="text-center"
-            fontStyle="font-montserrat-semibold"
+            // fontStyle="font-montserrat-semibold"
+            fontStyle="font-kolka font-[500]"
             headingType="h2"
-            textColor="text-primaryWhite"
+            // textColor="text-primaryWhite"
+            textColor="text-white"
           >
             <h2>Страницата не е намерена</h2>
           </GenericHeading>

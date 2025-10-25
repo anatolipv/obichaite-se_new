@@ -4,8 +4,10 @@ import type { Media, Page, Config } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
-
-export const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
+import type { ExtraMediaProps } from '../components/Generic/Media'
+export const getImageURL = (
+  image?: (Media & ExtraMediaProps) | Config['db']['defaultIDType'] | null,
+) => {
   const serverUrl = getServerSideURL()
 
   let url = serverUrl + '/website-template-OG.webp'

@@ -5,7 +5,8 @@ import React from 'react'
 // import { usePathname } from 'next/navigation'
 // import { useAppDispatch } from '@/hooks/redux-hooks'
 
-const GenericPagination = ({ totalPages }: { totalPages: number }) => {
+// const GenericPagination = ({ totalPages }: { totalPages: number }) => {
+const GenericPagination = () => {
   // const dispatch = useAppDispatch()
   // const pathname = usePathname()
 
