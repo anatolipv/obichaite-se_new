@@ -67,7 +67,7 @@ const ShoppingCardAside = () => {
                   <MinusIcon />
                 </button>
 
-                <div className="border-[1px] bg-brown border-brown p-2 flex justify-center items-center">
+                <div className="border-[1px] bg-brown border-brown px-3 py-1 flex justify-center items-center">
                   <GenericParagraph
                     fontStyle="font-kolka font-[500]"
                     pType="regular"
@@ -91,7 +91,7 @@ const ShoppingCardAside = () => {
               <div>
                 <GenericParagraph
                   fontStyle="font-sansation font-[700]"
-                  pType="large"
+                  pType="regular"
                   textColor="text-bordo"
                 >
                   <>
@@ -102,8 +102,8 @@ const ShoppingCardAside = () => {
                       </>
                     ) : (
                       <>
-                        {(product.price * product.orderQuantity).toFixed(1)} лв. (
-                        {priceToEuro(product.price * product.orderQuantity)})€
+                        {(product.price! * product.orderQuantity).toFixed(1)} лв. (
+                        {priceToEuro(product.price! * product.orderQuantity)})€
                       </>
                     )}
                   </>

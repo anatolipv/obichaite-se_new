@@ -7,6 +7,7 @@ export function useCheckout() {
 
   const calculateTotalPrice = () => {
     return products.reduce((total, product) => {
+      if (!product.price) return total
       if (product?.promoPrice) {
         return total + product.promoPrice * product.orderQuantity
       }

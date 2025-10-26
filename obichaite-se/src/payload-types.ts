@@ -415,7 +415,7 @@ export interface Product {
     description?: string | null;
   };
   category: number | Category;
-  price: number;
+  price?: number | null;
   quantity: number;
   promoPrice?: number | null;
   /**
@@ -423,7 +423,10 @@ export interface Product {
    */
   bestSeller?: boolean | null;
   havePriceRange?: boolean | null;
-  priceRange?: number | null;
+  /**
+   * Задължително, потребителя да раздели цената с тире Пример: 350-500 | 800-1200
+   */
+  priceRange?: string | null;
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
