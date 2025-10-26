@@ -12,6 +12,7 @@ import configPromise from '@payload-config'
 import { Product } from '@/payload-types'
 import ShoppingCardAside from '@/components/Checkout/ShoppingCardAside'
 import ScreenOverlay from '@/components/Custom/ScreenOverlay'
+import ScrollToTop from '@/components/Custom/ScrollToTop'
 
 // const SITE_NAME = 'Обичайте се'
 
@@ -160,6 +161,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <ShoppingCardAside />
 
             <ScreenOverlay />
+
+            <ScrollToTop />
           </main>
         </body>
       </html>
