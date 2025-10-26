@@ -92,6 +92,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   //   const layout = page.layout //TODO
 
   let promotionProducts: Product[] = []
+
   let bestSellers: Product[] = []
 
   if (!!itIsHome) {
