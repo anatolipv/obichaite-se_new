@@ -29,7 +29,7 @@ export const getImageURL = (
 export const generateMeta = async (args: { doc: Partial<Page> | null }): Promise<Metadata> => {
   const { doc } = args
 
-  const ogImage = getImageURL(doc?.meta?.image as any) || 'logo.png' //TODO
+  const ogImage = getImageURL(doc?.meta?.image as any) || 'logo.png' //TODO ANY
 
   const title = doc?.meta?.title ? doc?.meta?.title : 'Обичайте се'
 
