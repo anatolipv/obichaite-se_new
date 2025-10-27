@@ -29,8 +29,8 @@ const DateInput = <T,>({
     }));
   };
   return (
-    <div className="flex w-full flex-col gap-3">
-      <label htmlFor="date" className="font-clash-semibold text-white">
+    <div className="flex w-full flex-col gap-2">
+      <label htmlFor="date" className="font-kolka font-[500] text-brown">
         {label}
         {required && <span className="text-primaryBlue"> *</span>}
       </label>
@@ -40,7 +40,7 @@ const DateInput = <T,>({
         id="date"
         value={formValues[name as keyof object]}
         onChange={(e) => onChangeHandler(e)}
-        className={`w-full rounded-lg border border-gray-600 bg-transparent p-3 font-clash-medium text-white outline-none ${extraClass}`}
+        className={`w-full rounded-lg border border-brown/80 bg-brown/20 p-[10px] font-clash-medium text-brown outline-none ${extraClass}`}
       />
     </div>
   );

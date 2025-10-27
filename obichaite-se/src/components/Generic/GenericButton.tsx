@@ -6,7 +6,7 @@ const constantClass = `inline-flex items-center justify-center
 whitespace-nowrap rounded ring-offset-background transition-colors focus-visible:outline-none 
 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none`
 const classMap = {
-  primary: 'bg-bordo border-[1px] border-bordo text-white btn-5',
+  primary: 'red_background border-[1px] border-bordo text-white btn-5',
   secondary:
     'bg-transparent border-[1px] border-primaryBlackAccent hover:bg-primaryWhite hover:text-primaryBlack !text-primaryBlack',
   colored:
