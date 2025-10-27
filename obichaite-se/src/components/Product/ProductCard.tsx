@@ -35,11 +35,11 @@ const ProductCard = ({ product }: { product: Product }) => {
   const [isHover, setIsHover] = useState(false)
 
   const priceSection = !!price ? (
-    <div className="w-full max-w-[40%] flex flex-col px-1">
+    <div className="w-full max-w-[40%] flex flex-col px-1 rounded-4 bg-white rounded-[4px]">
       <GenericParagraph
         pType="large"
         fontStyle="font-sansation font-[700]"
-        textColor="text-mixPink"
+        textColor="text-brown"
         extraClass="text-center"
       >
         <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>{price.toFixed(1)}</span>
@@ -47,11 +47,11 @@ const ProductCard = ({ product }: { product: Product }) => {
           {promoPrice && ` ${promoPrice.toFixed(1)}`}лв
         </span>
       </GenericParagraph>
-      <div className="w-full h-[1px] bg-mixPink/80"></div>
+      <div className="w-full h-[1px] bg-brown/80"></div>
       <GenericParagraph
         pType="large"
         fontStyle="font-sansation font-[700]"
-        textColor="text-mixPink"
+        textColor="text-brown"
         extraClass="text-center"
       >
         <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>
@@ -67,7 +67,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       <GenericParagraph
         pType="large"
         fontStyle="font-sansation font-[700]"
-        textColor="text-mixPink"
+        textColor="text-brown"
         extraClass="text-center"
       >
         <span className={`${!!havePriceRange && 'text-[16px]'}`}>
@@ -75,11 +75,11 @@ const ProductCard = ({ product }: { product: Product }) => {
           {Number(priceRange?.split('-')?.[1]).toFixed(0)}лв
         </span>
       </GenericParagraph>
-      <div className="w-full h-[1px] bg-mixPink/80"></div>
+      <div className="w-full h-[1px] bg-brown/80"></div>
       <GenericParagraph
         pType="large"
         fontStyle="font-sansation font-[700]"
-        textColor="text-mixPink"
+        textColor="text-brown"
         extraClass="text-center"
       >
         <span className={`${!!havePriceRange && 'text-[16px]'}`}>

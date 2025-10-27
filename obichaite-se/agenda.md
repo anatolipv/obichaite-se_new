@@ -17,10 +17,12 @@
 
 [done] евент да не може да е в промо (админ)
 [done] евент да няма конкретна цена (админ)
-- евент карта да има телефон или да сочи към конткакт
-- организиране на събитие не трябва да ходи в чекоут и да няма в картата му бутони
+[done] организиране на събитие не трябва да ходи в чекоут и да няма в картата му бутони
+[done] meta image
 
-- meta image
+- евент карта да има телефон или да сочи към конткакт
+- login page - without interaction
+- register page - without interaction
 
 **ADDONS**
-- scroll to top - refference - https://qx-plank.myshopify.com/
+[done] scroll to top - refference - https://qx-plank.myshopify.com/
