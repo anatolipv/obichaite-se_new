@@ -1,27 +1,34 @@
 'use client'
 
-import { Media, Product } from '@/payload-types'
+import { Category, Media, Product } from '@/payload-types'
 import React, { useState } from 'react'
 import { GenericButton, GenericHeading, GenericImage, GenericParagraph } from '../Generic'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
-import { BestSellerIcon, DetailsIcon, DiscountIcon, PhoneIcon, ShoppingCartIcon } from '@/assets/icons'
+import {
+  BestSellerIcon,
+  DetailsIcon,
+  DiscountIcon,
+  PhoneIcon,
+  ShoppingCartIcon,
+} from '@/assets/icons'
 import { useAppDispatch } from '@/hooks/redux-hooks'
 import { addProductToShoppingCart } from '@/store/features/checkout'
 import Link from 'next/link'
+import { setNotification } from '@/store/features/notifications'
 
 const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch()
   const {
     mediaArray,
     title,
-    // category,
+    category,
     shortDescription,
     bestSeller,
     promoPrice,
     havePriceRange,
     priceRange,
     price,
-  } = product //TODO use all of them
+  } = product
 
   const mediaToShow = mediaArray?.[0].file as Media
 
@@ -141,6 +148,13 @@ const ProductCard = ({ product }: { product: Product }) => {
                 styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
                 click={() => {
                   dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
+                  dispatch(
+                    setNotification({
+                      showNotification: true,
+                      message: `(${product?.title}) беше добавен в количката`,
+                      type: 'success',
+                    }),
+                  )
                 }}
                 type="button"
                 ariaLabel="Добави"
@@ -175,7 +189,7 @@ const ProductCard = ({ product }: { product: Product }) => {
           </Link>
         </div>
         <div className="w-full flex flex-col px-4 pt-4">
-          <div className="p-2 border-[1px] border-bordo/20 rounded-[12px] overflow-hidden bg-white">
+          <div className="p-2 border-[1px] border-bordo/20 rounded-[12px] overflow-hidden bg-white relative">
             <GenericImage
               src={mediaToShow?.url as string}
               alt={mediaToShow?.alt}
@@ -184,6 +198,16 @@ const ProductCard = ({ product }: { product: Product }) => {
               fill={true}
               updatedAt={mediaToShow?.updatedAt as string}
             />
+            <div className="w-full absolute bottom-0 left-0 right-0 bg-brown/70 z-[2] px-2 py-1">
+              <GenericParagraph
+                fontStyle="font-kolka font-[500]"
+                pType="semi"
+                textColor="text-white"
+                extraClass="text-[18px] leading-[110%] break-words text-center"
+              >
+                {(category as Category)?.title}
+              </GenericParagraph>
+            </div>
           </div>
 
           <div

@@ -70,6 +70,10 @@ const Menu = ({
                 setOpenCategoryIndex(i + 1)
               }
             }}
+            aria-label="Избор на категория"
+            title="Избор на категория"
+            type="button"
+            tabIndex={-1}
           >
             <ArrowIcon />
           </button>
@@ -100,6 +104,10 @@ const Menu = ({
         <button
           onClick={() => setOpenMenu(false)}
           className="w-[28px] h-[28px] flex justify-center items-center"
+          aria-label="Затвори меню"
+          title="Затвори меню"
+          type="button"
+          tabIndex={-1}
         >
           <CloseCircle />
         </button>

@@ -54,6 +54,8 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
                 transition-transform duration-500 ease-in-out ${
                   openCategoryIndex === i + 1 ? 'rotate-[-90deg]' : 'rotate-90'
                 }`}
+              aria-label={item?.link?.label}
+              title={item?.link?.label}
             >
               <ArrowIcon color="white" />
             </button>
@@ -195,7 +197,6 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
                   setOpenMenu(true)
                 }}
               >
-                {/* //TODO change the icon */}
                 <MenuIcon />
               </button>
             </li>

@@ -7,6 +7,7 @@ export const UserProfileIcon = () => {
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
       <g clipPath="url(#clip0_315_14)">
         <path
@@ -42,6 +43,7 @@ export const ShoppingCartIcon = () => {
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
       <path
         opacity="0.983"
@@ -84,6 +86,7 @@ export const SearchLogo = () => {
       viewBox="0 0 100 100"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
     >
       <path
         opacity="0.976"
@@ -925,6 +928,7 @@ export const ArrowIcon = ({ color = '#020202' }: { color?: string }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
     >
       <g clipPath="url(#clip0_38_269)">
         <path
@@ -1051,6 +1055,7 @@ export const CloseCircle = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
     >
       <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#574143" />
       <path

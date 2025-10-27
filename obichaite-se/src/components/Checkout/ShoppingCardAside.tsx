@@ -63,6 +63,9 @@ const ShoppingCardAside = () => {
                   disabled:opacity-50 disabled:cursor-not-allowed"
                   onClick={() => dispatch(removeOrderQuantity({ id: product.id }))}
                   disabled={product.orderQuantity === 1}
+                  aria-label="Премахни единица"
+                  title="Премахни единица"
+                  aria-disabled={product.orderQuantity === 1}
                 >
                   <MinusIcon />
                 </button>
@@ -83,6 +86,10 @@ const ShoppingCardAside = () => {
                   onClick={() => {
                     dispatch(addOrderQuantity({ id: product.id }))
                   }}
+                  aria-label="Добави единица"
+                  title="Добави единица"
+                  aria-disabled={false}
+                  disabled={false}
                 >
                   <PlusIcon />
                 </button>
@@ -138,6 +145,10 @@ const ShoppingCardAside = () => {
           onClick={() => {
             dispatch(setShoppingCardOpen(false))
           }}
+          aria-label="Затвори количката"
+          title="Затвори количката"
+          aria-disabled={false}
+          disabled={false}
         >
           <CloseCircle />
         </button>

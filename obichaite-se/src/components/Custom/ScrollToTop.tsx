@@ -57,6 +57,7 @@ export default function ScrollToTop() {
         aria-label="Scroll to top"
         onClick={scrollToTop}
         className="relative z-10 m-auto w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center bg-pink"
+        type="button"
       >
         <div className="w-full h-full rounded-full flex items-center justify-center">
           <div className="w-6 h-6 flex items-center justify-center -rotate-90">

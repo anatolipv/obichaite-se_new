@@ -14,10 +14,10 @@ import ShoppingCardAside from '@/components/Checkout/ShoppingCardAside'
 import ScreenOverlay from '@/components/Custom/ScreenOverlay'
 import ScrollToTop from '@/components/Custom/ScrollToTop'
 import { Metadata } from 'next'
+import GenericNotification from '@/components/Generic/GenericNotification'
 
 const SITE_NAME = 'Обичайте се'
 
-//TODO!
 export const metadata: Metadata = {
   metadataBase: new URL('https://obichaite-se-new.vercel.app/'),
   applicationName: SITE_NAME,
@@ -82,15 +82,15 @@ export const metadata: Metadata = {
     },
   },
 
-  // icons: {
-  //   icon: [
-  //     { url: '/favicon.ico', sizes: 'any' },
-  //     { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
-  //     { url: '/android-chrome-192x192.png', type: 'image/png', sizes: '192x192' },
-  //   ],
-  //   apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
-  //   shortcut: ['/favicon.ico'],
-  // },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/android-chrome-192x192.png', type: 'image/png', sizes: '192x192' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    shortcut: ['/favicon.ico'],
+  },
   // manifest: '/manifest.json',
 
   formatDetection: {
@@ -148,7 +148,14 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <StoreProvider>
-      <html lang="en" className={`${kolka.variable} ${sansation.variable}`}>
+      <html lang="bg" className={`${kolka.variable} ${sansation.variable}`}>
+        <head>
+          <link href="/favicon.ico" rel="icon" sizes="32x32" />
+          <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+
+          {/* TODO prefetch to domain */}
+          <link rel="preconnect prefetch" href="https://obichaite-se-new.vercel.app/" />
+        </head>
         <body>
           <main id="content" className="min-h-[100svh] overflow-x-clip">
             <Search products={productsForSearch.docs as Product[]} />
@@ -160,6 +167,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <ScreenOverlay />
 
             <ScrollToTop />
+
+            <GenericNotification />
           </main>
         </body>
       </html>
