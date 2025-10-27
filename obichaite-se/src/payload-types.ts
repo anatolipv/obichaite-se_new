@@ -145,6 +145,11 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  role?: ('admin' | 'user') | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  phoneNumber?: number | null;
+  dateOfBirth?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -760,6 +765,11 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
+  firstName?: T;
+  lastName?: T;
+  phoneNumber?: T;
+  dateOfBirth?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
