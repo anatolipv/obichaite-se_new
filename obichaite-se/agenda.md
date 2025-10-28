@@ -24,5 +24,31 @@
 - login page - without interaction
 - register page - without interaction
 
+**FEEDBACK**
+- "Прехвърля се в количката с 0лв и вече допълнително ще изпращаме оферти"
+
 **ADDONS**
 [done] scroll to top - refference - https://qx-plank.myshopify.com/
+
+**IMPORTANT**
+-- each new user "admin", needs to be verifiied manually
+
+//LOGOUT
+<!-- 'use client'
+import { useTransition } from 'react'
+import { logout } from '../(auth)/_actions/logout'
+import { useRouter } from 'next/navigation'
+
+export function LogoutButton() {
+  const router = useRouter()
+  const [pending, start] = useTransition()
+  return (
+    <button
+      onClick={() => start(async () => { await logout(); router.replace('/login') })}
+      disabled={pending}
+      className="border px-3 py-1 rounded"
+    >
+      {pending ? 'Signing out…' : 'Sign out'}
+    </button>
+  )
+} -->

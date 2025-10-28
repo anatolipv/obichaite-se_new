@@ -84,6 +84,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       heading: true,
       mediaMobile: true,
     },
+    sort: 'createdAt',
   })
 
   const itIsHome = slug === 'home'

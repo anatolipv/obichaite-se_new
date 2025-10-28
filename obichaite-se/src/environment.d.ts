@@ -5,8 +5,10 @@ declare global {
       DATABASE_URI: string
       NEXT_PUBLIC_SERVER_URL: string
       PREVIEW_SECRET: string
-      PUBLIC_USER: string
-      PUBLIC_PASSWORD: string
+      SMTP_USER: string
+      SMTP_PASS: string
+      EMAIL_FROM_NAME: string
+      EMAIL_FROM_ADDRESS: string
       NEXT_PUBLIC_PRODUCTION_URL: string
     }
   }

@@ -1,4 +1,5 @@
 // storage-adapter-import-placeholder
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -66,4 +67,17 @@ export default buildConfig({
   }),
   sharp,
   plugins: [payloadCloudPlugin(), ...plugins],
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.EMAIL_FROM_ADDRESS!,
+    defaultFromName: process.env.EMAIL_FROM_NAME!,
+    transportOptions: {
+      host: "smtp.gmail.com", //TODO! actual smtp data for the superhosting website
+      port: 465,
+      secure: '465',
+      auth: {
+        user: "rudashkimoni@gmail.com",
+        pass: "izyawmspdnmfasgi"
+      },
+    },
+  }),
 })

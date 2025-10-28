@@ -8,16 +8,21 @@ import { DataFromGlobalSlug } from 'payload'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
 import { GenericImage, GenericParagraph } from '@/components/Generic'
 import { ArrowIcon, MenuIcon, SearchLogo, ShoppingCartIcon, UserProfileIcon } from '@/assets/icons'
-import { setOpenSearch } from '@/store/features/root'
+import { setOpenSearch, setUser } from '@/store/features/root'
 import Menu from './Menu'
 import { setShoppingCardOpen } from '@/store/features/checkout'
 import { useCheckout } from '@/hooks/useCheckout'
+import { useTransition } from 'react'
+import { logout } from '@/action/auth/logout'
 
 const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'> }) => {
   const dispatch = useAppDispatch()
   const { calculateTotalPrice } = useCheckout()
   const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
+  const user = useAppSelector((state) => state.root.user)
   const { categoryItems, logo } = headerData as Header
+  const [pending, start] = useTransition()
+  const [openUserMenu, setOpenUserMenu] = useState(false)
 
   const [openMenu, setOpenMenu] = useState(false)
   const [openCategoryIndex, setOpenCategoryIndex] = useState(-1)
@@ -127,23 +132,49 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
           </Link>
 
           <ul className="flex items-center gap-2 px-2">
-            <li>
-              <Link href={'/login'} aria-label="Към вход" className="flex items-center gap-2">
-                <GenericParagraph
-                  pType="regular"
-                  extraClass="hidden md:block"
-                  fontStyle="font-sansation font-[700]"
+            <li className="relative">
+              {!user ? (
+                <Link
+                  href={'/auth/login'}
+                  aria-label="Към вход"
+                  className="flex items-center gap-2"
                 >
-                  Вход
-                </GenericParagraph>
+                  <GenericParagraph
+                    pType="regular"
+                    extraClass="hidden md:block"
+                    fontStyle="font-sansation font-[700]"
+                  >
+                    Вход
+                  </GenericParagraph>
+                  <div className="w-[32px] h-[32px] md:w-[48px] md:h-[48px] rounded-full flex justify-center items-center border-[1px] border-brown p-[5px]">
+                    <UserProfileIcon />
+                  </div>
+                </Link>
+              ) : (
                 <button
                   className="w-[32px] h-[32px] md:w-[48px] md:h-[48px] rounded-full flex justify-center items-center border-[1px] border-brown p-[5px]"
-                  aria-label="Потребител / Вход"
-                  title="Потребител"
+                  aria-label="Потребител Меню"
+                  title="Потребител Меню"
+                  onClick={() => setOpenUserMenu((prev) => !prev)}
                 >
-                  <UserProfileIcon />
+                  <p className="md:text-[20px]">{user?.firstName?.[0]}</p>
                 </button>
-              </Link>
+              )}
+              {openUserMenu && !!user && (
+                <button
+                  className="absolute top-full right-0 px-4 py-2 bg-brown z-[3] rounded-[4px] border-[1px] text-white border-white flex
+              hover:text-brown hover:bg-white transition-colors duration-500"
+                  onClick={() =>
+                    start(async () => {
+                      await logout()
+                      dispatch(setUser(null))
+                    })
+                  }
+                  disabled={pending}
+                >
+                  <p className="m-auto ">{pending ? 'Излизане...' : 'Изход'}</p>
+                </button>
+              )}
             </li>
             <li>
               <button

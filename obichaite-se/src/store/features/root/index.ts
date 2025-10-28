@@ -1,6 +1,8 @@
+import { User } from '@/payload-types'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface RootInitialState {
+  user: User | null
   openMenu: boolean
   isLoading: boolean
   sectionName: string | null
@@ -10,6 +12,7 @@ export interface RootInitialState {
 }
 
 const rootInitialState: RootInitialState = {
+  user: null,
   openMenu: false,
   isLoading: false,
   sectionName: null,
@@ -40,6 +43,9 @@ export const rootSlice = createSlice({
     setOpenSearch: (state, { payload }: PayloadAction<boolean>) => {
       state.openSearch = payload
     },
+    setUser: (state, { payload }: PayloadAction<User | null>) => {
+      state.user = payload
+    },
   },
 })
 
@@ -50,6 +56,7 @@ export const {
   setHeroAnimationDone,
   setHeroAppearAnimationDone,
   setOpenSearch,
+  setUser,
 } = rootSlice.actions
 
 export default rootSlice.reducer

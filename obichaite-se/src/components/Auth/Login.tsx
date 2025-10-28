@@ -1,25 +1,52 @@
 'use client'
 
 import { useAppDispatch } from '@/hooks/redux-hooks'
-import { setIsLoading } from '@/store/features/root'
+import { setIsLoading, setUser } from '@/store/features/root'
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useTransition } from 'react'
 import { GenericButton, TextInput } from '../Generic'
+import { login } from '@/action/auth/login'
+import { useRouter } from 'next/navigation'
 
 const LoginComponent = () => {
   const dispatch = useAppDispatch()
+  const router = useRouter()
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
   })
+  const [error, setError] = useState<string | null>(null)
+  const [pending, start] = useTransition()
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setError(null)
+    const { email, password } = formValues
+
+    start(async () => {
+      try {
+        const res = await login({ email, password })
+        if (res?.ok) {
+          const updatedUser = {
+            ...res.user,
+            createdAt: '',
+            updatedAt: '',
+            sessions: [],
+          }
+
+          dispatch(setUser(updatedUser))
+          dispatch(setIsLoading(false))
+          router.push('/')
+        }
+      } catch (err: any) {
+        setError(err?.message ?? 'Не валидна парола или потребителско име')
+      }
+    })
+  }
 
   return (
-    <form
-      className="flex w-full flex-col gap-4"
-      // onSubmit={submitHandler}
-      // action={formAction}
-    >
+    <form className="flex w-full flex-col gap-4" onSubmit={onSubmit}>
       <div className="mx-auto flex w-full min-w-[300px] flex-col gap-6">
         <TextInput
           name="email"
@@ -48,7 +75,7 @@ const LoginComponent = () => {
           <div className="mt-2 flex w-full items-center gap-1">
             <p className="font-kolka font-[400] text-[14px] text-brown/80">Забравена парола?</p>
 
-            <Link href="/forgotten-password">
+            <Link href="/auth/forgot-password">
               <p className="font-kolka font-[500] text-[14px] text-brown">натиснете тук</p>
             </Link>
           </div>
@@ -65,13 +92,15 @@ const LoginComponent = () => {
             dispatch(setIsLoading(true))
           }}
         >
-          Влез
+          {pending ? 'Влизане...' : 'Вход'}
         </GenericButton>
       </div>
 
+      {error && <p className="text-red-600">{error}</p>}
+
       <div className="flex w-full items-center justify-center gap-2">
         <p className="text-[14px] text-brown/80">{`Нямаш акаунт?`}</p>
-        <Link href="/register" className="font-kolka font-[500] text-brown">
+        <Link href="/auth/register" className="font-kolka font-[500] text-brown">
           Регистрирай се
         </Link>
       </div>
