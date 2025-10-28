@@ -67,6 +67,7 @@ const HeroCommon: React.FC<CommonHero> = (props) => {
               focalY={(media as Media).focalY || 50}
               imageClassName="w-full h-full object-cover"
               sizes="100vw"
+              fetchPriority="high"
             />
           </div>
           <div className="w-full h-[400px] md:hidden">
@@ -80,6 +81,7 @@ const HeroCommon: React.FC<CommonHero> = (props) => {
               focalY={(mediaMobile as Media).focalY || 50}
               imageClassName="w-full h-full object-cover"
               sizes="100vw"
+              fetchPriority="high"
             />
           </div>
         </>

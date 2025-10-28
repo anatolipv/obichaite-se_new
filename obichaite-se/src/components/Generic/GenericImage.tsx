@@ -45,6 +45,8 @@ const GenericImage = ({
   const mobileUrlScr = updatedAt ? `${mobileUrl}?v=${updatedAt}` : mobileUrl
   const desktopUrlSrc = updatedAt ? `${src}?v=${updatedAt}` : src
 
+  //TODO! correct images .../api/media/file
+
   return (
     <div className={`${wrapperClassName} overflow-x-clip`}>
       {!loaded && placeholderImage && (
@@ -52,9 +54,9 @@ const GenericImage = ({
       )}
 
       <picture>
-        {!!mobileUrl && <source media="(max-width: 768px)" srcSet={mobileUrlScr!} />}
+        {!!mobileUrl && <source media="(max-width: 768px)" srcSet={mobileUrlScr!.replace('/api/media/file', '')} />}
         <Image
-          src={desktopUrlSrc}
+          src={desktopUrlSrc!.replace('/api/media/file', '')}
           alt={alt || 'Content'}
           fill={fill}
           sizes={sizes}

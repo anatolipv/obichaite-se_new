@@ -92,6 +92,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   //   const layout = page.layout //TODO
 
   let promotionProducts: Product[] = []
+
   let bestSellers: Product[] = []
 
   if (!!itIsHome) {
@@ -119,9 +120,45 @@ export default async function Page({ params: paramsPromise }: Args) {
                 not_equals: 0,
               },
             },
+          ],
+        },
+        select: {
+          title: true,
+          slug: true,
+          description: true,
+          heading: true,
+          category: true,
+          price: true,
+          bestSeller: true,
+          promoPrice: true,
+          havePriceRange: true,
+          mediaArray: true,
+          priceRange: true,
+          shortDescription: true,
+        },
+      })
+
+      const currentBestSellers = await payload.find({
+        collection: 'product',
+        draft: false,
+        limit: 1000,
+        overrideAccess: false,
+        pagination: false,
+        where: {
+          and: [
             {
               bestSeller: {
                 equals: true,
+              },
+            },
+            {
+              _status: {
+                equals: 'published',
+              },
+            },
+            {
+              quantity: {
+                not_equals: 0,
               },
             },
           ],
@@ -129,7 +166,6 @@ export default async function Page({ params: paramsPromise }: Args) {
         select: {
           title: true,
           slug: true,
-          // media: true,
           description: true,
           heading: true,
           category: true,
@@ -148,8 +184,8 @@ export default async function Page({ params: paramsPromise }: Args) {
           (doc) => !!doc.promoPrice,
         ) as Product[]
       }
-      if (currentPromotionProducts.docs.filter((doc) => !!doc.bestSeller).length > 0) {
-        bestSellers = currentPromotionProducts.docs?.filter((doc) => !!doc.bestSeller) as Product[]
+      if (currentBestSellers.docs.filter((doc) => !!doc.bestSeller).length > 0) {
+        bestSellers = currentBestSellers.docs?.filter((doc) => !!doc.bestSeller) as Product[]
       }
     } catch (error) {
       console.log('error', error)

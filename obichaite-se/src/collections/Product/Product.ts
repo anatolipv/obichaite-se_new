@@ -42,7 +42,7 @@ export const Product: CollectionConfig = {
     media: true,
   },
   admin: {
-    defaultColumns: ['title', 'category', "promoPrice", "bestSeller"],
+    defaultColumns: ['title', 'category', 'promoPrice', 'bestSeller'],
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
@@ -173,6 +173,9 @@ export const Product: CollectionConfig = {
       required: true,
       admin: {
         position: 'sidebar',
+        condition: (data) => {
+          return data.category !== 6
+        },
       },
     },
     {
@@ -189,6 +192,10 @@ export const Product: CollectionConfig = {
       required: false,
       admin: {
         position: 'sidebar',
+        //admin condition if the category is "Организиране на събития" to not show the field
+        condition: (data) => {
+          return data.category !== 6
+        },
       },
     },
     {
@@ -212,11 +219,13 @@ export const Product: CollectionConfig = {
     },
     {
       name: 'priceRange',
-      type: 'number',
+      type: 'text',
       required: false,
       admin: {
         position: 'sidebar',
-        condition: (data) => data.havePriceRange,
+        description:
+          'Задължително, потребителя да раздели цената с тире Пример: 350-500 | 800-1200',
+        condition: (data) => data?.havePriceRange,
       },
     },
     {

@@ -1,26 +1,94 @@
 'use client'
 
-import { Media, Product } from '@/payload-types'
+import { Category, Media, Product } from '@/payload-types'
 import React, { useState } from 'react'
 import { GenericButton, GenericHeading, GenericImage, GenericParagraph } from '../Generic'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
-import { BestSellerIcon, DetailsIcon, DiscountIcon, ShoppingCartIcon } from '@/assets/icons'
+import {
+  BestSellerIcon,
+  DetailsIcon,
+  DiscountIcon,
+  PhoneIcon,
+  ShoppingCartIcon,
+} from '@/assets/icons'
+import { useAppDispatch } from '@/hooks/redux-hooks'
+import { addProductToShoppingCart } from '@/store/features/checkout'
+import Link from 'next/link'
+import { setNotification } from '@/store/features/notifications'
 
 const ProductCard = ({ product }: { product: Product }) => {
+  const dispatch = useAppDispatch()
   const {
     mediaArray,
     title,
-    // category,
+    category,
     shortDescription,
     bestSeller,
     promoPrice,
-    // havePriceRange,
+    havePriceRange,
+    priceRange,
     price,
-  } = product //TODO use all of them
+  } = product
 
   const mediaToShow = mediaArray?.[0].file as Media
 
   const [isHover, setIsHover] = useState(false)
+
+  const priceSection = !!price ? (
+    <div className="w-full max-w-[40%] flex flex-col px-1">
+      <GenericParagraph
+        pType="large"
+        fontStyle="font-sansation font-[700]"
+        textColor="text-mixPink"
+        extraClass="text-center"
+      >
+        <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>{price.toFixed(1)}</span>
+        <span className={`${!!promoPrice && 'text-[16px] md:text-[20px]'}`}>
+          {promoPrice && ` ${promoPrice.toFixed(1)}`}лв
+        </span>
+      </GenericParagraph>
+      <div className="w-full h-[1px] bg-mixPink/80"></div>
+      <GenericParagraph
+        pType="large"
+        fontStyle="font-sansation font-[700]"
+        textColor="text-mixPink"
+        extraClass="text-center"
+      >
+        <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>
+          {priceToEuro(price)}
+        </span>
+        <span className={`${!!promoPrice && 'text-[16px] md:text-[20px]'}`}>
+          {!!promoPrice && ` ${priceToEuro(promoPrice)}`}€
+        </span>
+      </GenericParagraph>
+    </div>
+  ) : (
+    <div className="w-full max-w-[40%] flex flex-col px-1">
+      <GenericParagraph
+        pType="large"
+        fontStyle="font-sansation font-[700]"
+        textColor="text-mixPink"
+        extraClass="text-center"
+      >
+        <span className={`${!!havePriceRange && 'text-[16px]'}`}>
+          {Number(priceRange?.split('-')?.[0]).toFixed(0)}-
+          {Number(priceRange?.split('-')?.[1]).toFixed(0)}лв
+        </span>
+      </GenericParagraph>
+      <div className="w-full h-[1px] bg-mixPink/80"></div>
+      <GenericParagraph
+        pType="large"
+        fontStyle="font-sansation font-[700]"
+        textColor="text-mixPink"
+        extraClass="text-center"
+      >
+        <span className={`${!!havePriceRange && 'text-[16px]'}`}>
+          {priceToEuro(Number(priceRange?.split('-')?.[0]))}-
+          {priceToEuro(Number(priceRange?.split('-')?.[1]))}€
+        </span>
+      </GenericParagraph>
+    </div>
+  )
 
   return (
     <>
@@ -56,40 +124,72 @@ const ProductCard = ({ product }: { product: Product }) => {
                 : 'bg-transparent opacity-0 pointer-events-none'
             }`}
         >
-          <GenericButton
-            variant="white"
-            styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
-            click={() => {}}
-            type="button"
-            ariaLabel="Добави"
-          >
-            <p>Добави</p>
-            <div
-              className="w-[24px] h-[24px] flex justify-center items-center
+          <>
+            {product?.havePriceRange ? (
+              <GenericButton
+                variant="white"
+                styleClass="uppercase [&>div>svg]:hover:stroke-bordo gap-[6px] min-w-[146px]"
+                click={() => {
+                  dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
+                }}
+                type="button"
+                ariaLabel="Добави"
+              >
+                <div
+                  className="w-[24px] h-[24px] flex justify-center items-center
+           [&>svg]:transition-all duration-300 ease-in-out"
+                >
+                  <PhoneIcon />
+                </div>
+              </GenericButton>
+            ) : (
+              <GenericButton
+                variant="white"
+                styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
+                click={() => {
+                  dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
+                  dispatch(
+                    setNotification({
+                      showNotification: true,
+                      message: `(${product?.title}) беше добавен в количката`,
+                      type: 'success',
+                    }),
+                  )
+                }}
+                type="button"
+                ariaLabel="Добави"
+              >
+                <p>Добави</p>
+                <div
+                  className="w-[24px] h-[24px] flex justify-center items-center
           [&>svg_path]:fill-white [&>svg_path]:transition-all duration-300 ease-in-out"
-            >
-              <ShoppingCartIcon />
-            </div>
-          </GenericButton>
+                >
+                  <ShoppingCartIcon />
+                </div>
+              </GenericButton>
+            )}
+          </>
 
-          <GenericButton
-            variant="white"
-            styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
-            click={() => {}}
-            type="button"
-            ariaLabel="Добави"
-          >
-            <p>Детайли</p>
-            <div
-              className="w-[20px] h-[20px] flex justify-center items-center
-          [&>svg_path]:fill-white [&>svg_path]:transition-all duration-300 ease-in-out"
+          <Link href={`/product/${product?.slug}`}>
+            <GenericButton
+              variant="white"
+              styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
+              click={() => {}}
+              type="button"
+              ariaLabel="Добави"
             >
-              <DetailsIcon />
-            </div>
-          </GenericButton>
+              <p>Детайли</p>
+              <div
+                className="w-[20px] h-[20px] flex justify-center items-center
+          [&>svg_path]:fill-white [&>svg_path]:transition-all duration-300 ease-in-out"
+              >
+                <DetailsIcon />
+              </div>
+            </GenericButton>
+          </Link>
         </div>
         <div className="w-full flex flex-col px-4 pt-4">
-          <div className="p-2 border-[1px] border-bordo/20 rounded-[12px] overflow-hidden bg-white">
+          <div className="p-2 border-[1px] border-bordo/20 rounded-[12px] overflow-hidden bg-white relative">
             <GenericImage
               src={mediaToShow?.url as string}
               alt={mediaToShow?.alt}
@@ -98,6 +198,16 @@ const ProductCard = ({ product }: { product: Product }) => {
               fill={true}
               updatedAt={mediaToShow?.updatedAt as string}
             />
+            <div className="w-full absolute bottom-0 left-0 right-0 bg-brown/70 z-[2] px-2 py-1">
+              <GenericParagraph
+                fontStyle="font-kolka font-[500]"
+                pType="semi"
+                textColor="text-white"
+                extraClass="text-[18px] leading-[110%] break-words text-center"
+              >
+                {(category as Category)?.title}
+              </GenericParagraph>
+            </div>
           </div>
 
           <div
@@ -124,35 +234,8 @@ const ProductCard = ({ product }: { product: Product }) => {
                   <h3>{title}</h3>
                 </GenericHeading>
               </div>
-              <div className="w-full max-w-[40%] flex flex-col px-1">
-                <GenericParagraph
-                  pType="large"
-                  fontStyle="font-sansation font-[700]"
-                  textColor="text-mixPink"
-                  extraClass="text-center"
-                >
-                  <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>
-                    {price.toFixed(1)}
-                  </span>
-                  <span className={`${!!promoPrice && 'text-[16px] md:text-[20px]'}`}>
-                    {promoPrice && ` ${promoPrice.toFixed(1)}`}лв
-                  </span>
-                </GenericParagraph>
-                <div className="w-full h-[1px] bg-mixPink/80"></div>
-                <GenericParagraph
-                  pType="large"
-                  fontStyle="font-sansation font-[700]"
-                  textColor="text-mixPink"
-                  extraClass="text-center"
-                >
-                  <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>
-                    {priceToEuro(price)}
-                  </span>
-                  <span className={`${!!promoPrice && 'text-[16px] md:text-[20px]'}`}>
-                    {!!promoPrice && ` ${priceToEuro(promoPrice)}`}€
-                  </span>
-                </GenericParagraph>
-              </div>
+
+              {priceSection}
             </div>
             <div className="w-full flex justify-between items-center h-[110px] px-2 relative z-[2] border-t-[1px] border-bordo/20">
               {!!shortDescription && (

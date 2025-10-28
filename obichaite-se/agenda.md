@@ -8,7 +8,19 @@
 [done] start the project to seed the database
 [done] make config for hero
 
-- add badge to product card for best seller and promotion
+[done] шоп карти в скрол
+[done] възможност за изтриване
+[done] възможност за увеличаване и намляване на бройката
+[done] калкулиране на оставаща сума до 100 лв ако доставката е безплатна
+[done] magic gradient
+[done] когато потребител натисне добави да добавя една бройка към продукта в количката
+
+[done] евент да не може да е в промо (админ)
+[done] евент да няма конкретна цена (админ)
+- евент карта да има телефон или да сочи към конткакт
+- организиране на събитие не трябва да ходи в чекоут и да няма в картата му бутони
+
+- meta image
 
 **ADDONS**
 - scroll to top - refference - https://qx-plank.myshopify.com/

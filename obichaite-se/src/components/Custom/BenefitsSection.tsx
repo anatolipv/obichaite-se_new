@@ -40,9 +40,9 @@ const BenefitsSection = ({ benefits }: { benefits: Page['benefits'] }) => {
     <section className="w-full py-10 md:py-20 relative min-h-[100svh] md:min-h-[80svh] flex">
       <Background />
 
-      <div className="w-full content_wrapper grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 my-auto">
+      <ul className="w-full content_wrapper grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 my-auto">
         {benefitsContent}
-      </div>
+      </ul>
     </section>
   )
 }

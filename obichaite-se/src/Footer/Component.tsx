@@ -22,9 +22,7 @@ export async function Footer() {
               className="hover:opacity-75 transition-all duration-300 ease-in-out"
               prefetch={true}
             >
-              <span className="text-[24px] text-white leading-[120%]">
-                {item?.link?.label}
-              </span>
+              <span className="text-[24px] text-white leading-[120%]">{item?.link?.label}</span>
             </Link>
           </li>
         )
@@ -35,8 +33,8 @@ export async function Footer() {
     ? footerData.regulatoryLinks.map((item, index) => {
         const isItLast = index === footerData.regulatoryLinks!.length - 1
         return (
-          <React.Fragment key={item.id || item?.link?.label}>
-            <li className="w-fit flex items-center">
+          <li key={item.id || item?.link?.label}>
+            <div className="w-fit flex items-center gap-4">
               <Link
                 href={generateHref(item as LinkObject)}
                 aria-label={item?.link?.label}
@@ -44,17 +42,11 @@ export async function Footer() {
                 className="hover:opacity-75 transition-all duration-300 ease-in-out"
                 prefetch={true}
               >
-                <span className="text-[14px] text-white leading-[120%]">
-                  {item?.link?.label}
-                </span>
+                <span className="text-[14px] text-white leading-[120%]">{item?.link?.label}</span>
               </Link>
-            </li>
-            {!isItLast && (
-              <span className="text-[14px] text-white leading-[120%]">
-                |
-              </span>
-            )}
-          </React.Fragment>
+              {!isItLast && <span className="text-[14px] text-white leading-[120%]">|</span>}
+            </div>
+          </li>
         )
       })
     : []
@@ -119,7 +111,7 @@ export async function Footer() {
             headingType="h5"
             textColor="text-white"
           >
-            <h6>за нас</h6>
+            <p>за нас</p>
           </GenericHeading>
 
           {footerData.contacts && (
@@ -140,7 +132,7 @@ export async function Footer() {
             headingType="h5"
             textColor="text-white"
           >
-            <h6>навигация</h6>
+            <p>навигация</p>
           </GenericHeading>
 
           <ul className="flex flex-col gap-4 justify-center items-center xl:justify-start xl:items-start">
@@ -156,7 +148,7 @@ export async function Footer() {
             headingType="h5"
             textColor="text-white"
           >
-            <h6>социални мрежи</h6>
+            <p>социални мрежи</p>
           </GenericHeading>
 
           <ul className="flex gap-4">{socialImages}</ul>

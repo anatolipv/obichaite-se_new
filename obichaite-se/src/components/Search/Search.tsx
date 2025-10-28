@@ -40,6 +40,8 @@ const Search = ({ products }: { products: Product[] }) => {
             setSearchResults(null)
             dispatch(setOpenSearch(false))
           }}
+          aria-label="Затвори търсенето"
+          type="button"
         >
           <CloseCircle />
         </button>
@@ -63,7 +65,13 @@ const Search = ({ products }: { products: Product[] }) => {
             onChange={(e) => setInputValue(e.target.value)}
           ></input>
 
-          <button className="w-full md:w-auto px-6 py-3 bg-brown text-white" onClick={() => handleSearch()}>
+          <button
+            className="w-full md:w-auto px-6 py-3 bg-brown text-white"
+            onClick={() => handleSearch()}
+            type="button"
+            aria-label="Търсене"
+            title="Търсене"
+          >
             Търсене
           </button>
         </div>
@@ -73,10 +81,7 @@ const Search = ({ products }: { products: Product[] }) => {
         className={`absolute top-full left-0 right-0 transition-[opacity] duration-700 ease-in-out
             ${!!searchResults && searchResults.length > 0 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
-        <PromotionsCardsGrid
-          products={searchResults || []}
-          heading={'Резултати от търсенето'}
-        />
+        <PromotionsCardsGrid products={searchResults || []} heading={'Резултати от търсенето'} />
       </div>
 
       {!!searchResults && searchResults.length === 0 && (
