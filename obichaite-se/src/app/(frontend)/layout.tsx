@@ -2,6 +2,7 @@ import React from 'react'
 // import { Metadata } from 'next'
 import { StoreProvider } from '@/store/StoreProvider'
 import '../../assets/styles/general.scss'
+import "../../assets/styles/blog.scss"
 import { Header } from '@/Header/Component'
 import './global.css'
 import { kolka, sansation } from '@/app/fonts'

@@ -71,7 +71,7 @@ export default buildConfig({
     defaultFromAddress: process.env.EMAIL_FROM_ADDRESS!,
     defaultFromName: process.env.EMAIL_FROM_NAME!,
     transportOptions: {
-      host: "smtp.gmail.com", //TODO! actual smtp data for the superhosting website
+      host: process.env.SMTP_HOST, //TODO! actual smtp data for the superhosting website
       port: 465,
       secure: '465',
       auth: {

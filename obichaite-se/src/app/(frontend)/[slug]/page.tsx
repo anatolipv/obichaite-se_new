@@ -12,6 +12,7 @@ import { CategoriesSection } from '@/components/Categories'
 import { Category, Product } from '@/payload-types'
 import { PromotionsCardsGrid } from '@/components/Product'
 import BenefitsSection from '@/components/Custom/BenefitsSection'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
 // import { TestimonialStateManager } from '@/components/StateManagers' //TODO?
 // import { AboutUsJsonLd, HomePageJsonLd, OrganizationJsonLd } from '@/components/SEO' //TODO?
 
@@ -90,7 +91,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const itIsHome = slug === 'home'
 
   const hero = page.commonHero
-  //   const layout = page.layout //TODO
+  const layout = page.layout
 
   let promotionProducts: Product[] = []
 
@@ -206,8 +207,7 @@ export default async function Page({ params: paramsPromise }: Args) {
         <PayloadRedirects disableNotFound url={url} />
 
         {draft && <LivePreviewListener />}
-
-        <HeroCommon {...hero} />
+        {!page.regulatoryPage && <HeroCommon {...hero} />}
 
         {!!itIsHome && <CategoriesSection categories={categories.docs as Category[]} />}
 
@@ -223,7 +223,9 @@ export default async function Page({ params: paramsPromise }: Args) {
           <PromotionsCardsGrid products={bestSellers} heading="Най-продавани продукти" />
         )}
 
-        {/* <RenderBlocks blocks={layout} /> */}
+        <div className='pt-[52px] md:pt-[140px]'>
+          <RenderBlocks blocks={layout} />
+        </div>
       </article>
     </>
   )

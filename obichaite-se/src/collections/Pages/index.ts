@@ -15,6 +15,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { generatePreviewPath } from '@/utils/generatePreviewPath'
 import { heroCommon } from '@/Hero/Common/config'
+import { Content } from '@/blocks/Content/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -71,7 +72,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [MediaBlock],
+              blocks: [MediaBlock, Content],
               defaultValue: [],
               required: false,
               admin: {

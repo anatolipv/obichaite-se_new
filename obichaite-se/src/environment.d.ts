@@ -5,6 +5,7 @@ declare global {
       DATABASE_URI: string
       NEXT_PUBLIC_SERVER_URL: string
       PREVIEW_SECRET: string
+      SMTP_HOST: string
       SMTP_USER: string
       SMTP_PASS: string
       EMAIL_FROM_NAME: string

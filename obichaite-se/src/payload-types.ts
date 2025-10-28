@@ -197,7 +197,7 @@ export interface Page {
   id: number;
   title: string;
   commonHero: CommonHero;
-  layout?: MediaBlock[] | null;
+  layout?: (MediaBlock | ContentBlock)[] | null;
   benefits?:
     | {
         title: string;
@@ -293,6 +293,33 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock".
+ */
+export interface ContentBlock {
+  /**
+   * Тук може да се въведе съдържание в свободен текст, снимки, видео ...
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -820,6 +847,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         mediaBlock?: T | MediaBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
       };
   benefits?:
     | T
@@ -874,6 +902,15 @@ export interface CommonHeroSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock_select".
+ */
+export interface ContentBlockSelect<T extends boolean = true> {
+  content?: T;
   id?: T;
   blockName?: T;
 }
