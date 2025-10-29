@@ -11,13 +11,15 @@ import {
   PhoneIcon,
   ShoppingCartIcon,
 } from '@/assets/icons'
-import { useAppDispatch } from '@/hooks/redux-hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
 import { addProductToShoppingCart } from '@/store/features/checkout'
 import Link from 'next/link'
 import { setNotification } from '@/store/features/notifications'
 
 const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch()
+  const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
+  const productExistsInCart = shoppingCartProducts.find((item) => item.id === product.id)
   const {
     mediaArray,
     title,
@@ -131,6 +133,15 @@ const ProductCard = ({ product }: { product: Product }) => {
                 styleClass="uppercase [&>div>svg]:hover:stroke-bordo gap-[6px] min-w-[146px]"
                 click={() => {
                   dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
+                  dispatch(
+                    setNotification({
+                      showNotification: true,
+                      message: !!productExistsInCart
+                        ? `Kъм (${product?.title}) беше дованен 1 брой`
+                        : `(${product?.title}) беше добавен в количката`,
+                      type: 'success',
+                    }),
+                  )
                 }}
                 type="button"
                 ariaLabel="Добави"
@@ -151,7 +162,9 @@ const ProductCard = ({ product }: { product: Product }) => {
                   dispatch(
                     setNotification({
                       showNotification: true,
-                      message: `(${product?.title}) беше добавен в количката`,
+                      message: !!productExistsInCart
+                        ? `Kъм (${product?.title}) беше дованен 1 брой`
+                        : `(${product?.title}) беше добавен в количката`,
                       type: 'success',
                     }),
                   )
@@ -170,7 +183,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             )}
           </>
 
-          <Link href={`/product/${product?.slug}`}>
+          <Link href={`/produkt/${product?.slug}`}>
             <GenericButton
               variant="white"
               styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"

@@ -1,14 +1,10 @@
 export const COLORS = {
-  primaryWhite: '#FFFFFF',
-  primaryWhiteAccent: '#FFFFFF95',
-  primaryBlack: '#020202',
-  primaryBlackAccent: '#02020280',
-  primaryGreen: '#023900',
-  primaryGreenAccent: '#02390080',
-  primaryRed: '#D01C1F',
-  primaryRedAccent: '#D01C1F80',
-  primaryGray: '#eeeeee',
-  primaryGrayAccent: '#eeeeee80',
+  whiteAccent: '#D1D5DB',
+  brown: '#574143',
+  pink: '#D19EA2',
+  mixPink: '#A9636A',
+  bordo: '#6D0710',
+  pinkShade: '#e6cbcd',
 }
 
 export const SCREENS = {

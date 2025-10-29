@@ -5,7 +5,7 @@ import { setIsLoading, setUser } from '@/store/features/root'
 
 import Link from 'next/link'
 import React, { useState, useTransition } from 'react'
-import { DateInput, GenericButton, NumberInput, TextInput } from '../Generic'
+import { DateInput, GenericButton, TextInput } from '../Generic'
 import { registerUser } from '@/action/auth/register'
 
 const RegisterComponent = () => {
@@ -41,12 +41,12 @@ const RegisterComponent = () => {
           sessions: [],
         }
         dispatch(setUser(updatedUser))
-      } catch (err: any) {
-        if (err?.message.includes('email')) {
+      } catch (err) {
+        if ((err as Error)?.message.includes('email')) {
           setError('Този email вече е регистриран')
           return
         }
-        setError(err?.message ?? 'Неуспешна регистрация, моля опитайте по-късно')
+        setError((err as Error)?.message ?? 'Неуспешна регистрация, моля опитайте по-късно')
       }
     })
   }

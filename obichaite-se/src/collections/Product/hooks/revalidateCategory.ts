@@ -10,7 +10,7 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = ({
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      const path = `/product/${doc.slug}`
+      const path = `/produkt/${doc.slug}`
 
       payload.logger.info(`Revalidating post at path: ${path}`)
 
@@ -20,12 +20,12 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = ({
 
     // If the post was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
-      const oldPath = `/product/${previousDoc.slug}`
+      const oldPath = `/produkt/${previousDoc.slug}`
 
       payload.logger.info(`Revalidating old post at path: ${oldPath}`)
 
       revalidatePath(oldPath)
-      revalidateTag('product-sitemap')
+      revalidateTag('produkt-sitemap')
     }
   }
   return doc
@@ -36,7 +36,7 @@ export const revalidateDeleteProduct: CollectionAfterDeleteHook<Product> = ({
   req: { context },
 }) => {
   if (!context.disableRevalidate) {
-    const path = `/product/${doc?.slug}`
+    const path = `/produkt/${doc?.slug}`
 
     revalidatePath(path)
     revalidateTag('product-sitemap')

@@ -5,6 +5,7 @@
 }
 
 .gray_green_scrollbar {
+  z-index: 12 !important;
   &::-webkit-scrollbar {
     width: 8%;
   }

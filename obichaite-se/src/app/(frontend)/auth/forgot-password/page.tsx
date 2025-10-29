@@ -21,8 +21,8 @@ export default function ForgotPasswordPage() {
       try {
         const res = await requestPasswordReset(formValues.email)
         if (res?.ok) setOk(true)
-      } catch (err: any) {
-        // still show generic
+      } catch (err) {
+        console.log(err)
         setOk(true)
       }
     })

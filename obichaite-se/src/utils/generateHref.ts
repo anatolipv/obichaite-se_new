@@ -35,12 +35,12 @@ export const generateHref = (linkObject: LinkObject) => {
     return '/'
   }
 
-  if (linkValue?.slug === 'blogs') {
-    return `/blog`
+  if (linkValue?.slug === 'products') {
+    return `/produkt`
   }
 
-  if (linkValue?.slug === 'categories') {
-    return `/category`
+  if (linkValue?.slug === 'category') {
+    return `/kategorii`
   }
   //internal
   if (linkObject?.link?.type === 'reference') {

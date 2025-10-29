@@ -27,16 +27,17 @@ export default function VerifyPage() {
         setStatus('ok')
         setMessage('Email verified! You can now sign in.')
         setTimeout(() => router.replace('/auth/login'), 800)
-      } catch (err: any) {
+      } catch (err) {
+        console.error(err)
         setStatus('error')
-        setMessage('This verification link is invalid or has expired.')
+        setMessage('Линкът е навалиден или изтекъл')
       }
     })()
   }, [params, router])
 
   return (
-    <section className="p-6 max-w-md">
-      <h1 className="text-xl font-semibold">Verify your email</h1>
+    <section className="px-6 pb-6 pt-[52px] md:pt-[140px] max-w-md">
+      <h1 className="text-xl font-semibold">Потвърди Имейл</h1>
       <p className="mt-3">
         {status === 'idle' && 'Preparing…'}
         {status === 'verifying' && 'Verifying your email…'}

@@ -203,7 +203,7 @@ export default async function Page({ params: paramsPromise }: Args) {
           <CategoriesItemList />
         </>
       )} */}
-      <article className="w-full bg-primaryBlack">
+      <article className="w-full">
         <PayloadRedirects disableNotFound url={url} />
 
         {draft && <LivePreviewListener />}

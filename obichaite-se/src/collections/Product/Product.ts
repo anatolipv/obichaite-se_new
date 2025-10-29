@@ -115,7 +115,7 @@ export const Product: CollectionConfig = {
       type: 'array',
       label: 'Снимки',
       minRows: 1,
-      maxRows: 10,
+      maxRows: 5,
       fields: [
         {
           name: 'file',

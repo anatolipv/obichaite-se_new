@@ -1,3 +1,5 @@
+import { COLORS } from "@/cssVariables"
+
 export const UserProfileIcon = () => {
   return (
     <svg
@@ -348,7 +350,7 @@ export const PlusIcon = () => {
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke={COLORS.brown}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

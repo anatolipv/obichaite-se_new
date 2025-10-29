@@ -1,2 +1,6 @@
 export { default as PromotionsCardsGrid } from './PromotionsCardsGrid'
 export { default as ProductCard } from './ProductCard'
+export { default as SingleProduct } from './SingleProduct'
+export { default as ProductPreview } from './ProductPreview'
+export { default as SingleCardMain } from './SingleCardMain'
+export { default as SingleProductInfo } from './SingleProductInfo'

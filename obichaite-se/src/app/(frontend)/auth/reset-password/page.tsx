@@ -40,8 +40,12 @@ export default function ResetPasswordPage() {
           // if your action auto-logs in, go to dashboard; else go to login
           router.replace('/')
         }
-      } catch (err: any) {
-        setError(err?.message ?? 'Reset failed. The link may be invalid or expired.')
+      } catch (err: unknown) {
+        const errorMessage =
+          err instanceof Error
+            ? err.message
+            : 'Неуспешно обновяване, линкът може да е навалиден или изтекъл'
+        setError(errorMessage)
       }
     })
   }
@@ -81,12 +85,7 @@ export default function ResetPasswordPage() {
               required={true}
               extraClass="min-w-[300px]"
             />
-            <GenericButton
-              type={'submit'}
-              styleClass="w-full"
-              variant="primary"
-              disabled={pending}
-            >
+            <GenericButton type={'submit'} styleClass="w-full" variant="primary" disabled={pending}>
               {pending ? 'Зареждане...' : 'Изпращане'}
             </GenericButton>
             {error && <p className="text-red-600">{error}</p>}

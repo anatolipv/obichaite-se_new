@@ -31,7 +31,7 @@ const CYR2LAT: [string, string][] = [
   ['ф', 'f'],
   ['х', 'h'],
   ['ъ', 'y'],
-  ['ьо', 'yo'],
+  ['ь', 'y'],
 ]
 
 const formatSlugToEn = (val: string): string => {

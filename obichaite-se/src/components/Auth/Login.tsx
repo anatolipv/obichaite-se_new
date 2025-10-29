@@ -39,8 +39,10 @@ const LoginComponent = () => {
           dispatch(setIsLoading(false))
           router.push('/')
         }
-      } catch (err: any) {
-        setError(err?.message ?? 'Не валидна парола или потребителско име')
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : 'Не валидна парола или потребителско име'
+        setError(errorMessage)
       }
     })
   }

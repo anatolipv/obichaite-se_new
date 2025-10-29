@@ -27,7 +27,5 @@ export async function registerUser(values: {
     },
   })
 
-  console.log(user, 'createdUser')
-
   return { ok: true, message: 'Check your email to verify your account.', user: user }
 }
