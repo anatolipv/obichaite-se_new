@@ -72,6 +72,7 @@ export interface Config {
     pages: Page;
     category: Category;
     product: Product;
+    'sub-category': SubCategory;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -87,6 +88,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     category: CategorySelect<false> | CategorySelect<true>;
     product: ProductSelect<false> | ProductSelect<true>;
+    'sub-category': SubCategorySelect<false> | SubCategorySelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -470,6 +472,29 @@ export interface Product {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sub-category".
+ */
+export interface SubCategory {
+  id: number;
+  title: string;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  parentCategory: number | Category;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -732,6 +757,10 @@ export interface PayloadLockedDocument {
         value: number | Product;
       } | null)
     | ({
+        relationTo: 'sub-category';
+        value: number | SubCategory;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -967,6 +996,27 @@ export interface ProductSelect<T extends boolean = true> {
   bestSeller?: T;
   havePriceRange?: T;
   priceRange?: T;
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sub-category_select".
+ */
+export interface SubCategorySelect<T extends boolean = true> {
+  title?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  parentCategory?: T;
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
@@ -1361,6 +1411,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'product';
           value: number | Product;
+        } | null)
+      | ({
+          relationTo: 'sub-category';
+          value: number | SubCategory;
         } | null);
     global?: string | null;
     user?: (number | null) | User;
