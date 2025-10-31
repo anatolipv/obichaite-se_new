@@ -15,7 +15,9 @@
     "types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "seed:subcategories": "payload run scripts/sub-categories.ts",
+    "seed:products": "payload run scripts/products.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.60.0",

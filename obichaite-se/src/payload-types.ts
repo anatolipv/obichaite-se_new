@@ -269,10 +269,23 @@ export interface CommonHero {
         link: {
           type?: ('reference' | 'custom' | 'anchorSectionId') | null;
           newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'product';
+                value: number | Product;
+              } | null)
+            | ({
+                relationTo: 'category';
+                value: number | Category;
+              } | null)
+            | ({
+                relationTo: 'sub-category';
+                value: number | SubCategory;
+              } | null);
           url?: string | null;
           label: string;
           /**
@@ -288,23 +301,15 @@ export interface CommonHero {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
+ * via the `definition` "product".
  */
-export interface MediaBlock {
-  media: number | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
- */
-export interface ContentBlock {
+export interface Product {
+  id: number;
+  title: string;
   /**
-   * Тук може да се въведе съдържание в свободен текст, снимки, видео ...
+   * Заглавие на секцията с Продукта
    */
-  content: {
+  heading: {
     root: {
       type: string;
       children: {
@@ -319,9 +324,62 @@ export interface ContentBlock {
     };
     [k: string]: unknown;
   };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'content';
+  /**
+   * Описание на Продукта (под заглавието)
+   */
+  shortDescription: string;
+  /**
+   * Описание на Продукта (под заглавието)
+   */
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  mediaArray?:
+    | {
+        file: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  category: number | Category;
+  subCategory: number | SubCategory;
+  price?: number | null;
+  quantity: number;
+  promoPrice?: number | null;
+  /**
+   * Ако това поле бъде активирано, продуктър ще излиза в секция най-продавани
+   */
+  bestSeller?: boolean | null;
+  havePriceRange?: boolean | null;
+  /**
+   * Задължително, потребителя да раздели цената с тире Пример: 350-500 | 800-1200
+   */
+  priceRange?: string | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -391,87 +449,6 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "product".
- */
-export interface Product {
-  id: number;
-  title: string;
-  /**
-   * Заглавие на секцията с Продукта
-   */
-  heading: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  /**
-   * Описание на Продукта (под заглавието)
-   */
-  shortDescription: string;
-  /**
-   * Описание на Продукта (под заглавието)
-   */
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  mediaArray?:
-    | {
-        file: number | Media;
-        id?: string | null;
-      }[]
-    | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  category: number | Category;
-  price?: number | null;
-  quantity: number;
-  promoPrice?: number | null;
-  /**
-   * Ако това поле бъде активирано, продуктър ще излиза в секция най-продавани
-   */
-  bestSeller?: boolean | null;
-  havePriceRange?: boolean | null;
-  /**
-   * Задължително, потребителя да раздели цената с тире Пример: 350-500 | 800-1200
-   */
-  priceRange?: string | null;
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "sub-category".
  */
 export interface SubCategory {
@@ -492,6 +469,43 @@ export interface SubCategory {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MediaBlock".
+ */
+export interface MediaBlock {
+  media: number | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock".
+ */
+export interface ContentBlock {
+  /**
+   * Тук може да се въведе съдържание в свободен текст, снимки, видео ...
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -990,6 +1004,7 @@ export interface ProductSelect<T extends boolean = true> {
         description?: T;
       };
   category?: T;
+  subCategory?: T;
   price?: T;
   quantity?: T;
   promoPrice?: T;
@@ -1197,10 +1212,23 @@ export interface Header {
         link: {
           type?: ('reference' | 'custom' | 'anchorSectionId') | null;
           newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'product';
+                value: number | Product;
+              } | null)
+            | ({
+                relationTo: 'category';
+                value: number | Category;
+              } | null)
+            | ({
+                relationTo: 'sub-category';
+                value: number | SubCategory;
+              } | null);
           url?: string | null;
           label: string;
         };
@@ -1209,10 +1237,23 @@ export interface Header {
               link: {
                 type?: ('reference' | 'custom' | 'anchorSectionId') | null;
                 newTab?: boolean | null;
-                reference?: {
-                  relationTo: 'pages';
-                  value: number | Page;
-                } | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: number | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'product';
+                      value: number | Product;
+                    } | null)
+                  | ({
+                      relationTo: 'category';
+                      value: number | Category;
+                    } | null)
+                  | ({
+                      relationTo: 'sub-category';
+                      value: number | SubCategory;
+                    } | null);
                 url?: string | null;
                 label: string;
               };
@@ -1238,10 +1279,23 @@ export interface Footer {
         link: {
           type?: ('reference' | 'custom' | 'anchorSectionId') | null;
           newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'product';
+                value: number | Product;
+              } | null)
+            | ({
+                relationTo: 'category';
+                value: number | Category;
+              } | null)
+            | ({
+                relationTo: 'sub-category';
+                value: number | SubCategory;
+              } | null);
           url?: string | null;
           label: string;
         };
@@ -1253,10 +1307,23 @@ export interface Footer {
         link: {
           type?: ('reference' | 'custom' | 'anchorSectionId') | null;
           newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'product';
+                value: number | Product;
+              } | null)
+            | ({
+                relationTo: 'category';
+                value: number | Category;
+              } | null)
+            | ({
+                relationTo: 'sub-category';
+                value: number | SubCategory;
+              } | null);
           url?: string | null;
           label: string;
         };
@@ -1269,10 +1336,23 @@ export interface Footer {
         link: {
           type?: ('reference' | 'custom' | 'anchorSectionId') | null;
           newTab?: boolean | null;
-          reference?: {
-            relationTo: 'pages';
-            value: number | Page;
-          } | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: number | Page;
+              } | null)
+            | ({
+                relationTo: 'product';
+                value: number | Product;
+              } | null)
+            | ({
+                relationTo: 'category';
+                value: number | Category;
+              } | null)
+            | ({
+                relationTo: 'sub-category';
+                value: number | SubCategory;
+              } | null);
           url?: string | null;
           label: string;
         };

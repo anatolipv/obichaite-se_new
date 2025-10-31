@@ -168,6 +168,18 @@ export const Product: CollectionConfig = {
       },
     },
     {
+      name: 'subCategory',
+      type: 'relationship',
+      relationTo: 'sub-category',
+      required: true,
+      admin: {
+        position: 'sidebar',
+        allowCreate: false,
+        allowEdit: false,
+        appearance: 'drawer',
+      },
+    },
+    {
       name: 'price',
       type: 'number',
       required: true,

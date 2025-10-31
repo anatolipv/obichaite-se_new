@@ -25,13 +25,26 @@
 - register page - without interaction
 
 - add global loader in (front-end level)
+- single category page e.g produkti - all connected with paggination and basic sorts (best sellers, updatedAt) and (connected subCategories list in bottom) ???
+- single subCategory page e.g vazi - all connected with paggination and and basic sorts (best sellers, updatedAt) (all related subCategories e.g "chashi", "bijuterki"...)???
+
+- user shopping cart products - (field in config and logic in shopping cart)
+- order collection in database - config (ref- MIRO), add orders in the user doc
+- checkout page - form (reference to original site), info about payment, order logic, logic to fill user and order docs in database and finally email
+to the owner and the user
+
+- question about bulgarian/english owner???
+- да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
 
 **FEEDBACK**
 
-- "Прехвърля се в количката с 0лв и вече допълнително ще изпращаме оферти"
+- "Прехвърля се в количката с 0лв и вече допълнително ще изпращаме оферти" - Events
 
 **ADDONS**
 [done] scroll to top - refference - https://qx-plank.myshopify.com/
 
 **IMPORTANT**
 -- each new user "admin", needs to be verifiied manually
+
+**BEFORE HANDOVER**
+- да се преместят тези от продукти/общи където са и местата от потребителя

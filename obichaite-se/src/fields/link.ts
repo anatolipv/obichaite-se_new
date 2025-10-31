@@ -77,10 +77,11 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       type: 'relationship',
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
+        appearance: "drawer"
       },
       label: 'Документа сочи към',
       maxDepth: 2,
-      relationTo: ['pages'], //TODO Add support for other collections
+      relationTo: ['pages', "product", "category", "sub-category"],
       required: true,
     },
     {
