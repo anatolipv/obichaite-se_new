@@ -48,3 +48,6 @@ to the owner and the user
 
 **BEFORE HANDOVER**
 - да се преместят тези от продукти/общи където са и местата от потребителя
+
+**BACKUP**
+- backup jsons in backup-json branch
