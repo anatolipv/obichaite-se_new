@@ -36,6 +36,10 @@ to the owner and the user
 - question about bulgarian/english owner???
 - да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
 
+- prefetch to all links
+- pwa if its possible
+- user orders page
+
 **FEEDBACK**
 
 - "Прехвърля се в количката с 0лв и вече допълнително ще изпращаме оферти" - Events

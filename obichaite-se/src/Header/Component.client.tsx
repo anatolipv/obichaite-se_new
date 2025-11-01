@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 
-import { Header, Media } from '@/payload-types'
+import { Category, Header, Media, SubCategory } from '@/payload-types'
 import { generateHref, LinkObject } from '@/utils/generateHref'
 import Link from 'next/link'
 import { DataFromGlobalSlug } from 'payload'
@@ -82,23 +82,26 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
     openCategoryIndex !== -1 ? categoryItems?.[openCategoryIndex - 1]?.children : null
 
   const childrenContent = !!currentChildren
-    ? currentChildren.map((item) => {
+    ? currentChildren.map((subItem, index) => {
+        const subCategorySlug = (subItem?.link?.reference?.value as SubCategory)?.slug || ''
+        const categorySlug =
+          (categoryItems?.[openCategoryIndex - 1]?.link?.reference?.value as Category)?.slug || ''
+
         return (
           <li
-            key={item.id}
+            key={subItem.id}
             className="w-[24%] min-w-[24%] h-[60px] hover:border-[1px] hover:border-brown rounded-[16px]
             hover:bg-brown transition-[colors,box-shadow] duration-500 ease-in-out [&>a>button>span]:hover:text-white hover:shadow-lg"
           >
             <Link
-              href={generateHref(item as LinkObject)}
-              aria-label={item?.link?.label}
-              target={item?.link?.newTab ? '_blank' : '_self'}
+              href={`/kategorii/${categorySlug}/${subCategorySlug}`}
+              target={subItem?.link?.newTab ? '_blank' : '_self'}
               prefetch={true}
               className="w-full h-full"
             >
               <button className="w-full h-full flex justify-center items-center">
                 <span className="text-[14px] font-sensation font-[400] text-brown transition-colors duration-500">
-                  {item?.link?.label}
+                  {subItem?.link?.label}
                 </span>
               </button>
             </Link>
