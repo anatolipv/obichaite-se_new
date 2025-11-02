@@ -29,22 +29,6 @@
 [done] extra section for product - best sales in that category and promotions in that category
 [done] user shopping cart products - (fields in config and logic in shopping cart)
 
-- build the website to preview
-- test the user flow
-- send a preview link - 02.11.25
-  (съобщение)
-  1.Потребителски flow (опиши всичко),
-  2.Категории
-  3.Подкатегории
-  4.Регулаторни страници
-  5.Търсачка
-  6.Продуктова страница
-  7.Loading.. сегмент за сайта
-  8.Миграция на всички продукти
-  Да се има впредвид
-  1.Снимките не са мигрирани (за това повечето продукти имат една съща снимка)
-  2.В Продукти -> Общи (за прехвърляне), се виждат всички продукти, които са мигрирани с неясна под категория и не ясно дали са активни или не, когато имате възжможност да се прегледат и да се дадът детайли за прехвърляне или изтриване
-
 - local storage for shopping cart for anonimni users 
 
 - евент карта да има телефон или да сочи към конткакт
