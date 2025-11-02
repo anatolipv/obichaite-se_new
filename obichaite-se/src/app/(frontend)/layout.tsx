@@ -16,6 +16,8 @@ import ScreenOverlay from '@/components/Custom/ScreenOverlay'
 import ScrollToTop from '@/components/Custom/ScrollToTop'
 import { Metadata } from 'next'
 import GenericNotification from '@/components/Generic/GenericNotification'
+import { ShoppingCartManager } from '@/components/StateManagers'
+import SetCurrentUser from '@/components/StateManagers/SetCurrentUser'
 
 const SITE_NAME = 'Обичайте се'
 
@@ -160,9 +162,13 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <body>
           <main id="content" className="min-h-[100svh] overflow-x-clip">
             <Search products={productsForSearch.docs as Product[]} />
+            
             <Header />
+            
             {children}
+            
             <Footer />
+            
             <ShoppingCardAside />
 
             <ScreenOverlay />
@@ -170,6 +176,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <ScrollToTop />
 
             <GenericNotification />
+
+            <ShoppingCartManager />
+
+            <SetCurrentUser />
           </main>
         </body>
       </html>

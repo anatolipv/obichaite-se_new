@@ -1,7 +1,7 @@
 'use client'
 
 import { Category, Media, Product } from '@/payload-types'
-import React, { useState } from 'react'
+import React, { useState, useTransition } from 'react'
 import { GenericButton, GenericHeading, GenericImage, GenericParagraph } from '../Generic'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
 import {
@@ -15,9 +15,11 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
 import { addProductToShoppingCart } from '@/store/features/checkout'
 import Link from 'next/link'
 import { setNotification } from '@/store/features/notifications'
+import { addToCart } from '@/action/products/shoppingCart'
 
 const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch()
+  const userId = useAppSelector((state) => state.root.user?.id)
   const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
   const productExistsInCart = shoppingCartProducts.find((item) => item.id === product.id)
   const {
@@ -142,6 +144,9 @@ const ProductCard = ({ product }: { product: Product }) => {
                       type: 'success',
                     }),
                   )
+                  if (!!userId) {
+                    addToCart(product?.id, userId!)
+                  }
                 }}
                 type="button"
                 ariaLabel="Добави"
@@ -168,6 +173,9 @@ const ProductCard = ({ product }: { product: Product }) => {
                       type: 'success',
                     }),
                   )
+                  if (!!userId) {
+                    addToCart(product?.id, userId!)
+                  }
                 }}
                 type="button"
                 ariaLabel="Добави"

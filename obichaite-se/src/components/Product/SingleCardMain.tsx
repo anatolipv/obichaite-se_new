@@ -13,9 +13,11 @@ import {
 import { ArrowIcon, MinusIcon, PlusIcon } from '@/assets/icons'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
 import { setNotification } from '@/store/features/notifications'
+import { addToCart } from '@/action/products/shoppingCart'
 
 const SingleCardMain = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch()
+  const userId = useAppSelector((state) => state.root.user?.id)
   const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
   const existsInCart = shoppingCartProducts.find((item) => item.id === product.id)
   const [orderQuantity, setOrderQuantity] = useState(existsInCart?.orderQuantity || 1)
@@ -139,10 +141,15 @@ const SingleCardMain = ({ product }: { product: Product }) => {
               dispatch(
                 setNotification({
                   showNotification: true,
-                  message: existsInCart ? `Kъм (${product?.title}) бяха добавени ${orderQuantity} ${orderQuantity > 1 ? 'единици' : 'единица'}`  :  `(${product?.title}) беше добавен в количката`,
+                  message: existsInCart
+                    ? `Kъм (${product?.title}) бяха добавени ${orderQuantity} ${orderQuantity > 1 ? 'единици' : 'единица'}`
+                    : `(${product?.title}) беше добавен в количката`,
                   type: 'success',
                 }),
               )
+              if (!!userId) {
+                addToCart(product.id, userId)
+              }
             }}
             disabled={orderQuantity === 0}
             aria-disabled={orderQuantity === 0}

@@ -48,7 +48,7 @@ type Args = {
 export default async function ProductSinglePage({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
-  const url = '/category/' + slug
+  const url = '/produkt/' + slug
   const product = await queryProductBySlug({ slug })
   if (!product) return <PayloadRedirects url={url} />
 

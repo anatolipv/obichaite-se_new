@@ -49,6 +49,7 @@
 - order collection in database - config (ref- MIRO), add orders in the user doc
 - checkout page - form (reference to original site), info about payment, order logic, logic to fill user and order docs in database and finally email
 to the owner and the user
+- revalidate sub category (YA project for ref)
 
 - all needed emails that will be send from the front end and the admin
 
