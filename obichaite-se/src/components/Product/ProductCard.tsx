@@ -1,7 +1,7 @@
 'use client'
 
 import { Category, Media, Product } from '@/payload-types'
-import React, { useState, useTransition } from 'react'
+import React, { useState } from 'react'
 import { GenericButton, GenericHeading, GenericImage, GenericParagraph } from '../Generic'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
 import {

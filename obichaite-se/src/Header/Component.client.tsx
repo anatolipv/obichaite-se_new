@@ -82,7 +82,7 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
     openCategoryIndex !== -1 ? categoryItems?.[openCategoryIndex - 1]?.children : null
 
   const childrenContent = !!currentChildren
-    ? currentChildren.map((subItem, index) => {
+    ? currentChildren.map((subItem) => {
         const subCategorySlug = (subItem?.link?.reference?.value as SubCategory)?.slug || ''
         const categorySlug =
           (categoryItems?.[openCategoryIndex - 1]?.link?.reference?.value as Category)?.slug || ''
