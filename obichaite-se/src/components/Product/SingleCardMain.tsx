@@ -36,7 +36,7 @@ const SingleCardMain = ({ product }: { product: Product }) => {
       <div className="hidden md:block absolute left-0 top-[48px] w-[1px] h-[calc(100%-96px)] bg-brown/20 z-[2]"></div>
       <div className="hidden md:block absolute right-0 top-[48px] w-[1px] h-[calc(100%-96px)] bg-brown/20 z-[2]"></div>
       <div className="flex flex-col p-4 md:p-6 w-full h-full">
-        <Link href={`/kategorii/${currentCategory.slug}/subCategory`}>
+        <Link prefetch={true} href={`/kategorii/${currentCategory.slug}/subCategory`}>
           <GenericParagraph
             fontStyle="font-sansation font-[700]"
             pType="regular"

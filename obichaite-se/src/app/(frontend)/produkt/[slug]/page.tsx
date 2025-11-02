@@ -109,7 +109,7 @@ export default async function ProductSinglePage({ params: paramsPromise }: Args)
       and: [
         {
           subCategory: {
-            equals: (product.subCategory as SubCategory).id,
+            equals: (product?.subCategory as SubCategory)?.id || 7,
           },
         },
         {

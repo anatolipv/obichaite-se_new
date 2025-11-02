@@ -68,7 +68,7 @@ const CategoriesSection = ({ categories }: { categories: Category[] }) => {
             </GenericHeading>
           )}
           <div className="pt-4">
-            <Link href={`/kategorii/${category.slug}`}>
+            <Link prefetch={true} href={`/kategorii/${category.slug}`}>
               <GenericButton styleClass="w-full md:w-auto" variant="outLined">
                 Виж повече
               </GenericButton>

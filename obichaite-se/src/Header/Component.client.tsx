@@ -141,6 +141,7 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
                   href={'/auth/login'}
                   aria-label="Към вход"
                   className="flex items-center gap-2"
+                  prefetch={true}
                 >
                   <GenericParagraph
                     pType="regular"

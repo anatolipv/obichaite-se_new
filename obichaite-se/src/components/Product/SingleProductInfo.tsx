@@ -54,7 +54,7 @@ const SingleProductInfo = ({ product }: { product: Product }) => {
             {product.id}
           </GenericParagraph>
 
-          <Link href={`/kategorii/${(product.category as Category)?.slug}`}>
+          <Link prefetch={true} href={`/kategorii/${(product.category as Category)?.slug}`}>
             <GenericParagraph
               fontStyle="font-kolka font-[400]"
               pType="regular"

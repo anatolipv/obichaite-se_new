@@ -191,7 +191,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             )}
           </>
 
-          <Link href={`/produkt/${product?.slug}`}>
+          <Link prefetch={true} href={`/produkt/${product?.slug}`}>
             <GenericButton
               variant="white"
               styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"

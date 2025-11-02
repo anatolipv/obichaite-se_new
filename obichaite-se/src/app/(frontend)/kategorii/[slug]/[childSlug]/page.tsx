@@ -65,7 +65,7 @@ export default async function SubCategory({ params: paramsPromise }: Args) {
       and: [
         {
           subCategory: {
-            equals: subCategory.id,
+            equals: subCategory?.id,
           },
         },
         {
