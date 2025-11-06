@@ -104,12 +104,12 @@ const ShoppingCardAside = () => {
                   <>
                     {product?.promoPrice ? (
                       <>
-                        {(product.promoPrice * product.orderQuantity).toFixed(1)} лв. (
+                        {(product.promoPrice * product.orderQuantity).toFixed(2)} лв. (
                         {priceToEuro(product.promoPrice * product.orderQuantity)})€
                       </>
                     ) : (
                       <>
-                        {(product.price! * product.orderQuantity).toFixed(1)} лв. (
+                        {(product.price! * product.orderQuantity).toFixed(2)} лв. (
                         {priceToEuro(product.price! * product.orderQuantity)})€
                       </>
                     )}
