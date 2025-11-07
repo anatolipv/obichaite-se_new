@@ -1,0 +1,207 @@
+import type { CollectionConfig } from 'payload';
+
+export const Order: CollectionConfig = {
+  slug: 'orders',
+  labels: {
+    singular: 'Поръчка',
+    plural: 'Поръчки',
+  },
+  admin: {
+    useAsTitle: 'orderNumber',
+    defaultColumns: ['orderNumber', 'status', 'paymentStatus', 'orderEmail', 'createdAt'],
+  },
+  timestamps: true,
+
+  fields: [
+    // Sidebar : статуси, номер, tracking
+    {
+      name: 'orderNumber',
+      type: 'text',
+      label: 'Номер на поръчка',
+      unique: true,
+      admin: {
+        position: 'sidebar',
+        readOnly: true,
+      },
+    },
+    {
+      name: 'status',
+      type: 'select',
+      label: 'Статус на поръчка',
+      defaultValue: 'pending',
+      options: [
+        { label: 'Очаква обработка', value: 'pending' },
+        { label: 'Обработва се', value: 'processing' },
+        { label: 'Изпратена', value: 'shipped' },
+        { label: 'Доставена', value: 'delivered' },
+        { label: 'Върната', value: 'returned' },
+        { label: 'Отказана', value: 'cancelled' },
+      ],
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'paymentStatus',
+      type: 'select',
+      label: 'Статус на плащането',
+      defaultValue: 'unpaid',
+      options: [
+        { label: 'Неплатена', value: 'unpaid' },
+        { label: 'Платена', value: 'paid' },
+        { label: 'Възстановена сума', value: 'refunded' },
+      ],
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    // {
+    //   name: 'shippingProvider',
+    //   type: 'text',
+    //   label: 'Shipping Provider',
+    //   admin: {
+    //     position: 'sidebar',
+    //   },
+    // },
+    // {
+    //   name: 'trackingNumber',
+    //   type: 'text',
+    //   label: 'Tracking Number',
+    //   admin: {
+    //     position: 'sidebar',
+    //   },
+    // },
+
+    // MAIN TABS
+    {
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'Продукти',
+          fields: [
+            {
+              name: 'items',
+              type: 'array',
+              label: 'Items',
+              labels: {
+                singular: 'Item',
+                plural: 'Items',
+              },
+              required: true,
+              fields: [
+                {
+                  name: 'product',
+                  type: 'relationship',
+                  relationTo: 'product',
+                  label: 'Product',
+                  required: true,
+                },
+                {
+                  name: 'productTitle',
+                  type: 'text',
+                  label: 'Product Title (Snapshot)',
+                  required: true,
+                },
+                {
+                  name: 'unitPrice',
+                  type: 'number',
+                  label: 'Единична цена',
+                  required: true,
+                },
+                {
+                  name: 'quantity',
+                  type: 'number',
+                  label: 'Количество',
+                  required: true,
+                  defaultValue: 1,
+                },
+                {
+                  name: 'lineTotal',
+                  type: 'number',
+                  label: 'Сума',
+                  required: true,
+                },
+              ],
+            },
+            {
+              name: 'subtotal',
+              type: 'number',
+              label: 'Междинна сума',
+              required: true,
+            },
+            // {
+            //   name: 'shippingCost',
+            //   type: 'number',
+            //   label: 'Shipping Cost',
+            // },
+            {
+              name: 'total',
+              type: 'number',
+              label: 'Общо',
+              required: true,
+            },
+          ],
+        },
+        {
+          label: 'Данни за поръчката',
+          fields: [
+            {
+              name: 'user',
+              type: 'relationship',
+              relationTo: 'users',
+              label: 'Потребител (ако е влязъл)',
+            },
+            {
+              name: 'customerName',
+              type: 'text',
+              label: 'Име',
+              required: true,
+            },
+            {
+              name: 'customerEmail',
+              type: 'email',
+              label: 'Email',
+              required: true,
+            },
+            {
+              name: 'customerPhone',
+              type: 'text',
+              label: 'Телефон',
+              required: true,
+
+            },
+            {
+              name: 'deliveryMethod',
+              type: 'select',
+              label: 'Доставчик',
+              options: [
+                { label: 'Еконт', value: 'econt' },
+                { label: 'Спиди', value: 'speedy-dpd' },
+              ]
+            },
+            {
+              name: 'shippingAddress',
+              type: 'group',
+              label: 'Адрес за доставка',
+              fields: [
+                { name: 'line1', type: 'text', label: 'Адрес' },
+                { name: 'city', type: 'text', label: 'Град' },
+                { name: 'postalCode', type: 'text', label: 'Пощенски код' },
+              ],
+            },
+            {
+              name: 'notes',
+              type: 'textarea',
+              label: 'Бележки от клиента',
+            },
+            {
+              name: 'internalNotes',
+              type: 'textarea',
+              label: 'Вътрешна бележка',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
