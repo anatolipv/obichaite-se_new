@@ -1,4 +1,8 @@
 import type { CollectionConfig } from 'payload';
+import { authenticated } from '../../access/authenticated'
+import { anyone } from '@/access/anyone';
+import { setOrderNumber } from './hooks/setOrderNumber';
+import { revalidateOrdersAfterChange, revalidateOrdersAfterDelete } from './hooks/revalidateOrder';
 
 export const Order: CollectionConfig = {
   slug: 'orders',
@@ -10,10 +14,21 @@ export const Order: CollectionConfig = {
     useAsTitle: 'orderNumber',
     defaultColumns: ['orderNumber', 'status', 'paymentStatus', 'orderEmail', 'createdAt'],
   },
-  timestamps: true,
-
+  access: {
+    create: authenticated,
+    delete: authenticated,
+    read: anyone,
+    update: authenticated,
+  },
   fields: [
-    // Sidebar : статуси, номер, tracking
+    {
+      name: 'publishedAt',
+      type: 'date',
+      label: 'Дата на поръчка',
+      admin: {
+        position: 'sidebar',
+      },
+    },
     {
       name: 'orderNumber',
       type: 'text',
@@ -124,17 +139,6 @@ export const Order: CollectionConfig = {
               ],
             },
             {
-              name: 'subtotal',
-              type: 'number',
-              label: 'Междинна сума',
-              required: true,
-            },
-            // {
-            //   name: 'shippingCost',
-            //   type: 'number',
-            //   label: 'Shipping Cost',
-            // },
-            {
               name: 'total',
               type: 'number',
               label: 'Общо',
@@ -190,7 +194,7 @@ export const Order: CollectionConfig = {
               ],
             },
             {
-              name: 'notes',
+              name: 'clientNotes',
               type: 'textarea',
               label: 'Бележки от клиента',
             },
@@ -204,4 +208,12 @@ export const Order: CollectionConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [setOrderNumber, revalidateOrdersAfterChange],
+    afterDelete: [revalidateOrdersAfterDelete],
+  },
+  versions: {
+    drafts: false,
+    maxPerDoc: 50,
+  },
 };

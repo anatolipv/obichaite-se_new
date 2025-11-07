@@ -516,6 +516,7 @@ export interface ContentBlock {
  */
 export interface Order {
   id: number;
+  publishedAt?: string | null;
   orderNumber?: string | null;
   status?: ('pending' | 'processing' | 'shipped' | 'delivered' | 'returned' | 'cancelled') | null;
   paymentStatus?: ('unpaid' | 'paid' | 'refunded') | null;
@@ -527,7 +528,6 @@ export interface Order {
     lineTotal: number;
     id?: string | null;
   }[];
-  subtotal: number;
   total: number;
   user?: (number | null) | User;
   customerName: string;
@@ -539,7 +539,7 @@ export interface Order {
     city?: string | null;
     postalCode?: string | null;
   };
-  notes?: string | null;
+  clientNotes?: string | null;
   internalNotes?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -1086,6 +1086,7 @@ export interface SubCategorySelect<T extends boolean = true> {
  * via the `definition` "orders_select".
  */
 export interface OrdersSelect<T extends boolean = true> {
+  publishedAt?: T;
   orderNumber?: T;
   status?: T;
   paymentStatus?: T;
@@ -1099,7 +1100,6 @@ export interface OrdersSelect<T extends boolean = true> {
         lineTotal?: T;
         id?: T;
       };
-  subtotal?: T;
   total?: T;
   user?: T;
   customerName?: T;
@@ -1113,7 +1113,7 @@ export interface OrdersSelect<T extends boolean = true> {
         city?: T;
         postalCode?: T;
       };
-  notes?: T;
+  clientNotes?: T;
   internalNotes?: T;
   updatedAt?: T;
   createdAt?: T;

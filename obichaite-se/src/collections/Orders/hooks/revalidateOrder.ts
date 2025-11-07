@@ -1,51 +1,44 @@
-// import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+} from 'payload';
+import { revalidateTag } from 'next/cache';
+// import { revalidatePath } from 'next/cache'; // ако решиш да биеш конкретни пътища
 
-// import { revalidatePath, revalidateTag } from 'next/cache'
-// import { Order } from '@/payload-types'
+// If you have generated types, you can do:
+// import type { Order } from '@/payload-types';
 
-// export const revalidateOrder: CollectionAfterChangeHook<Order> = ({
-//   doc,
-//   previousDoc,
-//   req: { payload, context },
-// }) => {
-//   console.log("********")
-//   console.log(doc, 'doc')
-//   console.log(previousDoc, 'previousDoc')
+export const revalidateOrdersAfterChange: CollectionAfterChangeHook = ({
+  doc,
+  req: { payload, context },
+}) => {
+  if (context?.disableRevalidate) {
+    return doc;
+  }
 
+  // Generic: invalidate anything that depends on orders
+  payload.logger.info(
+    `Revalidating orders after change. ID: ${doc.id}`,
+  );
+  revalidateTag('orders');
 
-//   if (!context.disableRevalidate) {
-//     if (doc._status === 'published') {
-//       const path = `/orders/${doc.slug}`
+  return doc;
+};
 
-//       payload.logger.info(`Revalidating post at path: ${path}`)
+export const revalidateOrdersAfterDelete: CollectionAfterDeleteHook = ({
+  doc,
+  req: { payload, context },
+}) => {
+  if (context?.disableRevalidate) {
+    return doc;
+  }
 
-//       revalidatePath(path)
-//       revalidateTag('category-sitemap')
-//     }
+  if (doc) {
+    payload.logger.info(
+      `Revalidating orders after delete. ID: ${doc.id}`,
+    );
+  }
 
-//     // If the post was previously published, we need to revalidate the old path
-//     if (previousDoc._status === 'published' && doc._status !== 'published') {
-//       const oldPath = `/category/${previousDoc.slug}`
-
-//       payload.logger.info(`Revalidating old post at path: ${oldPath}`)
-
-//       revalidatePath(oldPath)
-//       revalidateTag('category-sitemap')
-//     }
-//   }
-//   return doc
-// }
-
-// export const revalidateDeleteCategory: CollectionAfterDeleteHook<Category> = ({
-//   doc,
-//   req: { context },
-// }) => {
-//   if (!context.disableRevalidate) {
-//     const path = `/category/${doc?.slug}`
-
-//     revalidatePath(path)
-//     revalidateTag('category-sitemap')
-//   }
-
-//   return doc
-// }
+  revalidateTag('orders');
+  return doc;
+};
