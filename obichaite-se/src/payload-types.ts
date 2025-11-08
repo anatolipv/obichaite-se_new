@@ -73,6 +73,7 @@ export interface Config {
     category: Category;
     product: Product;
     'sub-category': SubCategory;
+    orders: Order;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -89,6 +90,7 @@ export interface Config {
     category: CategorySelect<false> | CategorySelect<true>;
     product: ProductSelect<false> | ProductSelect<true>;
     'sub-category': SubCategorySelect<false> | SubCategorySelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -510,6 +512,40 @@ export interface ContentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: number;
+  publishedAt?: string | null;
+  orderNumber?: string | null;
+  status?: ('pending' | 'processing' | 'shipped' | 'delivered' | 'returned' | 'cancelled') | null;
+  paymentStatus?: ('unpaid' | 'paid' | 'refunded') | null;
+  items: {
+    product: number | Product;
+    productTitle: string;
+    unitPrice: number;
+    quantity: number;
+    lineTotal: number;
+    id?: string | null;
+  }[];
+  total: number;
+  user?: (number | null) | User;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  deliveryMethod?: ('econt' | 'speedy-dpd') | null;
+  shippingAddress?: {
+    line1?: string | null;
+    city?: string | null;
+    postalCode?: string | null;
+  };
+  clientNotes?: string | null;
+  internalNotes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -776,6 +812,10 @@ export interface PayloadLockedDocument {
         value: number | SubCategory;
       } | null)
     | ({
+        relationTo: 'orders';
+        value: number | Order;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1040,6 +1080,43 @@ export interface SubCategorySelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  publishedAt?: T;
+  orderNumber?: T;
+  status?: T;
+  paymentStatus?: T;
+  items?:
+    | T
+    | {
+        product?: T;
+        productTitle?: T;
+        unitPrice?: T;
+        quantity?: T;
+        lineTotal?: T;
+        id?: T;
+      };
+  total?: T;
+  user?: T;
+  customerName?: T;
+  customerEmail?: T;
+  customerPhone?: T;
+  deliveryMethod?: T;
+  shippingAddress?:
+    | T
+    | {
+        line1?: T;
+        city?: T;
+        postalCode?: T;
+      };
+  clientNotes?: T;
+  internalNotes?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
