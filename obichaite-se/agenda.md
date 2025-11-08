@@ -34,6 +34,9 @@
 - user page orders and friends two rows with headings
 - checkout page - form (reference to original site), info about payment, order logic, logic to fill user and order docs in database and finally email
 
+- add form inputs error handling
+- make sure that all forms have global error handling
+
 - евент карта да има телефон или да сочи към конткакт
 - order collection in database - config (ref- MIRO), add orders in the user doc
   to the owner and the user

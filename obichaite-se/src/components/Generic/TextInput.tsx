@@ -8,9 +8,7 @@ export type TextInputProps<T> = {
   formValues: object
   setFormValues: React.Dispatch<React.SetStateAction<T>>
   placeholder: string
-  error?: {
-    [key: string]: string | null
-  }
+  error?: string,
   extraClass?: string
   required?: boolean
   voice?: boolean
@@ -33,7 +31,7 @@ const TextInput = <T,>({
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const validNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+']
 
-    if (name === 'phoneNumber') {
+    if (name === 'phoneNumber' || name === 'phone') {
       const isPass = e.target.value.split('').every((char) => validNumbers.includes(char))
 
       if (isPass) {
@@ -89,7 +87,7 @@ const TextInput = <T,>({
         )}
       </div>
 
-      {!!error && <ErrorMessageBox errors={error} />}
+      {!!error && <ErrorMessageBox error={error} />}
     </div>
   )
 }

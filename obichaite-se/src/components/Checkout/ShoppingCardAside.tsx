@@ -13,6 +13,7 @@ import {
 import { useCheckout } from '@/hooks/useCheckout'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
 import { Media } from '@/payload-types'
+import Link from 'next/link'
 
 const ShoppingCardAside = () => {
   const dispatch = useAppDispatch()
@@ -104,12 +105,12 @@ const ShoppingCardAside = () => {
                   <>
                     {product?.promoPrice ? (
                       <>
-                        {(product.promoPrice * product.orderQuantity).toFixed(1)} лв. (
+                        {(product.promoPrice * product.orderQuantity).toFixed(2)} лв. (
                         {priceToEuro(product.promoPrice * product.orderQuantity)})€
                       </>
                     ) : (
                       <>
-                        {(product.price! * product.orderQuantity).toFixed(1)} лв. (
+                        {(product.price! * product.orderQuantity).toFixed(2)} лв. (
                         {priceToEuro(product.price! * product.orderQuantity)})€
                       </>
                     )}
@@ -187,38 +188,43 @@ const ShoppingCardAside = () => {
       </div>
 
       <div className="w-full py-2 px-4 bg-black/20">
-        <button
-          className="w-full rounded-[24px] flex  justify-between items-center red_background py-4 px-4
+        <Link href="/checkout">
+          <button
+            className="w-full rounded-[24px] flex  justify-between items-center red_background py-4 px-4
           [&>div>div>svg]:hover:animate-bounce disabled:cursor-not-allowed disabled:opacity-50
           "
-          aria-label="Към поръчка"
-          disabled={products.length === 0}
-        >
-          <div className="flex justify-center items-center">
-            <GenericParagraph
-              fontStyle="font-sansation font-[700]"
-              pType="small"
-              textColor="text-white"
-              extraClass="uppercase"
-            >
-              Към поръчка
-            </GenericParagraph>
+            aria-label="Към поръчка"
+            disabled={products.length === 0}
+            onClick={() => {
+              dispatch(setShoppingCardOpen(false))
+            }}
+          >
+            <div className="flex justify-center items-center">
+              <GenericParagraph
+                fontStyle="font-sansation font-[700]"
+                pType="small"
+                textColor="text-white"
+                extraClass="uppercase"
+              >
+                Към поръчка
+              </GenericParagraph>
 
-            <div className="w-[20px] h-[20px] flex justify-center items-center ml-1">
-              <ArrowIcon color="white" />
+              <div className="w-[20px] h-[20px] flex justify-center items-center ml-1">
+                <ArrowIcon color="white" />
+              </div>
             </div>
-          </div>
 
-          <div className="flex justify-center items-center">
-            <GenericParagraph
-              fontStyle="font-kolka font-[500]"
-              pType="small"
-              textColor="text-white"
-            >
-              {calculateTotalPrice().toFixed(2)} лв ({priceToEuro(calculateTotalPrice())}€)
-            </GenericParagraph>
-          </div>
-        </button>
+            <div className="flex justify-center items-center">
+              <GenericParagraph
+                fontStyle="font-kolka font-[500]"
+                pType="small"
+                textColor="text-white"
+              >
+                {calculateTotalPrice().toFixed(2)} лв ({priceToEuro(calculateTotalPrice())}€)
+              </GenericParagraph>
+            </div>
+          </button>
+        </Link>
       </div>
     </aside>
   )

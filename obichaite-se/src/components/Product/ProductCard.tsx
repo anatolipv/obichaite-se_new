@@ -46,9 +46,9 @@ const ProductCard = ({ product }: { product: Product }) => {
         textColor="text-brown"
         extraClass="text-center"
       >
-        <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>{price.toFixed(1)}</span>
+        <span className={`${!!promoPrice && 'line-through text-[14px]'}`}>{price.toFixed(2)}</span>
         <span className={`${!!promoPrice && 'text-[16px] md:text-[20px]'}`}>
-          {promoPrice && ` ${promoPrice.toFixed(1)}`}лв
+          {promoPrice && ` ${promoPrice.toFixed(2)}`}лв
         </span>
       </GenericParagraph>
       <div className="w-full h-[1px] bg-brown/80"></div>

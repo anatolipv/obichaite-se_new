@@ -115,12 +115,12 @@ const SingleCardMain = ({ product }: { product: Product }) => {
               <>
                 {product?.promoPrice ? (
                   <>
-                    {(product.promoPrice * orderQuantity).toFixed(1)} лв. (
+                    {(product.promoPrice * orderQuantity).toFixed(2)} лв. (
                     {priceToEuro(product.promoPrice * orderQuantity)})€
                   </>
                 ) : (
                   <>
-                    {(product.price! * orderQuantity).toFixed(1)} лв. (
+                    {(product.price! * orderQuantity).toFixed(2)} лв. (
                     {priceToEuro(product.price! * orderQuantity)})€
                   </>
                 )}
