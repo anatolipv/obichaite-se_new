@@ -18,7 +18,7 @@ import { Category } from './collections/Categories/Category'
 import { Product } from './collections/Product/Product'
 import { Footer } from './Footer/config'
 import { SubCategory } from './collections/SubCategory/SubCategory'
-import { Order } from './collections/Orders/Order'
+import { Order } from './collections/Order/Order'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)

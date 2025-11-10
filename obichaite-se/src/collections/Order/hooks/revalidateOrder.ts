@@ -20,7 +20,7 @@ export const revalidateOrdersAfterChange: CollectionAfterChangeHook = ({
   payload.logger.info(
     `Revalidating orders after change. ID: ${doc.id}`,
   );
-  revalidateTag('orders');
+  revalidateTag('order');
 
   return doc;
 };
@@ -39,6 +39,6 @@ export const revalidateOrdersAfterDelete: CollectionAfterDeleteHook = ({
     );
   }
 
-  revalidateTag('orders');
+  revalidateTag('order');
   return doc;
 };

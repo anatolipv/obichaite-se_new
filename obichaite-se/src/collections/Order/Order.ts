@@ -5,7 +5,7 @@ import { setOrderNumber } from './hooks/setOrderNumber';
 import { revalidateOrdersAfterChange, revalidateOrdersAfterDelete } from './hooks/revalidateOrder';
 
 export const Order: CollectionConfig = {
-  slug: 'orders',
+  slug: 'order',
   labels: {
     singular: 'Поръчка',
     plural: 'Поръчки',
@@ -19,10 +19,12 @@ export const Order: CollectionConfig = {
     delete: authenticated,
     read: anyone,
     update: authenticated,
+  }, defaultPopulate: {
+    id: true,
   },
   fields: [
     {
-      name: 'publishedAt',
+      name: 'orderDate',
       type: 'date',
       label: 'Дата на поръчка',
       admin: {

@@ -73,7 +73,7 @@ export interface Config {
     category: Category;
     product: Product;
     'sub-category': SubCategory;
-    orders: Order;
+    order: Order;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -90,7 +90,7 @@ export interface Config {
     category: CategorySelect<false> | CategorySelect<true>;
     product: ProductSelect<false> | ProductSelect<true>;
     'sub-category': SubCategorySelect<false> | SubCategorySelect<true>;
-    orders: OrdersSelect<false> | OrdersSelect<true>;
+    order: OrderSelect<false> | OrderSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -512,11 +512,11 @@ export interface ContentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "orders".
+ * via the `definition` "order".
  */
 export interface Order {
   id: number;
-  publishedAt?: string | null;
+  orderDate?: string | null;
   orderNumber?: string | null;
   status?: ('pending' | 'processing' | 'shipped' | 'delivered' | 'returned' | 'cancelled') | null;
   paymentStatus?: ('unpaid' | 'paid' | 'refunded') | null;
@@ -812,7 +812,7 @@ export interface PayloadLockedDocument {
         value: number | SubCategory;
       } | null)
     | ({
-        relationTo: 'orders';
+        relationTo: 'order';
         value: number | Order;
       } | null)
     | ({
@@ -1083,10 +1083,10 @@ export interface SubCategorySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "orders_select".
+ * via the `definition` "order_select".
  */
-export interface OrdersSelect<T extends boolean = true> {
-  publishedAt?: T;
+export interface OrderSelect<T extends boolean = true> {
+  orderDate?: T;
   orderNumber?: T;
   status?: T;
   paymentStatus?: T;
