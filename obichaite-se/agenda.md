@@ -17,6 +17,8 @@
 4. И в двата линка - общи условия и политика за поверителност в момента зарежда едно и също, предполагам ще го коригирате после
 5. За картата на България аз си го представях като контура на държавата и хоризонтално  вътре  да я оцветим сложим бяло, зелено, червено виж снимка 3 и 4
 
+- PROJECT MIGRATION START IN 17.10.25 -> 30-45 дни срок около, завършек около 25.11.25
+
 **CURRENT**
 [done] install packages (only required)
 [done] make the base styles
@@ -36,22 +38,30 @@
 [done] евент да няма конкретна цена (админ)
 [done] организиране на събитие не трябва да ходи в чекоут и да няма в картата му бутони
 [done] meta image
+[pending] auth flow - QC
+[pending] single category page e.g produkti - all connected with paggination and basic sorts (best sellers, updatedAt) and connected subCategories - QC
+[pending] single subCategory page e.g vazi - all connected with paggination and and basic sorts (best sellers, updatedAt) all related subCategories - QC
+
+[done] add global loader in (front-end level) - (each page with different title for the loader)
+[done] extra section for product - best sales in that category and promotions in that category
+[done] user shopping cart products - (fields in config and logic in shopping cart)
+
+- local storage for shopping cart for anonimni users 
 
 - евент карта да има телефон или да сочи към конткакт
-- login page - without interaction
-- register page - without interaction
-
-- add global loader in (front-end level)
-- single category page e.g produkti - all connected with paggination and basic sorts (best sellers, updatedAt) and (connected subCategories list in bottom) ???
-- single subCategory page e.g vazi - all connected with paggination and and basic sorts (best sellers, updatedAt) (all related subCategories e.g "chashi", "bijuterki"...)???
-
-- user shopping cart products - (field in config and logic in shopping cart)
 - order collection in database - config (ref- MIRO), add orders in the user doc
 - checkout page - form (reference to original site), info about payment, order logic, logic to fill user and order docs in database and finally email
-to the owner and the user
+  to the owner and the user
+- revalidate sub category (YA project for ref)
+
+- all needed emails that will be send from the front end and the admin
 
 - question about bulgarian/english owner???
 - да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
+
+- prefetch to all links
+- pwa if its possible
+- user orders page ??
 
 **FEEDBACK**
 
@@ -64,7 +74,9 @@ to the owner and the user
 -- each new user "admin", needs to be verifiied manually
 
 **BEFORE HANDOVER**
+
 - да се преместят тези от продукти/общи където са и местата от потребителя
 
 **BACKUP**
+
 - backup jsons in backup-json branch

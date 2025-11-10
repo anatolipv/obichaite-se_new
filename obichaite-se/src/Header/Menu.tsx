@@ -2,7 +2,7 @@
 
 import { ArrowIcon, CloseCircle } from '@/assets/icons'
 import { GenericParagraph } from '@/components/Generic'
-import { Header } from '@/payload-types'
+import { Category, Header, SubCategory } from '@/payload-types'
 import { generateHref, LinkObject } from '@/utils/generateHref'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -23,17 +23,20 @@ const Menu = ({
 
     const childrenContent = !!item.children
       ? item.children.map((childItem) => {
+          const subCategorySlug = (childItem?.link?.reference?.value as SubCategory)?.slug || ''
+          const categorySlug =
+            (categoryItems?.[openCategoryIndex - 1]?.link?.reference?.value as Category)?.slug || ''
           return (
             <li key={childItem.id} className="w-full py-2 bg-pink/20 my-[2px]">
               <Link
-                href={generateHref(childItem as LinkObject)}
+                href={`/kategorii/${categorySlug}/${subCategorySlug}`}
                 aria-label={childItem?.link?.label}
                 target={childItem?.link?.newTab ? '_blank' : '_self'}
                 prefetch={true}
                 className="w-full h-full"
               >
-                <button className="w-fit pl-4 h-full">
-                  <span className="text-[16px] text-right font-kolka font-[500] text-brown transition-colors duration-500">
+                <button className=" pl-4 h-full w-full flex items-center justify-center">
+                  <span className="text-[16px] font-kolka font-[500] text-brown transition-colors duration-500">
                     {childItem?.link?.label}
                   </span>
                 </button>

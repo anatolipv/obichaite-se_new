@@ -157,7 +157,7 @@ const RegisterComponent = () => {
 
           <div className="flex w-full items-center justify-center gap-2">
             <p className="text-[14px] text-brown/80">{`Имаш акаунт?`}</p>
-            <Link href="/auth/login" className="font-kolka font-[500] text-brown">
+            <Link prefetch={true} href="/auth/login" className="font-kolka font-[500] text-brown">
               Вход
             </Link>
           </div>

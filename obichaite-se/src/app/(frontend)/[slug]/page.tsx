@@ -223,9 +223,11 @@ export default async function Page({ params: paramsPromise }: Args) {
           <PromotionsCardsGrid products={bestSellers} heading="Най-продавани продукти" />
         )}
 
-        <div className='pt-[52px] md:pt-[140px]'>
-          <RenderBlocks blocks={layout} />
-        </div>
+        {!!layout?.length && (
+          <div className="pt-[52px] md:pt-[140px]">
+            <RenderBlocks blocks={layout} />
+          </div>
+        )}
       </article>
     </>
   )

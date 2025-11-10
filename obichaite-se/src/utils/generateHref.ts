@@ -46,6 +46,8 @@ export const generateHref = (linkObject: LinkObject) => {
   if (linkObject?.link?.type === 'reference') {
     if (linkObject?.link?.reference?.relationTo === 'pages') {
       return `/${linkValue?.slug}`
+    } else if (linkObject?.link?.reference?.relationTo === 'category') {
+      return `/kategorii/${linkValue?.slug}`
     } else {
       return `/${linkObject?.link?.reference?.relationTo}/${linkValue?.slug}`
     }

@@ -1,7 +1,10 @@
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PayloadRedirects } from '@/components/PayloadRedirects'
+import { PromotionsCardsGrid } from '@/components/Product'
 import SingleProduct from '@/components/Product/SingleProduct'
+import { Category, Product, SubCategory } from '@/payload-types'
 import { generateMeta } from '@/utils/generateMeta'
+import shuffle from '@/utils/seedShuffle'
 import configPromise from '@payload-config'
 import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
@@ -45,13 +48,104 @@ type Args = {
 export default async function ProductSinglePage({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
-  const url = '/category/' + slug
+  const url = '/produkt/' + slug
   const product = await queryProductBySlug({ slug })
   if (!product) return <PayloadRedirects url={url} />
 
-  //TODO add best seller section of this subcategory 
-  //TODO add promotions section of this sub category
-  //TODO add related products of this category
+  //first in one query needs to get all best sellers and promotion in product category
+  const payload = await getPayload({ config: configPromise })
+  const allPromotionsAndBestSellers = await payload.find({
+    collection: 'product',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    where: {
+      and: [
+        {
+          category: {
+            equals: (product.category as Category).id,
+          },
+        },
+        {
+          _status: {
+            equals: 'published',
+          },
+        },
+        {
+          or: [{ bestSeller: { equals: true } }, { promoPrice: { exists: true } }],
+        },
+        {
+          quantity: {
+            not_equals: 0,
+          },
+        },
+      ],
+    },
+    select: {
+      title: true,
+      slug: true,
+      description: true,
+      heading: true,
+      category: true,
+      price: true,
+      bestSeller: true,
+      promoPrice: true,
+      havePriceRange: true,
+      mediaArray: true,
+      priceRange: true,
+      shortDescription: true,
+    },
+  })
+
+  //related
+  const allRelatedProducts = await payload.find({
+    collection: 'product',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    where: {
+      and: [
+        {
+          subCategory: {
+            equals: (product?.subCategory as SubCategory)?.id || 7,
+          },
+        },
+        {
+          _status: {
+            equals: 'published',
+          },
+        },
+        {
+          quantity: {
+            not_equals: 0,
+          },
+        },
+      ],
+    },
+    select: {
+      title: true,
+      slug: true,
+      description: true,
+      heading: true,
+      category: true,
+      price: true,
+      bestSeller: true,
+      promoPrice: true,
+      havePriceRange: true,
+      mediaArray: true,
+      priceRange: true,
+      shortDescription: true,
+    },
+  })
+
+  let allRelatedToRender = allRelatedProducts.docs
+  if (allRelatedToRender.length > 6) {
+    const shuffled = shuffle(allRelatedProducts.docs as Product[])
+
+    allRelatedToRender = shuffled.slice(0, 6)
+  }
 
   return (
     <>
@@ -61,13 +155,23 @@ export default async function ProductSinglePage({ params: paramsPromise }: Args)
 
         {draft && <LivePreviewListener />}
 
-        <div className='w-full pt-[52px] md:pt-[140px] bg-pink/30'>
+        <div className="w-full pt-[52px] md:pt-[140px] bg-pink/30">
           <SingleProduct product={product} />
         </div>
 
-        {/* <HeroCommon {...hero} /> */}
+        {!!allPromotionsAndBestSellers.docs.length && (
+          <PromotionsCardsGrid
+            products={allPromotionsAndBestSellers.docs as Product[]}
+            heading="Промоции и Най-продавани"
+          />
+        )}
 
-        {/* {!!layout && <RenderBlocks blocks={layout} observe={false} />} */}
+        {!!allRelatedToRender.length && (
+          <PromotionsCardsGrid
+            products={allRelatedToRender as Product[]}
+            heading="Свързани продукти"
+          />
+        )}
       </article>
     </>
   )

@@ -13,9 +13,11 @@ import {
 import { ArrowIcon, MinusIcon, PlusIcon } from '@/assets/icons'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
 import { setNotification } from '@/store/features/notifications'
+import { addToCart } from '@/action/products/shoppingCart'
 
 const SingleCardMain = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch()
+  const userId = useAppSelector((state) => state.root.user?.id)
   const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
   const existsInCart = shoppingCartProducts.find((item) => item.id === product.id)
   const [orderQuantity, setOrderQuantity] = useState(existsInCart?.orderQuantity || 1)
@@ -34,7 +36,7 @@ const SingleCardMain = ({ product }: { product: Product }) => {
       <div className="hidden md:block absolute left-0 top-[48px] w-[1px] h-[calc(100%-96px)] bg-brown/20 z-[2]"></div>
       <div className="hidden md:block absolute right-0 top-[48px] w-[1px] h-[calc(100%-96px)] bg-brown/20 z-[2]"></div>
       <div className="flex flex-col p-4 md:p-6 w-full h-full">
-        <Link href={`/kategorii/${currentCategory.slug}/subCategory`}>
+        <Link prefetch={true} href={`/kategorii/${currentCategory.slug}/subCategory`}>
           <GenericParagraph
             fontStyle="font-sansation font-[700]"
             pType="regular"
@@ -145,6 +147,9 @@ const SingleCardMain = ({ product }: { product: Product }) => {
                   type: 'success',
                 }),
               )
+              if (!!userId) {
+                addToCart(product.id, userId)
+              }
             }}
             disabled={orderQuantity === 0}
             aria-disabled={orderQuantity === 0}

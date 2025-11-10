@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 export const Users: CollectionConfig = {
   slug: 'users',
   admin: {
@@ -11,7 +13,7 @@ export const Users: CollectionConfig = {
         `Верификация на Имейл`,
       generateEmailHTML: ({ token, user }: { token?: string; user?: { email?: string } }) => {
         const t = encodeURIComponent(token ?? '')
-        const url = `${process.env.NEXT_PUBLIC_APP_URL}auth/verify?token=${t}`
+        const url = `${isDev ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_SERVER_URL}/auth/verify?token=${t}`
         const email = user?.email ?? ''
         return `<!doctype html><html><body style="font-family:system-ui,Segoe UI,Roboto">
       <h1>Добре дошли, ${email ? `, ${email}` : ''}!</h1>
@@ -25,7 +27,7 @@ export const Users: CollectionConfig = {
       generateEmailSubject: () => `Обновяване на паролата`,
       generateEmailHTML: (args) => {
         const t = encodeURIComponent(args?.token ?? '')
-        const url = `${process.env.NEXT_PUBLIC_APP_URL}auth/reset-password?token=${t}`
+        const url = `${isDev ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_SERVER_URL}/auth/reset-password?token=${t}`
         const email = args?.user?.email ?? ''
         return `<!doctype html><html><body style="font-family:system-ui,Segoe UI,Roboto">
         <h1>Обновяване на паролата</h1>
@@ -118,6 +120,21 @@ export const Users: CollectionConfig = {
     {
       name: 'dateOfBirth',
       type: 'text',
+      access: {
+        read: () => true,
+        update: () => false,
+        create: () => false,
+      },
+      admin: {
+        readOnly: true,
+        condition: (data) => data.role === 'user',
+      },
+    },
+    {
+      name: 'shoppingCartProducts',
+      type: 'relationship',
+      relationTo: 'product',
+      hasMany: true,
       access: {
         read: () => true,
         update: () => false,
