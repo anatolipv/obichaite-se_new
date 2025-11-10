@@ -31,7 +31,7 @@ const TextInput = <T,>({
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const validNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+']
 
-    if (name === 'phoneNumber') {
+    if (name === 'phoneNumber' || name === 'phone') {
       const isPass = e.target.value.split('').every((char) => validNumbers.includes(char))
 
       if (isPass) {

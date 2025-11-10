@@ -18,6 +18,7 @@ import { Category } from './collections/Categories/Category'
 import { Product } from './collections/Product/Product'
 import { Footer } from './Footer/config'
 import { SubCategory } from './collections/SubCategory/SubCategory'
+import { Order } from './collections/Order/Order'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -52,7 +53,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Media, Pages, Category, Product, SubCategory],
+  collections: [Users, Media, Pages, Category, Product, SubCategory, Order],
   globals: [Header, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
