@@ -1,22 +1,5 @@
 === PROJECT AGENDA ===
 
-**FEEDBACK_AND_FEATURES**
-Здравейте, първо да кажа, че сайта стана все по-добър , за което сме ви много благодарни. Изпращам няколко коментара към момента
--Относно регистрацията- има ли вариант регистрираните потребители към момента 17 са /аз лично не ги виждам кои са, защото ми дава системна грешка/ да ги прехвърлим в новата платформа;
-- при регистрацията ако може по лесно да се избира годината на раждане, това което видях към момента е че трябва месец по месец със стрелките да цъкаш;
-- предполагам опцията с рожденните дати на близки хора ще бъде добавена допълнително;
-2. Относно продуктите
-- моля да добавим на цените два знака след десетичната запетая, така ми изглеждат малко странни
-- може ли да се прехвърли и каталожния номер на всеки продукт, с него съм ги завела при мен в складовата програма
-- Продуктите които излизат с неясна категория мога и аз по нататък да ги прехвърля в правилната категория или да ги изтрия
-- описанието на продуктите ако може да е форматирано на всички вдясно, виж снимките по- долу 1 и 2
-- това с междинната страница за зареждане на логото не го разбрах...
-- тази лента с менютата, която се движи долу е уникална, направо ме грабна 🤩
-
-3. Относно политиката на поверителност не трябва ли да изпратя данни за да изглежда попълнена
-4. И в двата линка - общи условия и политика за поверителност в момента зарежда едно и също, предполагам ще го коригирате после
-5. За картата на България аз си го представях като контура на държавата и хоризонтално  вътре  да я оцветим сложим бяло, зелено, червено виж снимка 3 и 4
-
 - PROJECT MIGRATION START IN 17.10.25 -> 30-45 дни срок около, завършек около 25.11.25
 
 **CURRENT**
@@ -38,37 +21,43 @@
 [done] евент да няма конкретна цена (админ)
 [done] организиране на събитие не трябва да ходи в чекоут и да няма в картата му бутони
 [done] meta image
-[pending] auth flow - QC
-[pending] single category page e.g produkti - all connected with paggination and basic sorts (best sellers, updatedAt) and connected subCategories - QC
-[pending] single subCategory page e.g vazi - all connected with paggination and and basic sorts (best sellers, updatedAt) all related subCategories - QC
+[done] single category page e.g produkti - all connected with paggination and basic sorts (best sellers, updatedAt) and connected subCategories - QC
+[done] single subCategory page e.g vazi - all connected with paggination and and basic sorts (best sellers, updatedAt) all related subCategories - QC
 
 [done] add global loader in (front-end level) - (each page with different title for the loader)
 [done] extra section for product - best sales in that category and promotions in that category
 [done] user shopping cart products - (fields in config and logic in shopping cart)
+[done] auth flow - QC
 
-- local storage for shopping cart for anonimni users 
+[done] local storage for shopping cart for anonimni users
+[done] make sure that all forms have global error handling
+[done] add form inputs error handling
 
+- emails for auth
+- checkout page - form (reference to original site), 
+*info about payment, 
+*order logic, 
+*logic to fill user and order docs in database 
+*and finally email
 - евент карта да има телефон или да сочи към конткакт
 - order collection in database - config (ref- MIRO), add orders in the user doc
-- checkout page - form (reference to original site), info about payment, order logic, logic to fill user and order docs in database and finally email
   to the owner and the user
 - revalidate sub category (YA project for ref)
-
 - all needed emails that will be send from the front end and the admin
-
 - question about bulgarian/english owner???
-- да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
-
+- user page orders and friends two rows with headings
+- add basic Seo jsonld and make each page with correct metadata
+- update admin pages with Seo information and etc..
+- TODOS
 - prefetch to all links
+- да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
 - pwa if its possible
-- user orders page ??
 
 **FEEDBACK**
 
 - "Прехвърля се в количката с 0лв и вече допълнително ще изпращаме оферти" - Events
 
-**ADDONS**
-[done] scroll to top - refference - https://qx-plank.myshopify.com/
+## **ADDONS**
 
 **IMPORTANT**
 -- each new user "admin", needs to be verifiied manually
@@ -80,3 +69,8 @@
 **BACKUP**
 
 - backup jsons in backup-json branch
+
+**Week 10.11 - 17.11**
+
+- продуктите персистират в количката дори потребителя да излезе и влезе в сайта
+- Покриване на възможни грешки при регистрация, вход, верифициране, обновяване на парола

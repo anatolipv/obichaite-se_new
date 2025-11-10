@@ -14,9 +14,11 @@ import { ArrowIcon, MinusIcon, PlusIcon } from '@/assets/icons'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
 import { setNotification } from '@/store/features/notifications'
 import { addToCart } from '@/action/products/shoppingCart'
+import { useCheckout } from '@/hooks/useCheckout'
 
 const SingleCardMain = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch()
+  const { addToLocalStorage } = useCheckout()
   const userId = useAppSelector((state) => state.root.user?.id)
   const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
   const existsInCart = shoppingCartProducts.find((item) => item.id === product.id)
@@ -149,6 +151,8 @@ const SingleCardMain = ({ product }: { product: Product }) => {
               )
               if (!!userId) {
                 addToCart(product.id, userId)
+              } else {
+                addToLocalStorage(product)
               }
             }}
             disabled={orderQuantity === 0}

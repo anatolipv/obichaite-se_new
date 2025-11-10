@@ -19,7 +19,7 @@ export default function VerifyPage() {
     const token = params.get('token')
     if (!token) {
       setStatus('missing')
-      setMessage('Verification link is missing or invalid.')
+      setMessage('Линкът е навалиден или изтекъл')
       return
     }
     ;(async () => {
@@ -27,7 +27,7 @@ export default function VerifyPage() {
         setStatus('verifying')
         await verifyUser(token)
         setStatus('ok')
-        setMessage('Email verified! You can now sign in.')
+        setMessage('Верификацията е завършена...')
         setTimeout(() => router.replace('/auth/login'), 800)
       } catch (err) {
         console.error(err)
@@ -49,18 +49,19 @@ export default function VerifyPage() {
         fetchPriority="high"
       />
       <div className="m-auto white_background_bubble w-fit md:py-10 relative z-[1] rounded-[24px] flex flex-col-reverse md:flex-row">
-        <div className='px-4 py-8 m-auto flex flex-col gap-4 items-center justify-center w-full'>
+        <div className="px-4 py-8 m-auto flex flex-col gap-4 items-center justify-center w-full">
           <h2 className="text-xl font-semibold">Потвърди Имейл</h2>
           <p className="mt-3">
             {status === 'idle' && 'Подготвя се…'}
             {status === 'verifying' && 'Верификация на имейл…'}
             {(status === 'ok' || status === 'error' || status === 'missing') && message}
           </p>
-          {status === 'error' || status === 'missing' && (
-            <p className="mt-3 text-sm text-black max-w-[300px] text-center">
-              Можете да попълните формата за регистрация, но имейлът трябва да бъде валиден.
-            </p>
-          )}
+          {status === 'error' ||
+            (status === 'missing' && (
+              <p className="mt-3 text-sm text-black max-w-[300px] text-center">
+                Можете да попълните формата за регистрация, но имейлът трябва да бъде валиден.
+              </p>
+            ))}
         </div>
 
         <div className="w-full md:w-[300px] aspect-[3/4] md:aspect-[2.5/4] md:translate-x-[50%] h-[calc(100%-96px)] z-[2] rounded-tr-[12px] rounded-tl-[12px] md:rounded-[12px] overflow-hidden relative">

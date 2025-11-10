@@ -43,28 +43,24 @@ export async function removeFromCart(productId: number, userId: number) {
 
   const payload = await getPayload({ config: configPromise })
 
-  // Load current cart (depth:0 so we get raw IDs or simple objects)
   const doc = await payload.findByID({
     collection: 'users',
     id: userId,
     depth: 0,
   })
 
-  // Normalize to string IDs
   const current: number[] = Array.isArray(doc.shoppingCartProducts)
     ? doc.shoppingCartProducts.map((x: Product | number) => x as number).filter(Boolean)
     : []
 
-  // Filter out the productId
   const next = current.filter((id) => id !== productId)
 
-  // Only update if changed
   if (next.length !== current.length) {
     await payload.update({
       collection: 'users',
       id: userId,
       data: { shoppingCartProducts: next },
-      overrideAccess: true, // your field has update:false in access
+      overrideAccess: true,
       depth: 0,
     })
   }

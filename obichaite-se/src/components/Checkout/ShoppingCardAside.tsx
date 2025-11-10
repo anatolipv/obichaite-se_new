@@ -13,9 +13,12 @@ import {
 import { useCheckout } from '@/hooks/useCheckout'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
 import { Media } from '@/payload-types'
+import { removeFromCart } from '@/action/products/shoppingCart'
 
 const ShoppingCardAside = () => {
   const dispatch = useAppDispatch()
+  const { removeFromLocalStorage } = useCheckout()
+  const userId = useAppSelector((state) => state.root.user?.id)
   const { calculateTotalPrice, calculateRemainSum } = useCheckout()
   const shoppingCardOpen = useAppSelector((state) => state.checkout.shoppingCardOpen)
   const products = useAppSelector((state) => state.checkout.products)
@@ -32,6 +35,11 @@ const ShoppingCardAside = () => {
               aria-label="Премахни артикул"
               onClick={() => {
                 dispatch(removeProductFromShoppingCart(product))
+                if (!!userId) {
+                  removeFromCart(product.id, userId)
+                } else {
+                  removeFromLocalStorage(product)
+                }
               }}
             >
               <DeleteIcon />

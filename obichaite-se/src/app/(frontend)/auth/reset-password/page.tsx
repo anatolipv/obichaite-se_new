@@ -3,48 +3,77 @@
 
 import { resetPassword } from '@/action/auth/resetPassowrd'
 import { GenericButton, GenericImage, GenericParagraph, TextInput } from '@/components/Generic'
+import { useAppDispatch } from '@/hooks/redux-hooks'
+import { setNotification } from '@/store/features/notifications'
+import { checkPassword } from '@/utils/passwordValidatior'
 import Link from 'next/link'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 
 export default function ResetPasswordPage() {
+  const dispatch = useAppDispatch()
   const params = useSearchParams()
   const router = useRouter()
   const token = params.get('token') ?? ''
-  const [formValues, setFormValues] = useState({ password: '', passwordConfirm: '' })
+  const [formValues, setFormValues] = useState({ password: '' })
   const [error, setError] = useState<string | null>(null)
   const [ok, setOk] = useState(false)
   const [pending, start] = useTransition()
 
+  const [validPasswordFields, setValidPasswordFields] = useState({
+    hasUppercase: false,
+    has8Chars: false,
+    hasNumber: false,
+    hasLowercase: false,
+  })
+
+  useEffect(() => {
+    if (!formValues.password) return
+
+    const validateFields = checkPassword(formValues.password)
+
+    setValidPasswordFields((prev) => {
+      return {
+        ...prev,
+        hasUppercase: validateFields !== 'Password is valid!' && validateFields.hasUppercase,
+        has8Chars: validateFields !== 'Password is valid!' && validateFields.has8Chars,
+        hasNumber: validateFields !== 'Password is valid!' && validateFields.hasNumber,
+        hasLowercase: validateFields !== 'Password is valid!' && validateFields.hasLowercase,
+      }
+    })
+  }, [formValues.password])
+
   if (!token) {
-    return <main className="p-6">Reset link is missing or invalid.</main>
+    return <main className="p-6">Линкът е навалиден или изтекъл.</main>
   }
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
-    if (formValues.password.length < 6) {
-      setError('Паролата трябва да е минимум 6 символа')
+    const passwordError = Object.values(validPasswordFields).some((field) => field === false)
+
+    if (passwordError) {
+      setError('Полето "Парола" трябва да отговавя на критериите')
       return
     }
-    if (formValues.password !== formValues.passwordConfirm) {
-      setError('Паролите не съвпадат')
-      return
-    }
+
     start(async () => {
       try {
         const pass = formValues.password
         const res = await resetPassword({ token, password: pass })
         if (res?.ok) {
           setOk(true)
-          // if your action auto-logs in, go to dashboard; else go to login
-          router.replace('/')
+          dispatch(
+            setNotification({
+              showNotification: true,
+              message: 'Паролата е обновена успешно',
+              type: 'success',
+            }),
+          )
+          router.replace('/auth/login')
         }
       } catch (err: unknown) {
-        const errorMessage =
-          err instanceof Error
-            ? err.message
-            : 'Неуспешно обновяване, линкът може да е навалиден или изтекъл'
+        const errorMessage = 'Неуспешно обновяване, линкът може да е навалиден или изтекъл'
         setError(errorMessage)
       }
     })
@@ -75,20 +104,35 @@ export default function ResetPasswordPage() {
               required={true}
               extraClass="min-w-[300px]"
             />
-            <TextInput
-              type="password"
-              placeholder="******"
-              label="Потвърди Паролата"
-              formValues={formValues}
-              setFormValues={setFormValues}
-              name="passwordConfirm"
-              required={true}
-              extraClass="min-w-[300px]"
-            />
+            <ul className="w-full flex flex-col gap-2 list-disc list-inside pl-2 my-2">
+              <li
+                className={`w-full font-georgia font-medium text-[12px]  marker:text-[#797979] ${
+                  validPasswordFields.has8Chars ? 'text-green-600' : 'text-brown/80'
+                }`}
+              >
+                Минимум 6 символа
+              </li>
+              <li
+                className={`w-full font-georgia font-medium text-[12px]  marker:text-[#797979] ${
+                  validPasswordFields.hasNumber ? 'text-green-600' : 'text-brown/80'
+                }`}
+              >
+                Поне едно число
+              </li>
+              <li
+                className={`w-full font-georgia font-medium text-[12px]  marker:text-[#797979] ${
+                  validPasswordFields.hasUppercase && validPasswordFields.hasLowercase
+                    ? 'text-green-600'
+                    : 'text-brown/80'
+                }`}
+              >
+                Поне една главна и една малка английска буква
+              </li>
+            </ul>
             <GenericButton type={'submit'} styleClass="w-full" variant="primary" disabled={pending}>
               {pending ? 'Зареждане...' : 'Изпращане'}
             </GenericButton>
-            {error && <p className="text-red-600">{error}</p>}
+            {error && <p className="text-red-600 text-[14px]">{error}</p>}
             {ok && <p className="text-green-700">Паролата е обновена</p>}
           </form>
         </div>

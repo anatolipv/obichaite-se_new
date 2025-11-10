@@ -4,9 +4,10 @@ import { useAppDispatch } from '@/hooks/redux-hooks'
 import { setIsLoading, setUser } from '@/store/features/root'
 
 import Link from 'next/link'
-import React, { useState, useTransition } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 import { DateInput, GenericButton, TextInput } from '../Generic'
 import { registerUser } from '@/action/auth/register'
+import { checkPassword } from '@/utils/passwordValidatior'
 
 const RegisterComponent = () => {
   const dispatch = useAppDispatch()
@@ -22,8 +23,59 @@ const RegisterComponent = () => {
     password: '',
   })
 
+  const [validPasswordFields, setValidPasswordFields] = useState({
+    hasUppercase: false,
+    has8Chars: false,
+    hasNumber: false,
+    hasLowercase: false,
+  })
+
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    password: '',
+  })
+
+  useEffect(() => {
+    if (!formValues.password) return
+
+    const validateFields = checkPassword(formValues.password)
+
+    setValidPasswordFields((prev) => {
+      return {
+        ...prev,
+        hasUppercase: validateFields !== 'Password is valid!' && validateFields.hasUppercase,
+        has8Chars: validateFields !== 'Password is valid!' && validateFields.has8Chars,
+        hasNumber: validateFields !== 'Password is valid!' && validateFields.hasNumber,
+        hasLowercase: validateFields !== 'Password is valid!' && validateFields.hasLowercase,
+      }
+    })
+  }, [formValues.password])
+
   function onSubmit(e: React.FormEvent) {
     e.preventDefault()
+
+    const firsNameError = !formValues.firstName
+    const lastNameError = !formValues.lastName
+    const phoneNumberError = !formValues.phoneNumber
+    const emailError =
+      !formValues.email || !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(formValues.email)
+    const passwordError = Object.values(validPasswordFields).some((field) => field === false)
+
+    if (firsNameError || lastNameError || phoneNumberError || emailError || passwordError) {
+      setErrors({
+        firstName: firsNameError ? 'Полето "Име" е задължително' : '',
+        lastName: lastNameError ? 'Полето "Фамилия" е задължително' : '',
+        phoneNumber: phoneNumberError ? 'Полето "Телефон" е задължително' : '',
+        email: emailError ? 'Въведете валиден имейл' : '',
+        password: passwordError ? 'Полето "Парола" трябва да отговавя на критериите' : '',
+      })
+
+      return
+    }
+
     setError(null)
     start(async () => {
       try {
@@ -46,7 +98,7 @@ const RegisterComponent = () => {
           setError('Този email вече е регистриран')
           return
         }
-        setError((err as Error)?.message ?? 'Неуспешна регистрация, моля опитайте по-късно')
+        setError('Неуспешна регистрация, моля опитайте по-късно')
       }
     })
   }
@@ -73,7 +125,7 @@ const RegisterComponent = () => {
               extraClass="w-full"
               placeholder="Иван"
               required={true}
-              // error={errors.title}
+              error={errors.firstName}
               autoFocus={false}
             />
             <TextInput
@@ -84,7 +136,7 @@ const RegisterComponent = () => {
               extraClass="w-full"
               placeholder="Иванов"
               required={true}
-              // error={errors.title}
+              error={errors.lastName}
               autoFocus={false}
             />
           </div>
@@ -98,7 +150,6 @@ const RegisterComponent = () => {
               extraClass="w-full"
               placeholder="DD-MM-YYYY"
               required={true}
-              // error={errors.title}
             />
             <TextInput
               name="phoneNumber"
@@ -108,7 +159,7 @@ const RegisterComponent = () => {
               extraClass="w-full"
               placeholder="+359888888888"
               required={true}
-              // error={errors.title}
+              error={errors.phoneNumber}
               autoFocus={false}
             />
           </div>
@@ -121,7 +172,7 @@ const RegisterComponent = () => {
               extraClass="w-full"
               placeholder="john_doe@gmail.com"
               required={true}
-              // error={errors.title}
+              error={errors.email}
               autoFocus={false}
             />
             <div>
@@ -134,8 +185,34 @@ const RegisterComponent = () => {
                 placeholder="******"
                 required={true}
                 type="password"
-                // error={errors.title}
+                error={errors.password}
               />
+
+              <ul className="w-full flex flex-col gap-2 list-disc list-inside pl-2 mt-2">
+                <li
+                  className={`w-full font-kolka font-[400] text-[12px]  marker:text-[#797979] ${
+                    validPasswordFields.has8Chars ? 'text-green-600' : 'text-brown/80'
+                  }`}
+                >
+                  Минимум 6 символа
+                </li>
+                <li
+                  className={`w-full font-kolka font-[400] text-[12px]  marker:text-[#797979] ${
+                    validPasswordFields.hasNumber ? 'text-green-600' : 'text-brown/80'
+                  }`}
+                >
+                  Поне едно число
+                </li>
+                <li
+                  className={`w-full font-kolka font-[400] text-[12px]  marker:text-[#797979] ${
+                    validPasswordFields.hasUppercase && validPasswordFields.hasLowercase
+                      ? 'text-green-600'
+                      : 'text-brown/80'
+                  }`}
+                >
+                  Поне една главна и една малка английска буква
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -153,7 +230,7 @@ const RegisterComponent = () => {
             </GenericButton>
           </div>
 
-          {error && <p className="text-red-600">{error}</p>}
+          {error && <p className="text-red-600 w-full max-w-[300px]">{error}</p>}
 
           <div className="flex w-full items-center justify-center gap-2">
             <p className="text-[14px] text-brown/80">{`Имаш акаунт?`}</p>

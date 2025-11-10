@@ -16,9 +16,11 @@ import { addProductToShoppingCart } from '@/store/features/checkout'
 import Link from 'next/link'
 import { setNotification } from '@/store/features/notifications'
 import { addToCart } from '@/action/products/shoppingCart'
+import { useCheckout } from '@/hooks/useCheckout'
 
 const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch()
+  const { addToLocalStorage } = useCheckout()
   const userId = useAppSelector((state) => state.root.user?.id)
   const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
   const productExistsInCart = shoppingCartProducts.find((item) => item.id === product.id)
@@ -144,8 +146,11 @@ const ProductCard = ({ product }: { product: Product }) => {
                       type: 'success',
                     }),
                   )
+
                   if (!!userId) {
                     addToCart(product?.id, userId!)
+                  } else {
+                    addToLocalStorage(product)
                   }
                 }}
                 type="button"
@@ -175,6 +180,8 @@ const ProductCard = ({ product }: { product: Product }) => {
                   )
                   if (!!userId) {
                     addToCart(product?.id, userId!)
+                  } else {
+                    addToLocalStorage(product)
                   }
                 }}
                 type="button"

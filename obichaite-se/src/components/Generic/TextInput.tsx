@@ -8,9 +8,7 @@ export type TextInputProps<T> = {
   formValues: object
   setFormValues: React.Dispatch<React.SetStateAction<T>>
   placeholder: string
-  error?: {
-    [key: string]: string | null
-  }
+  error?: string
   extraClass?: string
   required?: boolean
   voice?: boolean
@@ -89,7 +87,7 @@ const TextInput = <T,>({
         )}
       </div>
 
-      {!!error && <ErrorMessageBox errors={error} />}
+      {!!error && <ErrorMessageBox error={error} />}
     </div>
   )
 }
