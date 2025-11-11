@@ -165,19 +165,35 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
                 </button>
               )}
               {openUserMenu && !!user && (
-                <button
-                  className="absolute top-full right-0 px-4 py-2 bg-brown z-[3] rounded-[4px] border-[1px] text-white border-white flex
+                <div className="flex flex-col gap-s absolute top-full right-0 px-2 py-2 bg-brown/40 z-[3] backdrop-blur-sm w-[200px] rounded-[4px]">
+                  <Link
+                    href={`/user-profile/?userId=${user.id}`}
+                    aria-label="Към профил"
+                    className="w-full"
+                  >
+                    <button
+                      className="w-full px-2 py-2 bg-brown z-[3] rounded-[4px] border-[1px] text-white border-white flex
               hover:text-brown hover:bg-white transition-colors duration-500"
-                  onClick={() =>
-                    start(async () => {
-                      await logout()
-                      dispatch(setUser(null))
-                    })
-                  }
-                  disabled={pending}
-                >
-                  <p className="m-auto ">{pending ? 'Излизане...' : 'Изход'}</p>
-                </button>
+                      onClick={() => setOpenUserMenu(false)}
+                      disabled={pending}
+                    >
+                      <p className="m-auto ">Профил</p>
+                    </button>
+                  </Link>
+                  <button
+                    className="px-2 py-2 bg-brown z-[3] rounded-[4px] border-[1px] text-white border-white flex
+              hover:text-brown hover:bg-white transition-colors duration-500"
+                    onClick={() =>
+                      start(async () => {
+                        await logout()
+                        dispatch(setUser(null))
+                      })
+                    }
+                    disabled={pending}
+                  >
+                    <p className="m-auto ">{pending ? 'Излизане...' : 'Изход'}</p>
+                  </button>
+                </div>
               )}
             </li>
             <li>
@@ -197,7 +213,6 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
                 <GenericParagraph pType="small" textColor="text-brown">
                   Количка
                 </GenericParagraph>
-                {/* //TODO dynamic price */}
                 <GenericParagraph
                   pType="small"
                   textColor="text-bordo"

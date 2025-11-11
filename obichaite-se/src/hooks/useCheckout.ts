@@ -54,7 +54,7 @@ export function useCheckout() {
       (x: ExtendedProduct) => x.id === product.id,
     )
 
-    if (productExistsInLocalStorage.length > 0) {
+    if (productExistsInLocalStorage?.length > 0) {
       currentLocalStorageProducts.splice(
         currentLocalStorageProducts.indexOf(productExistsInLocalStorage),
         1,

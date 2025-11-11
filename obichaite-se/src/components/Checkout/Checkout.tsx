@@ -25,6 +25,17 @@ const Checkout = () => {
         </GenericHeading>
       </div>
 
+      {products.length === 0 && (
+        <GenericHeading
+          headingType="h5"
+          fontStyle="font-sansation font-[700]"
+          textColor="text-bordo"
+          extraClass="text-center"
+        >
+          <h2>Няма продукти в кошницата</h2>
+        </GenericHeading>
+      )}
+
       <ul className="w-full flex flex-col md:min-w-[500px] xl:min-w-[600px] gap-m md:max-h-screen overflow-y-auto">
         {productsContent}
       </ul>

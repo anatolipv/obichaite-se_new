@@ -68,6 +68,20 @@ export async function removeFromCart(productId: number, userId: number) {
   return { ok: true }
 }
 
+export const removeAllProductsFromShoppingCart = async (userId: number) => {
+  const payload = await getPayload({ config: configPromise })
+
+  await payload.update({
+    collection: 'users',
+    id: userId,
+    data: { shoppingCartProducts: [] },
+    overrideAccess: true,
+    depth: 0,
+  })
+
+  return { ok: true }
+}
+
 export async function getCartProductsByUserId(userId: number) {
   const payload = await getPayload({ config: configPromise })
 

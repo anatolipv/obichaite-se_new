@@ -11,6 +11,8 @@ declare global {
       EMAIL_FROM_NAME: string
       EMAIL_FROM_ADDRESS: string
       NEXT_PUBLIC_PRODUCTION_URL: string
+      ADMIN_EMAIL: string
+      NEXT_PUBLIC_APP_URL: string
     }
   }
 }

@@ -3,7 +3,15 @@ import React from 'react'
 import { GenericHeading } from '../Generic'
 import ProductCard from './ProductCard'
 
-const PromotionsCardsGrid = ({ products, heading }: { products: Product[]; heading: string }) => {
+const PromotionsCardsGrid = ({
+  products,
+  heading,
+  haveBackground = true,
+}: {
+  products: Product[]
+  heading: string
+  haveBackground?: boolean
+}) => {
   const promotionCardContent = products.map((product) => {
     return (
       <li key={product.id} className="w-full relative">
@@ -13,7 +21,9 @@ const PromotionsCardsGrid = ({ products, heading }: { products: Product[]; headi
   })
 
   return (
-    <section className="w-full py-10 md:py-20 relative min-h-[100svh] flex white-pink-background">
+    <section
+      className={`w-full py-10 md:py-20 relative min-h-[100svh] flex ${haveBackground && 'white-pink-background'}`}
+    >
       <div className="w-full flex flex-col gap-m content_wrapper">
         <div className="w-full">
           <GenericHeading

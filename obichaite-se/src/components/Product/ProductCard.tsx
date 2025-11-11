@@ -8,7 +8,6 @@ import {
   BestSellerIcon,
   DetailsIcon,
   DiscountIcon,
-  PhoneIcon,
   ShoppingCartIcon,
 } from '@/assets/icons'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
@@ -157,11 +156,12 @@ const ProductCard = ({ product }: { product: Product }) => {
                 type="button"
                 ariaLabel="Добави"
               >
+                <p>Добави</p>
                 <div
                   className="w-[24px] h-[24px] flex justify-center items-center
-           [&>svg]:transition-all duration-300 ease-in-out"
+          [&>svg_path]:fill-white [&>svg_path]:transition-all duration-300 ease-in-out"
                 >
-                  <PhoneIcon />
+                  <ShoppingCartIcon />
                 </div>
               </GenericButton>
             ) : (

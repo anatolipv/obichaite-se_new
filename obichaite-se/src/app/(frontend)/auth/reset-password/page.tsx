@@ -73,6 +73,7 @@ export default function ResetPasswordPage() {
           router.replace('/auth/login')
         }
       } catch (err: unknown) {
+        console.log(err)
         const errorMessage = 'Неуспешно обновяване, линкът може да е навалиден или изтекъл'
         setError(errorMessage)
       }

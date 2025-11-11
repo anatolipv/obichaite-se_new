@@ -1,16 +1,13 @@
-
-import type { CollectionAfterChangeHook } from 'payload';
-import { getPayload } from 'payload'
-import config from '@payload-config'
+import type { CollectionAfterChangeHook } from 'payload'
+// import { getPayload } from 'payload'
+// import config from '@payload-config'
 export const setOrderNumber: CollectionAfterChangeHook = async ({
   doc,
   previousDoc,
   operation,
-  context,
 }) => {
   if (operation !== 'create') return
-  const payload = await getPayload({ config })
-
+  // const payload = await getPayload({ config })
 
   // await payload.update({
   //   collection: 'order',
@@ -20,13 +17,9 @@ export const setOrderNumber: CollectionAfterChangeHook = async ({
   //   depth: 0,
   // })
 
-
-
-  console.log("***logs***")
+  console.log('***logs***')
   console.log('previousDoc', previousDoc)
-  console.log("doc", doc)
+  console.log('doc', doc)
 
-  return doc;
-};
-
-
+  return doc
+}

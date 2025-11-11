@@ -35,16 +35,19 @@
 
 [done] emails for auth
 
+[done] order collection in database - config (ref- MIRO), add orders in the user doc
+  to the owner and the user
 - checkout page - form (reference to original site),
-  *info about payment,
-  *order logic,
-  *logic to fill user and order docs in database
-  *and finally email- emails for auth
+  [done] info about payment,
+  [done] order logic,
+  [done] logic to fill user and order docs in database
+  [done] and finally email- emails for auth
+  - myPOS, трябва ли да интегрираме
 
 - user page orders and friends two rows with headings
+  [done] *orders|
+  *friends - трябва да се пита дали искат да правим server
 - евент карта да има телефон или да сочи към конткакт
-- order collection in database - config (ref- MIRO), add orders in the user doc
-  to the owner and the user
 - revalidate sub category (YA project for ref)
 - add basic Seo jsonld and make each page with correct metadata
 - update admin pages with Seo information and etc..
@@ -54,12 +57,13 @@
 - pwa if its possible
 - question about bulgarian/english owner???
 
-*emails*
-- all needed emails that will be send from the front end and the admin
-- when user make order - email with conformation
-- when user make order - email to client with link to admin orders
+_emails_
 
-*migration scripts*
+- all needed emails that will be send from the front end and the admin
+[done] when user make order - email to client with link to admin orders
+
+_migration scripts_
+
 - migrate all the users from the live database (superhosting)
 - sku code of the products
 - images to each product
@@ -88,3 +92,13 @@
 - Подобряване на изглед за имейли свързани с потребители (верификация и обновяване на парола)
 - Контур на България с трибагреника е поставен
 - Описанията в продуктите са в дясно на desktop
+- Страница "Поръчка" - стига се до нея от страничното меню
+- Форма за попълване в поръчка
+- Изобразяване на продукти в страница поръчка
+- Динамични промени на всички продукти в страницата "поръчка" (довавяне, изтриване...)
+- Показване на грешки при грешни данни "поръчка"
+- Съобщение за успешна поръчка
+- Изпращане на имейл към админ за успешна поръчка - zura_1984@abv.bg този ли ще е официалния имейл ли които трябва да се ползва
+- достъп до потребителска страница и потребителска страница
+* могат да се виждат поръчките от потребител, които е регистиран
+- бутон покажи още при търсене на резултати за по-добър User expirience

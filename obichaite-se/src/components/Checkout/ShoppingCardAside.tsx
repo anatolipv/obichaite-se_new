@@ -26,6 +26,9 @@ const ShoppingCardAside = () => {
 
   const productsContent = products.map((product) => {
     const media = product?.mediaArray?.[0].file as Media
+    const productPriceLength = product.promoPrice
+      ? product.promoPrice.toString().length
+      : product.price?.toString().length
 
     return (
       <li key={product.id} className="w-full p-3">
@@ -107,8 +110,9 @@ const ShoppingCardAside = () => {
               <div>
                 <GenericParagraph
                   fontStyle="font-sansation font-[700]"
-                  pType="regular"
+                  pType="custom"
                   textColor="text-bordo"
+                  extraClass={`text-[16px] ${!!productPriceLength && productPriceLength < 3 ? 'md:text-[20px]' : 'md:text-[18px]'} leading-[110%]`}
                 >
                   <>
                     {product?.promoPrice ? (

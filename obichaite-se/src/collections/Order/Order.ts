@@ -1,8 +1,8 @@
-import type { CollectionConfig } from 'payload';
+import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
-import { anyone } from '@/access/anyone';
-import { setOrderNumber } from './hooks/setOrderNumber';
-import { revalidateOrdersAfterChange, revalidateOrdersAfterDelete } from './hooks/revalidateOrder';
+import { anyone } from '@/access/anyone'
+import { setOrderNumber } from './hooks/setOrderNumber'
+import { revalidateOrdersAfterChange, revalidateOrdersAfterDelete } from './hooks/revalidateOrder'
 
 export const Order: CollectionConfig = {
   slug: 'order',
@@ -12,14 +12,15 @@ export const Order: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'orderNumber',
-    defaultColumns: ['orderNumber', 'status', 'paymentStatus', 'orderEmail', 'createdAt'],
+    defaultColumns: ['orderNumber', 'status', 'paymentStatus', 'orderEmail', 'createdAt', 'user'],
   },
   access: {
     create: authenticated,
     delete: authenticated,
     read: anyone,
     update: authenticated,
-  }, defaultPopulate: {
+  },
+  defaultPopulate: {
     id: true,
   },
   fields: [
@@ -72,24 +73,6 @@ export const Order: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    // {
-    //   name: 'shippingProvider',
-    //   type: 'text',
-    //   label: 'Shipping Provider',
-    //   admin: {
-    //     position: 'sidebar',
-    //   },
-    // },
-    // {
-    //   name: 'trackingNumber',
-    //   type: 'text',
-    //   label: 'Tracking Number',
-    //   admin: {
-    //     position: 'sidebar',
-    //   },
-    // },
-
-    // MAIN TABS
     {
       type: 'tabs',
       tabs: [
@@ -174,7 +157,6 @@ export const Order: CollectionConfig = {
               type: 'text',
               label: 'Телефон',
               required: true,
-
             },
             {
               name: 'deliveryMethod',
@@ -183,7 +165,7 @@ export const Order: CollectionConfig = {
               options: [
                 { label: 'Еконт', value: 'econt' },
                 { label: 'Спиди', value: 'speedy-dpd' },
-              ]
+              ],
             },
             {
               name: 'shippingAddress',
@@ -218,4 +200,4 @@ export const Order: CollectionConfig = {
     drafts: false,
     maxPerDoc: 50,
   },
-};
+}

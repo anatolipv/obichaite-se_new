@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { GenericImage, GenericParagraph } from '../Generic'
+import { GenericButton, GenericImage, GenericParagraph } from '../Generic'
 import { Product } from '@/payload-types'
 import { containsQuery } from '@/utils/translate'
 import { CloseCircle } from '@/assets/icons'
@@ -14,6 +14,7 @@ const Search = ({ products }: { products: Product[] }) => {
   const searchOpen = useAppSelector((state) => state.root.openSearch)
   const [inputValue, setInputValue] = useState('')
   const [searchResults, setSearchResults] = useState<null | Product[]>(null)
+  const [slideIndex, setSlideIndex] = useState(1)
 
   const handleSearch = () => {
     if (inputValue === '') {
@@ -78,10 +79,33 @@ const Search = ({ products }: { products: Product[] }) => {
       </div>
 
       <div
-        className={`absolute top-full left-0 right-0 transition-[opacity] duration-700 ease-in-out border-b-[2px] border-brown
+        className={`absolute top-full left-0 right-0 transition-[opacity] duration-700 ease-in-out border-b-[2px] border-brown pb-10 white-pink-background
             ${!!searchResults && searchResults.length > 0 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
-        <PromotionsCardsGrid products={searchResults || []} heading={'Резултати от търсенето'} />
+        <PromotionsCardsGrid
+          products={searchResults?.slice(0, slideIndex * 12) || []}
+          heading={'Резултати от търсенето'}
+          haveBackground={false}
+        />
+
+        {searchResults && searchResults.length > slideIndex * 12 && (
+          <div className="absolute bottom-3 w-full flex justify-center items-center">
+            <GenericButton
+              ariaLabel={'Покажи още'}
+              click={() => {
+                console.log('click')
+                setSlideIndex((prev) => {
+                  return prev + 1
+                })
+              }}
+              disabled={slideIndex === Math.ceil(searchResults.length / 12)}
+              variant="primary"
+              type="button"
+            >
+              Покажи още
+            </GenericButton>
+          </div>
+        )}
       </div>
 
       {!!searchResults && searchResults.length === 0 && (
