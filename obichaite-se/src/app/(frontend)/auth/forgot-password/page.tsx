@@ -67,7 +67,7 @@ export default function ForgotPasswordPage() {
             </div>
           </form>
           {ok && (
-            <p className="mt-3 text-brown">
+            <p className="mt-3 text-brown max-w-[300px]">
               Ако Акаунт съществува, ще получите имейл с инструкции за възстановяване на паролата.
             </p>
           )}

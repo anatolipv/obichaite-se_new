@@ -33,31 +33,36 @@
 [done] make sure that all forms have global error handling
 [done] add form inputs error handling
 
-- emails for auth
-- checkout page - form (reference to original site), 
-*info about payment, 
-*order logic, 
-*logic to fill user and order docs in database 
-*and finally email- emails for auth
+[done] emails for auth
+
+- checkout page - form (reference to original site),
+  *info about payment,
+  *order logic,
+  *logic to fill user and order docs in database
+  *and finally email- emails for auth
+
 - user page orders and friends two rows with headings
-- checkout page - form (reference to original site), info about payment, order logic, logic to fill user and order docs in database and finally email
-
-- add form inputs error handling
-- make sure that all forms have global error handling
-
 - евент карта да има телефон или да сочи към конткакт
 - order collection in database - config (ref- MIRO), add orders in the user doc
   to the owner and the user
 - revalidate sub category (YA project for ref)
-- all needed emails that will be send from the front end and the admin
-- question about bulgarian/english owner???
-- user page orders and friends two rows with headings
 - add basic Seo jsonld and make each page with correct metadata
 - update admin pages with Seo information and etc..
 - TODOS
 - prefetch to all links
 - да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
 - pwa if its possible
+- question about bulgarian/english owner???
+
+*emails*
+- all needed emails that will be send from the front end and the admin
+- when user make order - email with conformation
+- when user make order - email to client with link to admin orders
+
+*migration scripts*
+- migrate all the users from the live database (superhosting)
+- sku code of the products
+- images to each product
 
 **FEEDBACK**
 
@@ -80,3 +85,6 @@
 
 - продуктите персистират в количката дори потребителя да излезе и влезе в сайта
 - Покриване на възможни грешки при регистрация, вход, верифициране, обновяване на парола
+- Подобряване на изглед за имейли свързани с потребители (верификация и обновяване на парола)
+- Контур на България с трибагреника е поставен
+- Описанията в продуктите са в дясно на desktop

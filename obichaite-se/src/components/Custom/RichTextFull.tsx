@@ -9,9 +9,24 @@ const RichTextFull = ({
   description: SerializedEditorState
   className?: string
 }) => {
+  const updatedDescriptionChildren = description?.root?.children?.map((child) => {
+    return {
+      ...child,
+      format: null,
+    }
+  })
+
+  const descriptionToRender = {
+    ...description,
+    root: {
+      ...description.root,
+      children: updatedDescriptionChildren,
+    },
+  }
+
   return (
     <RichText
-      data={description as any}
+      data={descriptionToRender as any}
       className={`${className} leading-[130%] text-primaryWhite
       px-0 py-4 [&>ul]:!mt-4 [&>ul_ul]:!mt-4 [&>ul]:!mb-8 [&>ul_ul]:!mb-8 [&>ul]:!list-disc [&>ul_ul]:!list-disc
       [&>ul]:!list-inside [&>ul_ul]:!list-inside  [&>ul]:!marker:text-primaryWhite

@@ -1,6 +1,6 @@
 'use client'
 
-import { Category, Product } from '@/payload-types'
+import { Category, Product, SubCategory } from '@/payload-types'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { GenericHeading, GenericParagraph } from '../Generic'
@@ -23,29 +23,26 @@ const SingleCardMain = ({ product }: { product: Product }) => {
   const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
   const existsInCart = shoppingCartProducts.find((item) => item.id === product.id)
   const [orderQuantity, setOrderQuantity] = useState(existsInCart?.orderQuantity || 1)
-  const { category, title } = product //TODO add subCategory
+  const { category, title, subCategory } = product
 
   const currentCategory = category as Category
-
-  //   useEffect(() => {
-  //     if (existsInCart) {
-  //       setOrderQuantity(existsInCart.orderQuantity)
-  //     }
-  //   }, [shoppingCartProducts])
 
   return (
     <div className="flex-1 relative order-2 md:order-1">
       <div className="hidden md:block absolute left-0 top-[48px] w-[1px] h-[calc(100%-96px)] bg-brown/20 z-[2]"></div>
       <div className="hidden md:block absolute right-0 top-[48px] w-[1px] h-[calc(100%-96px)] bg-brown/20 z-[2]"></div>
       <div className="flex flex-col p-4 md:p-6 w-full h-full">
-        <Link prefetch={true} href={`/kategorii/${currentCategory.slug}/subCategory`}>
+        <Link
+          prefetch={true}
+          href={`/kategorii/${currentCategory.slug}/${(subCategory as SubCategory)?.slug}`}
+        >
           <GenericParagraph
             fontStyle="font-sansation font-[700]"
             pType="regular"
             textColor="text-mixPink"
             extraClass="cursor-pointer"
           >
-            Под Категория Име
+            {(subCategory as SubCategory).title}
           </GenericParagraph>
         </Link>
         {!!title && (

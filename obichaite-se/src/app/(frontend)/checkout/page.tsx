@@ -16,8 +16,8 @@ const CheckoutPage = () => {
         fetchPriority="high"
       />
 
-      <div className="px-4 md:px-6 w-full content_wrapper white_background_bubble md:py-10 relative z-[1] rounded-[24px] flex flex-col-reverse md:flex-row">
-        <div className="flex-1 px-4">
+      <div className="md:px-6 w-full content_wrapper white_background_bubble py-6 md:py-10 relative z-[1] rounded-[24px] flex flex-col-reverse md:flex-row">
+        <div className="flex-1 md:px-4">
           <Checkout />
         </div>
 
@@ -30,26 +30,3 @@ const CheckoutPage = () => {
 }
 
 export default CheckoutPage
-
-{
-  /* <div className="bg-white z-[2] rounded-tr-[12px] rounded-tl-[12px] md:rounded-[12px] overflow-hidden relative">
-          <div className="absolute z-[2] bg-black/20 py-2 left-0 right-0 top-[28px] border-t-[1px] border-b-[1px] border-white/20">
-            <GenericParagraph
-              pType="regular"
-              textColor="text-white"
-              fontStyle="font-sansation font-[700]"
-              extraClass="uppercase w-full text-center"
-            >
-              <span>Поръчка</span>
-            </GenericParagraph>
-          </div>
-
-          <div className="absolute z-[2] bg-black/20 py-[2px] left-0 right-0 bottom-[0px] border-t-[1px] flex justify-center items-center border-b-[1px] border-white/20">
-            <Link href="/terms" className="w-full text-white text-center">
-              <span className="font-kolka font-[400] text-white text-center text-[14px] w-full">
-                Политика за поверителност
-              </span>
-            </Link>
-          </div>
-        </div> */
-}

@@ -19,7 +19,15 @@ const RadioSelect = <T,>({
   name,
   required,
 }: SelectProps<T>) => {
-  console.log(options, label)
+  const isFirstSelected = formValues[name as keyof object] === options[0].value
+  const isSecondSelected = formValues[name as keyof object] === options[1].value
+
+  const onSelectHandler = (value: string) => {
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
 
   return (
     <div className="w-full flex flex-col gap-2">
@@ -29,10 +37,22 @@ const RadioSelect = <T,>({
       </label>
 
       <div className="w-full flex">
-        <button className="flex-1 border-[1px] border-brown/80 rounded-[8px]">
+        <button
+          className={`flex-1 border-[1px] border-brown/80 rounded-tl-[8px] rounded-bl-[8px] h-[50px] text-brown
+          ${isFirstSelected ? 'bg-brown text-white' : ''} hover:opacity-80 hover:shadow-sm transition-color duration-300 ease-in-out
+        `}
+          type="button"
+          onClick={() => onSelectHandler(options[0].value)}
+        >
           {options[0].label}
         </button>
-        <button className="flex-1 border-[1px] border-brown/80 rounded-[8px]">
+        <button
+          className={`flex-1 border-[1px] border-brown/80 rounded-tr-[8px] rounded-br-[8px] h-[50px] text-brown
+          ${isSecondSelected ? 'bg-brown text-white' : ''} hover:opacity-80 hover:shadow-sm transition-color duration-300 ease-in-out
+        `}
+          type="button"
+          onClick={() => onSelectHandler(options[1].value)}
+        >
           {options[1].label}
         </button>
       </div>

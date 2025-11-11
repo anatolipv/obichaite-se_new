@@ -78,7 +78,7 @@ const Search = ({ products }: { products: Product[] }) => {
       </div>
 
       <div
-        className={`absolute top-full left-0 right-0 transition-[opacity] duration-700 ease-in-out
+        className={`absolute top-full left-0 right-0 transition-[opacity] duration-700 ease-in-out border-b-[2px] border-brown
             ${!!searchResults && searchResults.length > 0 ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
         <PromotionsCardsGrid products={searchResults || []} heading={'Резултати от търсенето'} />

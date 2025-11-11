@@ -8,9 +8,6 @@ import CheckoutProduct from './CheckoutProduct'
 const Checkout = () => {
   const { products } = useAppSelector((state) => state.checkout)
 
-  //form order
-  //aside
-
   const productsContent = products.map((product) => {
     return <CheckoutProduct key={product.id} product={product} />
   })
@@ -28,7 +25,7 @@ const Checkout = () => {
         </GenericHeading>
       </div>
 
-      <ul className="w-full flex flex-col md:min-w-[500px] xl:min-w-[600px] gap-m">
+      <ul className="w-full flex flex-col md:min-w-[500px] xl:min-w-[600px] gap-m md:max-h-screen overflow-y-auto">
         {productsContent}
       </ul>
     </div>

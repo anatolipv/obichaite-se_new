@@ -17,6 +17,7 @@ import Link from 'next/link'
 import { setNotification } from '@/store/features/notifications'
 import { addToCart } from '@/action/products/shoppingCart'
 import { useCheckout } from '@/hooks/useCheckout'
+import { setOpenSearch } from '@/store/features/root'
 
 const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch()
@@ -202,7 +203,9 @@ const ProductCard = ({ product }: { product: Product }) => {
             <GenericButton
               variant="white"
               styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
-              click={() => {}}
+              click={() => {
+                dispatch(setOpenSearch(false))
+              }}
               type="button"
               ariaLabel="Добави"
             >
