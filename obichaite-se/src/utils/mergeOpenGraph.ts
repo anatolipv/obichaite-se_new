@@ -3,10 +3,10 @@ import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'Уебсайт генериран от Симеон Рудашки',
+  description: 'Обичайте се - подаръци, които се помнят',
   images: [
     {
-      url: `${getServerSideURL()}/website-template-OG.webp`,
+      url: `${getServerSideURL()}hero-image.png`,
     },
   ],
   siteName: 'Обичайте се',

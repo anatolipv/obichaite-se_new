@@ -3,14 +3,23 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { SubCategory } from '@/payload-types'
 
-export const revalidateSubCategory: CollectionAfterChangeHook<SubCategory> = ({
+export const revalidateSubCategory: CollectionAfterChangeHook<SubCategory> = async ({
   doc,
   previousDoc,
   req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
+    const parent = await payload.find({
+      collection: 'category',
+      where: {
+        id: {
+          equals: doc.parentCategory,
+        },
+      },
+    })
+
     if (doc._status === 'published') {
-      const path = `/category/${doc.slug}` //TODO
+      const path = `/kategorii/${parent.docs[0].slug}/${doc.slug}`
 
       payload.logger.info(`Revalidating post at path: ${path}`)
 
@@ -20,7 +29,7 @@ export const revalidateSubCategory: CollectionAfterChangeHook<SubCategory> = ({
 
     // If the post was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
-      const oldPath = `/category/${previousDoc.slug}` //TODO
+      const oldPath = `/category/${parent.docs[0].slug}/${previousDoc.slug}`
 
       payload.logger.info(`Revalidating old post at path: ${oldPath}`)
 
@@ -31,12 +40,20 @@ export const revalidateSubCategory: CollectionAfterChangeHook<SubCategory> = ({
   return doc
 }
 
-export const revalidateDeleteSubCategory: CollectionAfterDeleteHook<SubCategory> = ({
+export const revalidateDeleteSubCategory: CollectionAfterDeleteHook<SubCategory> = async ({
   doc,
-  req: { context },
+  req: { payload, context },
 }) => {
   if (!context.disableRevalidate) {
-    const path = `/category/${doc?.slug}` //TODO
+    const parent = await payload.find({
+      collection: 'category',
+      where: {
+        id: {
+          equals: doc.parentCategory,
+        },
+      },
+    })
+    const path = `/kategorii/${parent.docs[0].slug}/${doc?.slug}`
 
     revalidatePath(path)
     revalidateTag('subCategory-sitemap')

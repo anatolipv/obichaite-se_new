@@ -2,7 +2,7 @@ import React from 'react'
 // import { Metadata } from 'next'
 import { StoreProvider } from '@/store/StoreProvider'
 import '../../assets/styles/general.scss'
-import "../../assets/styles/blog.scss"
+import '../../assets/styles/blog.scss'
 import { Header } from '@/Header/Component'
 import './global.css'
 import { kolka, sansation } from '@/app/fonts'
@@ -109,45 +109,49 @@ export const metadata: Metadata = {
   },
 }
 
+const isDev = process.env.NODE_ENV === 'development'
+
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   const payload = await getPayload({ config: configPromise })
-  const productsForSearch = await payload.find({
-    collection: 'product',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    where: {
-      and: [
-        {
-          _status: {
-            equals: 'published',
-          },
+  const productsForSearch = isDev
+    ? { docs: [] }
+    : await payload.find({
+        collection: 'product',
+        draft: false,
+        limit: 1000,
+        overrideAccess: false,
+        pagination: false,
+        where: {
+          and: [
+            {
+              _status: {
+                equals: 'published',
+              },
+            },
+            {
+              quantity: {
+                not_equals: 0,
+              },
+            },
+          ],
         },
-        {
-          quantity: {
-            not_equals: 0,
-          },
+        select: {
+          title: true,
+          slug: true,
+          // media: true,
+          description: true,
+          heading: true,
+          category: true,
+          price: true,
+          bestSeller: true,
+          promoPrice: true,
+          havePriceRange: true,
+          mediaArray: true,
+          priceRange: true,
+          shortDescription: true,
         },
-      ],
-    },
-    select: {
-      title: true,
-      slug: true,
-      // media: true,
-      description: true,
-      heading: true,
-      category: true,
-      price: true,
-      bestSeller: true,
-      promoPrice: true,
-      havePriceRange: true,
-      mediaArray: true,
-      priceRange: true,
-      shortDescription: true,
-    },
-  })
+      })
 
   return (
     <StoreProvider>
@@ -162,13 +166,13 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <body>
           <main id="content" className="min-h-[100svh] overflow-x-clip">
             <Search products={productsForSearch.docs as Product[]} />
-            
+
             <Header />
-            
+
             {children}
-            
+
             <Footer />
-            
+
             <ShoppingCardAside />
 
             <ScreenOverlay />

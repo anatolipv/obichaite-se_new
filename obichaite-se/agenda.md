@@ -36,7 +36,8 @@
 [done] emails for auth
 
 [done] order collection in database - config (ref- MIRO), add orders in the user doc
-  to the owner and the user
+to the owner and the user
+
 - checkout page - form (reference to original site),
   [done] info about payment,
   [done] order logic,
@@ -45,32 +46,37 @@
   - myPOS, трябва ли да интегрираме
 
 - user page orders and friends two rows with headings
-  [done] *orders|
+  [done] *orders
   *friends - трябва да се пита дали искат да правим server
-- евент карта да има телефон или да сочи към конткакт
-- revalidate sub category (YA project for ref)
-- add basic Seo jsonld and make each page with correct metadata
+
+[pending] meta image to all or fallback - (try to use images of each page)
+
+[QC] revalidate sub category (YA project for ref)
 - update admin pages with Seo information and etc..
 - TODOS
 - prefetch to all links
 - да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
+- sitemap
+- add basic Seo jsonld and make each page with correct metadata
 - pwa if its possible
 - question about bulgarian/english owner???
 
 _emails_
 
 - all needed emails that will be send from the front end and the admin
-[done] when user make order - email to client with link to admin orders
+  [done] when user make order - email to client with link to admin orders
 
 _migration scripts_
 
+- MAJOR PRODUCT SCRIPT -> sku, images, meta descriptions
 - migrate all the users from the live database (superhosting)
 - sku code of the products
 - images to each product
+- migrate the rest of the products
 
 **FEEDBACK**
 
-- "Прехвърля се в количката с 0лв и вече допълнително ще изпращаме оферти" - Events
+[done] - "Прехвърля се в количката с 0лв и вече допълнително ще изпращаме оферти" - Events
 
 ## **ADDONS**
 
@@ -79,26 +85,8 @@ _migration scripts_
 
 **BEFORE HANDOVER**
 
-- да се преместят тези от продукти/общи където са и местата от потребителя
+- да се преместят тези от продукти/общи където са и местата от потребителя - [admin]
 
 **BACKUP**
 
 - backup jsons in backup-json branch
-
-**Week 10.11 - 17.11**
-
-- продуктите персистират в количката дори потребителя да излезе и влезе в сайта
-- Покриване на възможни грешки при регистрация, вход, верифициране, обновяване на парола
-- Подобряване на изглед за имейли свързани с потребители (верификация и обновяване на парола)
-- Контур на България с трибагреника е поставен
-- Описанията в продуктите са в дясно на desktop
-- Страница "Поръчка" - стига се до нея от страничното меню
-- Форма за попълване в поръчка
-- Изобразяване на продукти в страница поръчка
-- Динамични промени на всички продукти в страницата "поръчка" (довавяне, изтриване...)
-- Показване на грешки при грешни данни "поръчка"
-- Съобщение за успешна поръчка
-- Изпращане на имейл към админ за успешна поръчка - zura_1984@abv.bg този ли ще е официалния имейл ли които трябва да се ползва
-- достъп до потребителска страница и потребителска страница
-* могат да се виждат поръчките от потребител, които е регистиран
-- бутон покажи още при търсене на резултати за по-добър User expirience

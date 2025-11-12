@@ -35,7 +35,14 @@ const Menu = ({
                 prefetch={true}
                 className="w-full h-full"
               >
-                <button className=" pl-4 h-full w-full flex items-center justify-center">
+                <button
+                  className=" pl-4 h-full w-full flex items-center justify-center"
+                  aria-label={childItem?.link?.label}
+                  title={childItem?.link?.label}
+                  type="button"
+                  tabIndex={-1}
+                  onClick={() => setOpenMenu(false)}
+                >
                   <span className="text-[16px] font-kolka font-[500] text-brown transition-colors duration-500">
                     {childItem?.link?.label}
                   </span>
@@ -55,6 +62,7 @@ const Menu = ({
             target={item?.link?.newTab ? '_blank' : '_self'}
             className=""
             prefetch={true}
+            onClick={() => setOpenMenu(false)}
           >
             <p className="font-sansation font-[700] italic text-[18px] text-brown">
               {item?.link?.label}
