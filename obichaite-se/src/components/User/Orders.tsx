@@ -48,7 +48,7 @@ const UserOrders = ({ orders }: { orders: Order[] }) => {
             textColor="text-white"
             extraClass="text-center"
           >
-            <h2>Количество: {product.quantity}</h2>
+            <h2>Количество: <span className="font-bold text-pink">{product.quantity}</span></h2>
           </GenericHeading>
         </div>
       )

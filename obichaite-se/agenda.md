@@ -35,8 +35,7 @@
 
 [done] emails for auth
 
-[done] order collection in database - config (ref- MIRO), add orders in the user doc
-to the owner and the user
+[done] order collection in database - config (ref- MIRO), add orders in the user doc to the owner and the user
 
 - checkout page - form (reference to original site),
   [done] info about payment,
@@ -46,13 +45,22 @@ to the owner and the user
   - myPOS, трябва ли да интегрираме
 
 - user page orders and friends two rows with headings
-  [done] *orders
-  *friends - трябва да се пита дали искат да правим server
+  [done] \*orders
+- friends - трябва да се пита дали искат да правим server
+
+* create config - collection or inner
+* create form
+* form submission logic
+* cron job or something similar to handle the daily sending emails
 
 [pending] meta image to all or fallback - (try to use images of each page)
 
 [QC] revalidate sub category (YA project for ref)
-- update admin pages with Seo information and etc..
+
+- update single product with sku or fallback 'id'
+
+- update admin pages with Seo information and etc.. (first header with all links
+)
 - TODOS
 - prefetch to all links
 - да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени

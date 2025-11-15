@@ -241,6 +241,14 @@ export const Product: CollectionConfig = {
       },
     },
     {
+      name: "sku",
+      type: "text",
+      required: false,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'publishedAt',
       type: 'date',
       admin: {

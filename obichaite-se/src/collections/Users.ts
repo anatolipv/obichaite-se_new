@@ -261,5 +261,59 @@ export const Users: CollectionConfig = {
         condition: (data) => data.role === 'user',
       },
     },
+    {
+      name: 'friends',
+      type: 'array',
+      access: {
+        read: () => true,
+        update: () => false,
+        create: () => false,
+      },
+      admin: {
+        readOnly: true,
+        condition: (data) => data.role === 'user',
+      },
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+          access: {
+            read: () => true,
+            update: () => false,
+            create: () => false,
+          },
+          admin: {
+            readOnly: true,
+            condition: (data) => data.role === 'user',
+          },
+        },
+        {
+          name: 'email',
+          type: 'text',
+          access: {
+            read: () => true,
+            update: () => false,
+            create: () => false,
+          },
+          admin: {
+            readOnly: true,
+            condition: (data) => data.role === 'user',
+          },
+        },
+        {
+          name: 'date',
+          type: 'text',
+          access: {
+            read: () => true,
+            update: () => false,
+            create: () => false,
+          },
+          admin: {
+            readOnly: true,
+            condition: (data) => data.role === 'user',
+          },
+        },
+      ],
+    },
   ],
 }

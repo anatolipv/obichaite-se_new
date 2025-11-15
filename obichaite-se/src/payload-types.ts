@@ -155,6 +155,14 @@ export interface User {
   phoneNumber?: string | null;
   dateOfBirth?: string | null;
   shoppingCartProducts?: (number | Product)[] | null;
+  friends?:
+    | {
+        name?: string | null;
+        email?: string | null;
+        date?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -250,6 +258,7 @@ export interface Product {
    * Задължително, потребителя да раздели цената с тире Пример: 350-500 | 800-1200
    */
   priceRange?: string | null;
+  sku?: string | null;
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -884,6 +893,14 @@ export interface UsersSelect<T extends boolean = true> {
   phoneNumber?: T;
   dateOfBirth?: T;
   shoppingCartProducts?: T;
+  friends?:
+    | T
+    | {
+        name?: T;
+        email?: T;
+        date?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1053,6 +1070,7 @@ export interface ProductSelect<T extends boolean = true> {
   bestSeller?: T;
   havePriceRange?: T;
   priceRange?: T;
+  sku?: T;
   publishedAt?: T;
   slug?: T;
   slugLock?: T;

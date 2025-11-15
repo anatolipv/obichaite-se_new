@@ -51,7 +51,7 @@ const SingleProductInfo = ({ product }: { product: Product }) => {
             <span className="font-[500]">
               <strong>СКУ:</strong>{' '}
             </span>{' '}
-            {product.id}
+            {product.sku || product.id}
           </GenericParagraph>
 
           <Link prefetch={true} href={`/kategorii/${(product.category as Category)?.slug}`}>
