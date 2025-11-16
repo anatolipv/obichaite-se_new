@@ -4,7 +4,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 
 import configPromise from '@payload-config'
-import { Order, User } from '@/payload-types'
+import { Order } from '@/payload-types'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'

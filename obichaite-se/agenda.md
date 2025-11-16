@@ -44,30 +44,27 @@
   [done] and finally email- emails for auth
   - myPOS, трябва ли да интегрираме
 
-- user page orders and friends two rows with headings
+[done] user page orders and friends two rows with headings
   [done] \*orders
-- friends - трябва да се пита дали искат да правим server
-
-* create config - collection or inner
-* create form
-* form submission logic
-* cron job or something similar to handle the daily sending emails
+[done] friends - трябва да се пита дали искат да правим server
+[done] create config - collection or inner
+[done] create form
+[done] form submission logic
+- cron job or something similar to handle the daily sending emails
 
 [pending] meta image to all or fallback - (try to use images of each page)
 
 [QC] revalidate sub category (YA project for ref)
 
-- update single product with sku or fallback 'id'
+[done] update single product with sku or fallback 'id'
 
-- update admin pages with Seo information and etc.. (first header with all links
-)
+- update admin pages with Seo information and etc.. (first header with all links)
 - TODOS
 - prefetch to all links
 - да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
 - sitemap
 - add basic Seo jsonld and make each page with correct metadata
 - pwa if its possible
-- question about bulgarian/english owner???
 
 _emails_
 
@@ -89,7 +86,10 @@ _migration scripts_
 ## **ADDONS**
 
 **IMPORTANT**
--- each new user "admin", needs to be verifiied manually
+-- each new user "admin", needs to be verifiied manually - [database]
+
+**AFTER LIVE**
+- bg-english texts
 
 **BEFORE HANDOVER**
 

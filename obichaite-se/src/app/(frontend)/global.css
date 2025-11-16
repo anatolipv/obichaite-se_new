@@ -83,7 +83,6 @@ video::-webkit-media-controls-start-playback-button {
   -webkit-overflow-scrolling: touch;
 }
 
-/* TODO FONTS */
 @font-face {
   font-family: montserrat-regular;
   font-display: swap;
