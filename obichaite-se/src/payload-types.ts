@@ -250,6 +250,7 @@ export interface Product {
    * Задължително, потребителя да раздели цената с тире Пример: 350-500 | 800-1200
    */
   priceRange?: string | null;
+  sku?: string | null;
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -1053,6 +1054,7 @@ export interface ProductSelect<T extends boolean = true> {
   bestSeller?: T;
   havePriceRange?: T;
   priceRange?: T;
+  sku?: T;
   publishedAt?: T;
   slug?: T;
   slugLock?: T;
