@@ -42,14 +42,19 @@
   [done] order logic,
   [done] logic to fill user and order docs in database
   [done] and finally email- emails for auth
-  - myPOS, трябва ли да интегрираме
+  [done] Stripe, интегрираме
+  Account - office@obichaite-se.com
+  pass - 8411023033Aa@
+
+!!STRIPE - когато сайтът е на живо трябва да мине към productions keys and account!!
 
 [done] user page orders and friends two rows with headings
-  [done] \*orders
+[done] \*orders
 [done] friends - трябва да се пита дали искат да правим server
 [done] create config - collection or inner
 [done] create form
 [done] form submission logic
+
 - cron job or something similar to handle the daily sending emails
 
 [pending] meta image to all or fallback - (try to use images of each page)
@@ -58,7 +63,7 @@
 
 [done] update single product with sku or fallback 'id'
 
-- update admin pages with Seo information and etc.. (first header with all links)
+- update admin pages with Seo information and etc
 - TODOS
 - prefetch to all links
 - да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
@@ -73,14 +78,14 @@ _emails_
 
 _migration scripts_
 
-- upcoming script 
-* first bulk upload all the media
-* get all related to products jsons
-* if product is new -> created with actual image
-* else update only the media
-- migrate all the users from the live database (superhosting)
-* get all the users
-* migrate them with script
+[done] upcoming script
+[done] first bulk upload all the media
+[done] get all related to products jsons
+[done] if product is new -> created with actual image
+[done] else update only the media
+[done] migrate all the users from the live database (superhosting)
+[done] get all the users
+[done] migrate them with script
 
 **FEEDBACK**
 
@@ -92,6 +97,7 @@ _migration scripts_
 -- each new user "admin", needs to be verifiied manually - [database]
 
 **AFTER LIVE**
+
 - bg-english texts
 
 **BEFORE HANDOVER**

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useTransition } from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 import { GenericHeading, GenericParagraph, TextArea, TextInput } from '../Generic'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
 import RadioSelect from '../Generic/RadioSelect'
@@ -11,9 +11,11 @@ import ErrorMessageBox from '../Generic/ErrorMessage'
 import { makeOrder, MakeOrderInput } from '@/action/checkout'
 import Link from 'next/link'
 import { setNotification } from '@/store/features/notifications'
-import { clearProducts } from '@/store/features/checkout'
+import { clearProducts, setNeedToMakeOrder, setTryToMakePayment } from '@/store/features/checkout'
 import { sendNewOrderEmailAction } from '@/action/mail'
 import { removeAllProductsFromShoppingCart } from '@/action/products/shoppingCart'
+import { createPaymentIntentAction } from '@/Stripe/action'
+import { PaymentSection } from '@/Stripe/components'
 
 export const checkoutValuesInitialState: {
   name: string
@@ -39,6 +41,7 @@ export const checkoutValuesInitialState: {
 
 const CheckoutForm = () => {
   const dispatch = useAppDispatch()
+  const needToMakeOrder = useAppSelector((state) => state.checkout.needToMakeOrder)
   const { products } = useAppSelector((state) => state.checkout)
   const { calculateTotalPrice, calculateRemainSum } = useCheckout()
   const [pending, startTransition] = useTransition()
@@ -82,6 +85,15 @@ const CheckoutForm = () => {
       return
     }
 
+    if (formValues.paymentMethod === 'card') {
+      dispatch(setTryToMakePayment(true))
+    } else {
+      dispatch(setNeedToMakeOrder(true))
+    }
+  }
+
+  useEffect(() => {
+    if (!needToMakeOrder) return
     const requestBody: MakeOrderInput = {
       items: products,
       customerName: formValues.name,
@@ -93,8 +105,11 @@ const CheckoutForm = () => {
         city: formValues.deliveryTown,
         postalCode: '',
       },
+      paymentStatus: formValues.paymentMethod === 'card' ? 'paid' : 'unpaid',
       clientNotes: formValues.message,
     }
+
+    console.log('MAKE ORDER')
 
     startTransition(async () => {
       const response = await makeOrder(requestBody, userId as number | null)
@@ -126,7 +141,8 @@ const CheckoutForm = () => {
         setError('Неуспешна поръчка, моля опитайте по-късно')
       }
     })
-  }
+    dispatch(setNeedToMakeOrder(false))
+  }, [needToMakeOrder])
 
   return (
     <>
@@ -254,20 +270,6 @@ const CheckoutForm = () => {
                 </div>
 
                 <div className="w-full">
-                  <RadioSelect
-                    options={[
-                      { label: 'Наложен платеж', value: 'cash' },
-                      { label: 'Картa (myPOS)', value: 'card' },
-                    ]}
-                    label="Начин на плащане"
-                    formValues={formValues}
-                    setFormValues={setFormValues}
-                    name="paymentMethod"
-                    required={true}
-                  />
-                </div>
-
-                <div className="w-full">
                   <TextArea
                     name="message"
                     label="Bележка към поръчката"
@@ -320,6 +322,29 @@ const CheckoutForm = () => {
                   </div>
 
                   <div>* Вие получавате -10% отстъпка от крайната цена!.</div>
+
+                  <div className="w-full">
+                    <RadioSelect
+                      options={[
+                        { label: 'Наложен платеж', value: 'cash' },
+                        { label: 'Кредитна/дебитна карта', value: 'card' },
+                      ]}
+                      label="Начин на плащане"
+                      formValues={formValues}
+                      setFormValues={setFormValues}
+                      name="paymentMethod"
+                      required={true}
+                    />
+                  </div>
+
+                  {formValues.paymentMethod === 'card' && (
+                    <div className="w-full">
+                      <PaymentSection
+                        items={products}
+                        createPaymentIntentAction={createPaymentIntentAction}
+                      />
+                    </div>
+                  )}
 
                   <div className="w-full py-2">
                     <button

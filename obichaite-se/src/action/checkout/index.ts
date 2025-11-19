@@ -18,7 +18,7 @@ export type MakeOrderInput = {
     city: string
     postalCode: string
   }
-
+  paymentStatus: 'paid' | 'unpaid' | 'refunded'
   clientNotes?: string
 }
 
@@ -38,6 +38,7 @@ export async function makeOrder(
     deliveryMethod,
     shippingAddress,
     clientNotes,
+    paymentStatus = 'unpaid',
   } = input
 
   if (!items || items.length === 0) {
@@ -85,7 +86,7 @@ export async function makeOrder(
         orderDate: string
         orderNumber: string
         status: 'pending'
-        paymentStatus: 'unpaid'
+        paymentStatus: 'paid' | 'unpaid' | 'refunded'
         items: {
           product: number
           productTitle: string
@@ -113,7 +114,7 @@ export async function makeOrder(
         orderDate: new Date().toISOString(),
         orderNumber,
         status: 'pending',
-        paymentStatus: 'unpaid',
+        paymentStatus: paymentStatus,
 
         items: orderItems,
         total,

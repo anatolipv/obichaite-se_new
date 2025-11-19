@@ -58,8 +58,6 @@ export async function addFriendForCurrentUser(
       depth: 0,
     })
 
-    console.log('updated', updated)
-
     return { ok: true, user: updated }
   } catch (error) {
     console.log('error', error)

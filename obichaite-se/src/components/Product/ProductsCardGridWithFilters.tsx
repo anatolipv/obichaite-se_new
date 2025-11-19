@@ -172,7 +172,6 @@ const ProductsCardGridWithFilters = ({
             <GenericButton
               ariaLabel={'Покажи още'}
               click={() => {
-                console.log('click')
                 setSlideIndex((prev) => {
                   return prev + 1
                 })

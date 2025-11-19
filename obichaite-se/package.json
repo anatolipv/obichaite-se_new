@@ -32,6 +32,8 @@
     "@payloadcms/ui": "3.60.0",
     "@react-email/components": "^0.5.6",
     "@reduxjs/toolkit": "^2.9.0",
+    "@stripe/react-stripe-js": "^5.4.0",
+    "@stripe/stripe-js": "^8.5.2",
     "@tailwindcss/typography": "^0.5.16",
     "basic-ftp": "^5.0.5",
     "cross-env": "^7.0.3",
@@ -45,7 +47,8 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-redux": "^9.2.0",
-    "sharp": "0.34.2"
+    "sharp": "0.34.2",
+    "stripe": "^20.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

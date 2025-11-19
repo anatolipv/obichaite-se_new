@@ -6,11 +6,15 @@ export type ExtendedProduct = Product & { orderQuantity: number }
 export interface CheckoutInitialState {
   shoppingCardOpen: boolean
   products: ExtendedProduct[]
+  tryToMakePayment: boolean
+  needToMakeOrder: boolean
 }
 
 const checkoutInitialState: CheckoutInitialState = {
   shoppingCardOpen: false,
   products: [],
+  tryToMakePayment: false,
+  needToMakeOrder: false,
 }
 
 export const checkoutSlice = createSlice({
@@ -52,6 +56,12 @@ export const checkoutSlice = createSlice({
         return product
       })
     },
+    setTryToMakePayment: (state, { payload }: PayloadAction<boolean>) => {
+      state.tryToMakePayment = payload
+    },
+    setNeedToMakeOrder: (state, { payload }: PayloadAction<boolean>) => {
+      state.needToMakeOrder = payload
+    },
   },
 })
 
@@ -63,6 +73,8 @@ export const {
   removeProductFromShoppingCart,
   addOrderQuantity,
   removeOrderQuantity,
+  setTryToMakePayment,
+  setNeedToMakeOrder,
 } = checkoutSlice.actions
 
 export default checkoutSlice.reducer
