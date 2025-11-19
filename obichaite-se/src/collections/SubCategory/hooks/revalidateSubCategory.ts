@@ -8,6 +8,9 @@ export const revalidateSubCategory: CollectionAfterChangeHook<SubCategory> = asy
   previousDoc,
   req: { payload, context },
 }) => {
+
+  return doc
+
   if (!context.disableRevalidate) {
     const parent = await payload.find({
       collection: 'category',

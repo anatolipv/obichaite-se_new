@@ -19,7 +19,8 @@
     "seed:subcategories": "payload run scripts/sub-categories.ts",
     "seed:products": "payload run scripts/products.ts",
     "seed:images": "payload run scripts/image.ts",
-    "seed:users": "payload run scripts/users.ts"
+    "seed:users": "payload run scripts/users.ts",
+    "seed:sub": "payload run scripts/subCategory.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.60.0",
