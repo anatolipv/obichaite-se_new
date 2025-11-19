@@ -13,7 +13,6 @@ import { Category, Product } from '@/payload-types'
 import { PromotionsCardsGrid } from '@/components/Product'
 import BenefitsSection from '@/components/Custom/BenefitsSection'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
-// import { TestimonialStateManager } from '@/components/StateManagers' //TODO?
 // import { AboutUsJsonLd, HomePageJsonLd, OrganizationJsonLd } from '@/components/SEO' //TODO?
 
 export async function generateStaticParams() {

@@ -77,8 +77,8 @@ export default buildConfig({
       port: 465,
       secure: '465',
       auth: {
-        user: "rudashkimoni@gmail.com",
-        pass: "izyawmspdnmfasgi"
+        user: 'rudashkimoni@gmail.com',
+        pass: 'izyawmspdnmfasgi',
       },
     },
   }),

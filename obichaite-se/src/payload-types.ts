@@ -155,6 +155,14 @@ export interface User {
   phoneNumber?: string | null;
   dateOfBirth?: string | null;
   shoppingCartProducts?: (number | Product)[] | null;
+  friends?:
+    | {
+        name?: string | null;
+        email?: string | null;
+        date?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -885,6 +893,14 @@ export interface UsersSelect<T extends boolean = true> {
   phoneNumber?: T;
   dateOfBirth?: T;
   shoppingCartProducts?: T;
+  friends?:
+    | T
+    | {
+        name?: T;
+        email?: T;
+        date?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   email?: T;

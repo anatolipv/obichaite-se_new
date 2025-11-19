@@ -242,7 +242,7 @@ export const Product: CollectionConfig = {
     },
     {
       name: "sku",
-      type: 'text',
+      type: "text",
       required: false,
       admin: {
         position: 'sidebar',

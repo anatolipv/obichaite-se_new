@@ -7,6 +7,8 @@ import configPromise from '@payload-config'
 import { Order } from '@/payload-types'
 import Link from 'next/link'
 
+export const dynamic = 'force-dynamic'
+
 type Args = {
   searchParams: Promise<{
     userId: number
@@ -45,11 +47,11 @@ export default async function UserProfile({ searchParams }: Args) {
         fetchPriority="high"
       />
 
-      <div className="md:px-6 w-full content_wrapper white_background_bubble py-6 md:py-10 relative z-[1] rounded-[24px] flex flex-col-reverse md:flex-row">
+      <div className="md:px-6 w-full content_wrapper white_background_bubble py-6 md:py-10 relative z-[1] rounded-[24px] flex flex-col gap-10 md:gap-[unset] md:flex-row">
         <>
           {userId ? (
             <>
-              <div className="flex-1 md:px-4">
+              <div className="flex-1 px-2 md:px-4">
                 <UserOrders orders={orders ?? []} />
               </div>
 
@@ -58,7 +60,7 @@ export default async function UserProfile({ searchParams }: Args) {
               </div>
             </>
           ) : (
-            <div className='mx-auto'>
+            <div className="mx-auto">
               <GenericHeading
                 headingType="h5"
                 fontStyle="font-sansation font-[700]"
