@@ -17,7 +17,9 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "seed:subcategories": "payload run scripts/sub-categories.ts",
-    "seed:products": "payload run scripts/products.ts"
+    "seed:products": "payload run scripts/products.ts",
+    "seed:images": "payload run scripts/image.ts",
+    "seed:users": "payload run scripts/users.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.60.0",
@@ -33,6 +35,7 @@
     "@react-email/components": "^0.5.6",
     "@reduxjs/toolkit": "^2.9.0",
     "@tailwindcss/typography": "^0.5.16",
+    "basic-ftp": "^5.0.5",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.18",
     "dotenv": "16.4.7",

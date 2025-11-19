@@ -58,6 +58,7 @@
 
 [done] update single product with sku or fallback 'id'
 
+- update header navigation
 - update admin pages with Seo information and etc.. (first header with all links)
 - TODOS
 - prefetch to all links
@@ -73,11 +74,14 @@ _emails_
 
 _migration scripts_
 
-- MAJOR PRODUCT SCRIPT -> sku, images, meta descriptions
+- upcoming script 
+* first bulk upload all the media
+* get all related to products jsons
+* if product is new -> created with actual image
+* else update only the media
 - migrate all the users from the live database (superhosting)
-- sku code of the products
-- images to each product
-- migrate the rest of the products
+* get all the users
+* migrate them with script
 
 **FEEDBACK**
 
@@ -98,3 +102,8 @@ _migration scripts_
 **BACKUP**
 
 - backup jsons in backup-json branch
+
+**DONE**
+-всички продукти имат снимки
+-всички усери са прехвърлени
+-всички продукти които има sku

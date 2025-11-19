@@ -8,6 +8,9 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = ({
   previousDoc,
   req: { payload, context },
 }) => {
+
+  return doc // TODO
+
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
       const path = `/produkt/${doc.slug}`
