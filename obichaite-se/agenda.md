@@ -73,11 +73,14 @@ _emails_
 
 _migration scripts_
 
-- MAJOR PRODUCT SCRIPT -> sku, images, meta descriptions
+- upcoming script 
+* first bulk upload all the media
+* get all related to products jsons
+* if product is new -> created with actual image
+* else update only the media
 - migrate all the users from the live database (superhosting)
-- sku code of the products
-- images to each product
-- migrate the rest of the products
+* get all the users
+* migrate them with script
 
 **FEEDBACK**
 

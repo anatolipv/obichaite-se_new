@@ -12,6 +12,19 @@ const nextConfig = {
 
     return webpackConfig
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'media.obichaite-se.com',
+        // pathname: '/media/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'media.obichaite-se.com',
+      },
+    ],
+  },
   reactStrictMode: true,
   productionBrowserSourceMaps: false,
 }
