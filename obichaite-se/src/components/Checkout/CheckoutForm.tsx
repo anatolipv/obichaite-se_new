@@ -11,11 +11,17 @@ import ErrorMessageBox from '../Generic/ErrorMessage'
 import { makeOrder, MakeOrderInput } from '@/action/checkout'
 import Link from 'next/link'
 import { setNotification } from '@/store/features/notifications'
-import { clearProducts, setNeedToMakeOrder, setTryToMakePayment } from '@/store/features/checkout'
+import {
+  clearProducts,
+  setNeedToMakeOrder,
+  setTryToMakePayment,
+  setUserHaveDiscount,
+} from '@/store/features/checkout'
 import { sendNewOrderEmailAction } from '@/action/mail'
 import { removeAllProductsFromShoppingCart } from '@/action/products/shoppingCart'
 import { createPaymentIntentAction } from '@/Stripe/action'
 import { PaymentSection } from '@/Stripe/components'
+import EmailInputWithAction from './EmailInputWithActions'
 
 export const checkoutValuesInitialState: {
   name: string
@@ -41,11 +47,11 @@ export const checkoutValuesInitialState: {
 
 const CheckoutForm = () => {
   const dispatch = useAppDispatch()
-  const needToMakeOrder = useAppSelector((state) => state.checkout.needToMakeOrder)
-  const { products } = useAppSelector((state) => state.checkout)
-  const { calculateTotalPrice, calculateRemainSum } = useCheckout()
-  const [pending, startTransition] = useTransition()
+  const { products, needToMakeOrder, userHaveDiscount } = useAppSelector((state) => state.checkout)
   const userId = useAppSelector((state) => state.root.user?.id)
+  const { calculateTotalPrice, calculateRemainSum } = useCheckout()
+  const totalPrice = userHaveDiscount ? calculateTotalPrice() * 0.9 : calculateTotalPrice()
+  const [pending, startTransition] = useTransition()
   const [isSuccess, setIsSuccess] = useState(false)
 
   const [formValues, setFormValues] = useState(checkoutValuesInitialState)
@@ -132,6 +138,7 @@ const CheckoutForm = () => {
           })
         }
         dispatch(clearProducts())
+        dispatch(setUserHaveDiscount(false))
         if (!userId) {
           localStorage.removeItem('cardProductsObichaiteSe')
         } else {
@@ -199,7 +206,7 @@ const CheckoutForm = () => {
                 </div>
 
                 <div className="w-full">
-                  <TextInput
+                  <EmailInputWithAction
                     name="email"
                     label="Емейл"
                     formValues={formValues}
@@ -301,6 +308,7 @@ const CheckoutForm = () => {
                   </GenericParagraph>
                 </div>
                 <div className="w-full flex flex-col gap-3 py-4">
+                  {userHaveDiscount && <div>* Вие получавате -10% отстъпка от крайната цена!.</div>}
                   <div className="w-full flex justify-between items-center border-[1px] border-bordo   bg-bordo px-2 py-4">
                     <GenericParagraph textColor="text-white" extraClass="font-[700]">
                       Сума всичко:{' '}
@@ -311,7 +319,7 @@ const CheckoutForm = () => {
                       pType="small"
                       textColor="text-white"
                     >
-                      {calculateTotalPrice().toFixed(2)} лв ({priceToEuro(calculateTotalPrice())}€)
+                      {totalPrice.toFixed(2)} лв ({priceToEuro(totalPrice)}€)
                     </GenericParagraph>
                   </div>
 
@@ -320,8 +328,6 @@ const CheckoutForm = () => {
                       Цените са с ДДС (ако е приложимо).
                     </GenericParagraph>
                   </div>
-
-                  <div>* Вие получавате -10% отстъпка от крайната цена!.</div>
 
                   <div className="w-full">
                     <RadioSelect
@@ -349,8 +355,7 @@ const CheckoutForm = () => {
                   <div className="w-full py-2">
                     <button
                       className="w-full rounded-[24px] fle  justify-center items-center red_background py-4 px-4
-          [&>div>div>svg]:hover:animate-bounce disabled:cursor-not-allowed disabled:opacity-50
-          "
+          [&>div>div>svg]:hover:animate-bounce disabled:cursor-not-allowed disabled:opacity-50"
                       aria-label="Към поръчка"
                       type="button"
                       onClick={() => submitHandler()}

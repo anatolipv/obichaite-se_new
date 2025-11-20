@@ -10,22 +10,29 @@ import { loadStripe, type StripeElementsOptions } from '@stripe/stripe-js'
 import { PaymentForm } from './PaymentForm'
 import { createPaymentIntentAction } from '../action'
 import { GenericHeading } from '@/components/Generic'
+import { useAppSelector } from '@/hooks/redux-hooks'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 type PaymentSectionProps = {
   items: ExtendedProduct[]
-  createPaymentIntentAction: (items: ExtendedProduct[]) => Promise<{ clientSecret: string | null }>
+  createPaymentIntentAction: (
+    items: ExtendedProduct[],
+    discount: number,
+  ) => Promise<{ clientSecret: string | null }>
 }
 
 export default function PaymentSection({ items }: PaymentSectionProps) {
+  const { userHaveDiscount } = useAppSelector((state) => state.checkout)
   const [clientSecret, setClientSecret] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
 
   useEffect(() => {
+    const discount = userHaveDiscount ? 0.9 : 1
+
     startTransition(async () => {
       try {
-        const result = await createPaymentIntentAction(items)
+        const result = await createPaymentIntentAction(items, discount)
 
         if (!result.clientSecret) {
           setError('Грешка при създаване на плащането. Моля, опитайте отново по-късно.')

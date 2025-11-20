@@ -145,3 +145,27 @@ export async function makeOrder(
     return { ok: false, orderId: null, orderNumber: null }
   }
 }
+
+export async function checkForDiscount(email: string): Promise<{ data: boolean }> {
+  const clean = String(email).trim().toLowerCase()
+  try {
+    const payload = await getPayload({ config: configPromise })
+
+    const result = await payload.find({
+      collection: 'order',
+      where: { customerEmail: { like: clean } },
+      depth: 1,
+      pagination: false,
+      limit: 1,
+    })
+
+    if (result.docs.length > 0) {
+      return { data: false }
+    }
+
+    return { data: true }
+  } catch (error) {
+    console.log(error)
+    return { data: false }
+  }
+}

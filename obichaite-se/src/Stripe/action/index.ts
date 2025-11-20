@@ -19,18 +19,18 @@ function calculateTotalAmount(items: ExtendedProduct[], discount: number = 0): n
   }
 
   if (discount > 0) {
-    total *= 1 - discount / 100
+    total *= discount
   }
 
   return total * 100
 }
 
-export async function createPaymentIntentAction(products: ExtendedProduct[]) {
-  const amount = calculateTotalAmount(products)
+export async function createPaymentIntentAction(products: ExtendedProduct[], discount: number = 0) {
+  const amount = calculateTotalAmount(products, discount)
 
   const paymentIntent = await stripe.paymentIntents.create({
     amount,
-    currency: 'BGN', //TODO need to be changed to lv
+    currency: 'BGN',
     automatic_payment_methods: {
       enabled: true,
     },
