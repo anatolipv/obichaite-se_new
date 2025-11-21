@@ -23,36 +23,37 @@ import { createPaymentIntentAction } from '@/Stripe/action'
 import { PaymentSection } from '@/Stripe/components'
 import EmailInputWithAction from './EmailInputWithActions'
 
-export const checkoutValuesInitialState: {
-  name: string
-  phone: string
-  email: string
-  courier: 'speedy-dpd' | 'econt'
-  deliveryKind: 'office' | 'address'
-  deliveryTown: string
-  deliveryOffice: string
-  paymentMethod: 'cash' | 'card'
-  message: string
-} = {
-  name: '',
-  phone: '',
-  email: '',
-  courier: 'speedy-dpd',
-  deliveryKind: 'office',
-  deliveryTown: '',
-  deliveryOffice: '',
-  paymentMethod: 'cash',
-  message: '',
-}
-
 const CheckoutForm = () => {
   const dispatch = useAppDispatch()
   const { products, needToMakeOrder, userHaveDiscount } = useAppSelector((state) => state.checkout)
   const userId = useAppSelector((state) => state.root.user?.id)
+  const user = useAppSelector((state) => state.root.user)
   const { calculateTotalPrice, calculateRemainSum } = useCheckout()
   const totalPrice = userHaveDiscount ? calculateTotalPrice() * 0.9 : calculateTotalPrice()
   const [pending, startTransition] = useTransition()
   const [isSuccess, setIsSuccess] = useState(false)
+
+  const checkoutValuesInitialState: {
+    name: string
+    phone: string
+    email: string
+    courier: 'speedy-dpd' | 'econt'
+    deliveryKind: 'office' | 'address'
+    deliveryTown: string
+    deliveryOffice: string
+    paymentMethod: 'cash' | 'card'
+    message: string
+  } = {
+    name: user?.firstName ? `${user.firstName} ${user.lastName}` : '',
+    email: user?.email ?? '',
+    phone: user?.phoneNumber ?? '',
+    courier: 'speedy-dpd',
+    deliveryKind: 'office',
+    deliveryTown: '',
+    deliveryOffice: '',
+    paymentMethod: 'cash',
+    message: '',
+  }
 
   const [formValues, setFormValues] = useState(checkoutValuesInitialState)
   const [error, setError] = useState('')
@@ -114,8 +115,6 @@ const CheckoutForm = () => {
       paymentStatus: formValues.paymentMethod === 'card' ? 'paid' : 'unpaid',
       clientNotes: formValues.message,
     }
-
-    console.log('MAKE ORDER')
 
     startTransition(async () => {
       const response = await makeOrder(requestBody, userId as number | null)
