@@ -27,6 +27,8 @@ const HeaderClient = ({ headerData }: { headerData: DataFromGlobalSlug<'header'>
   const [openMenu, setOpenMenu] = useState(false)
   const [openCategoryIndex, setOpenCategoryIndex] = useState(-1)
 
+  console.log('Build')
+
   useEffect(() => {
     if (openMenu) {
       document.body.style.overflow = 'hidden'
