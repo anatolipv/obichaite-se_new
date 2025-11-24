@@ -1,7 +1,13 @@
 'use client'
 
 import React, { useEffect, useState, useTransition } from 'react'
-import { GenericHeading, GenericParagraph, TextArea, TextInput } from '../Generic'
+import {
+  GenericHeading,
+  GenericParagraph,
+  RadioSelectMultiple,
+  TextArea,
+  TextInput,
+} from '../Generic'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
 import RadioSelect from '../Generic/RadioSelect'
 import { useCheckout } from '@/hooks/useCheckout'
@@ -17,11 +23,12 @@ import {
   setTryToMakePayment,
   setUserHaveDiscount,
 } from '@/store/features/checkout'
-import { sendNewOrderEmailAction } from '@/action/mail'
+import { sendConfirmedOrderEmail, sendNewOrderEmailAction } from '@/action/mail'
 import { removeAllProductsFromShoppingCart } from '@/action/products/shoppingCart'
 import { createPaymentIntentAction } from '@/Stripe/action'
 import { PaymentSection } from '@/Stripe/components'
 import EmailInputWithAction from './EmailInputWithActions'
+import { Order } from '@/payload-types'
 
 const CheckoutForm = () => {
   const dispatch = useAppDispatch()
@@ -41,7 +48,7 @@ const CheckoutForm = () => {
     deliveryKind: 'office' | 'address'
     deliveryTown: string
     deliveryOffice: string
-    paymentMethod: 'cash' | 'card'
+    paymentMethod: 'cash' | 'card' | 'needBankTransfer'
     message: string
   } = {
     name: user?.firstName ? `${user.firstName} ${user.lastName}` : '',
@@ -101,6 +108,15 @@ const CheckoutForm = () => {
 
   useEffect(() => {
     if (!needToMakeOrder) return
+
+    let correctPaymentStatus: Order['paymentStatus'] = 'unpaid'
+    if (formValues.paymentMethod === 'card') {
+      correctPaymentStatus = 'paid'
+    }
+    if (formValues.paymentMethod === 'needBankTransfer') {
+      correctPaymentStatus = 'needBankTransfer'
+    }
+
     const requestBody: MakeOrderInput = {
       items: products,
       customerName: formValues.name,
@@ -112,7 +128,7 @@ const CheckoutForm = () => {
         city: formValues.deliveryTown,
         postalCode: '',
       },
-      paymentStatus: formValues.paymentMethod === 'card' ? 'paid' : 'unpaid',
+      paymentStatus: correctPaymentStatus as 'paid' | 'unpaid' | 'refunded',
       clientNotes: formValues.message,
     }
 
@@ -135,6 +151,19 @@ const CheckoutForm = () => {
             }),
             total: Number(calculateTotalPrice().toFixed(0)),
           })
+          sendConfirmedOrderEmail({
+            orderId: response.orderId,
+            items: products.map((item) => {
+              return {
+                name: item.title,
+                quantity: item.orderQuantity,
+              }
+            }),
+            total: Number(calculateTotalPrice().toFixed(0)),
+            userName: formValues.name as string,
+            userEmail: formValues.email as string,
+            orderNumber: response.orderNumber as string,
+          })
         }
         dispatch(clearProducts())
         dispatch(setUserHaveDiscount(false))
@@ -149,6 +178,15 @@ const CheckoutForm = () => {
     })
     dispatch(setNeedToMakeOrder(false))
   }, [needToMakeOrder])
+
+  let paymentInfoText = 'Наложен платеж'
+  if (formValues.paymentMethod === 'card') {
+    paymentInfoText = 'Вашата поръчка е заплатена успешно'
+  }
+  if (formValues.paymentMethod === 'needBankTransfer') {
+    paymentInfoText =
+      'Банков транфер, ще получите допълнителна информация, за извършане на банков транфер на вашата електронна поща, при изготвяне на поръчката'
+  }
 
   return (
     <>
@@ -329,10 +367,11 @@ const CheckoutForm = () => {
                   </div>
 
                   <div className="w-full">
-                    <RadioSelect
+                    <RadioSelectMultiple
                       options={[
                         { label: 'Наложен платеж', value: 'cash' },
                         { label: 'Кредитна/дебитна карта', value: 'card' },
+                        { label: 'Плащане по банков път', value: 'needBankTransfer' },
                       ]}
                       label="Начин на плащане"
                       formValues={formValues}
@@ -402,14 +441,19 @@ const CheckoutForm = () => {
             textColor="text-brown"
             extraClass="text-center py-4 w-full"
           >
-            Вашата поръчка е приета! Благодарим ви за изборът!
-            <p>
-              Можете да следите статуса на поръчката в{' '}
-              <Link href={`/user-profile?userId=${userId}`} className="text-bordo">
-                Потребителки профил
-              </Link>
-              .
-            </p>
+            Вашата поръчка е приета! Благодарим ви за изборът! <br />
+            Плащане: {paymentInfoText}
+            <br />
+            Ще получите съобщение по email за статуса на поръчката.
+            {userId && (
+              <span>
+                Можете да следите статуса на поръчката в{' '}
+                <Link href={`/user-profile?userId=${userId}`} className="text-bordo">
+                  Потребителки профил
+                </Link>
+                .
+              </span>
+            )}
           </GenericParagraph>
         </div>
       )}

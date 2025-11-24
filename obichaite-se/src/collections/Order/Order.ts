@@ -3,6 +3,7 @@ import { authenticated } from '../../access/authenticated'
 import { anyone } from '@/access/anyone'
 import { setOrderNumber } from './hooks/setOrderNumber'
 import { revalidateOrdersAfterChange, revalidateOrdersAfterDelete } from './hooks/revalidateOrder'
+import { afterChangeOrderStatus } from './hooks/afterChangeOrderStatus'
 
 export const Order: CollectionConfig = {
   slug: 'order',
@@ -68,6 +69,7 @@ export const Order: CollectionConfig = {
         { label: 'Неплатена', value: 'unpaid' },
         { label: 'Платена', value: 'paid' },
         { label: 'Възстановена сума', value: 'refunded' },
+        { label: 'Очаква плащане по банков път', value: 'needBankTransfer' },
       ],
       admin: {
         position: 'sidebar',
@@ -193,7 +195,7 @@ export const Order: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [setOrderNumber, revalidateOrdersAfterChange],
+    afterChange: [setOrderNumber, revalidateOrdersAfterChange, afterChangeOrderStatus],
     afterDelete: [revalidateOrdersAfterDelete],
   },
   versions: {

@@ -528,7 +528,7 @@ export interface Order {
   orderDate?: string | null;
   orderNumber?: string | null;
   status?: ('pending' | 'processing' | 'shipped' | 'delivered' | 'returned' | 'cancelled') | null;
-  paymentStatus?: ('unpaid' | 'paid' | 'refunded') | null;
+  paymentStatus?: ('unpaid' | 'paid' | 'refunded' | 'needBankTransfer') | null;
   items: {
     product: number | Product;
     productTitle: string;

@@ -14,6 +14,10 @@ type SendNewOrderEmailInput = {
   orderId: number
   items: OrderItem[]
   total: number
+  userName?: string
+  userEmail?: string
+  orderNumber?: string
+  orderStatus?: string
 }
 
 export async function sendNewOrderEmailAction({ orderId, items, total }: SendNewOrderEmailInput) {
@@ -33,6 +37,66 @@ export async function sendNewOrderEmailAction({ orderId, items, total }: SendNew
 
   await payload.sendEmail({
     to,
+    subject,
+    html,
+  })
+
+  return { ok: true }
+}
+export async function sendConfirmedOrderEmail({
+  orderId,
+  items,
+  total,
+  userName,
+  userEmail,
+  orderNumber,
+}: SendNewOrderEmailInput) {
+  const payload = await getPayload({ config: configPromise })
+
+  const subject = emailTemplates.orders.orderConfirmed.subject({ orderId })
+  const html = emailTemplates.orders.orderConfirmed.html({
+    orderId,
+    items,
+    total,
+    currency: 'лв.',
+    userName: userName!,
+    orderNumber,
+  })
+
+  await payload.sendEmail({
+    to: userEmail,
+    subject,
+    html,
+  })
+
+  return { ok: true }
+}
+
+export async function sendChangeStatusOrderEmail({
+  orderId,
+  items,
+  total,
+  userName,
+  userEmail,
+  orderStatus,
+}: SendNewOrderEmailInput) {
+  const payload = await getPayload({ config: configPromise })
+
+  const subject = emailTemplates.orders.orderStatus.subject({
+    orderId,
+    orderStatus: orderStatus as string,
+  })
+  const html = emailTemplates.orders.orderStatus.html({
+    orderId,
+    items,
+    total,
+    currency: 'лв.',
+    userName: userName!,
+    orderStatus: orderStatus as string,
+  })
+
+  await payload.sendEmail({
+    to: userEmail,
     subject,
     html,
   })

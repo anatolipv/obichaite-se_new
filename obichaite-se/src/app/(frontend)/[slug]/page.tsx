@@ -116,11 +116,6 @@ export default async function Page({ params: paramsPromise }: Args) {
                 equals: 'published',
               },
             },
-            {
-              quantity: {
-                not_equals: 0,
-              },
-            },
           ],
         },
         select: {
@@ -136,6 +131,7 @@ export default async function Page({ params: paramsPromise }: Args) {
           mediaArray: true,
           priceRange: true,
           shortDescription: true,
+          quantity: true,
         },
       })
 
@@ -157,11 +153,6 @@ export default async function Page({ params: paramsPromise }: Args) {
                 equals: 'published',
               },
             },
-            {
-              quantity: {
-                not_equals: 0,
-              },
-            },
           ],
         },
         select: {
@@ -177,6 +168,7 @@ export default async function Page({ params: paramsPromise }: Args) {
           mediaArray: true,
           priceRange: true,
           shortDescription: true,
+          quantity: true,
         },
       })
 

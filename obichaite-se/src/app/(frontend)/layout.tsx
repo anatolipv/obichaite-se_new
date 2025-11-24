@@ -129,11 +129,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
                 equals: 'published',
               },
             },
-            {
-              quantity: {
-                not_equals: 0,
-              },
-            },
           ],
         },
         select: {
@@ -150,8 +145,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           mediaArray: true,
           priceRange: true,
           shortDescription: true,
+          quantity: true,
         },
       })
+
+  //"U2FsdGVkX180DpA3DnRZMlOypno7F8UYVkYgD9PMZVAoItaTNrDKncNjMmL/lXr4HGrsbrwUpHawzBTZXqgQU0me4NnQsYGEiKfEac6o9k8xvbuukJ8s9drxSYV4yVb6OK/fYAtUyOhg2o49wieoAZuLG2OUgZA4CsUjtSsTwncIx6gxG17nUAo2nHBj8hgT"
 
   return (
     <StoreProvider>

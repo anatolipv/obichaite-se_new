@@ -75,11 +75,6 @@ export default async function ProductSinglePage({ params: paramsPromise }: Args)
         {
           or: [{ bestSeller: { equals: true } }, { promoPrice: { exists: true } }],
         },
-        {
-          quantity: {
-            not_equals: 0,
-          },
-        },
       ],
     },
     select: {
@@ -95,6 +90,7 @@ export default async function ProductSinglePage({ params: paramsPromise }: Args)
       mediaArray: true,
       priceRange: true,
       shortDescription: true,
+      quantity: true,
     },
   })
 
@@ -117,11 +113,6 @@ export default async function ProductSinglePage({ params: paramsPromise }: Args)
             equals: 'published',
           },
         },
-        {
-          quantity: {
-            not_equals: 0,
-          },
-        },
       ],
     },
     select: {
@@ -137,6 +128,7 @@ export default async function ProductSinglePage({ params: paramsPromise }: Args)
       mediaArray: true,
       priceRange: true,
       shortDescription: true,
+      quantity: true,
     },
   })
 

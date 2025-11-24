@@ -4,12 +4,7 @@ import { Category, Media, Product } from '@/payload-types'
 import React, { useState } from 'react'
 import { GenericButton, GenericHeading, GenericImage, GenericParagraph } from '../Generic'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
-import {
-  BestSellerIcon,
-  DetailsIcon,
-  DiscountIcon,
-  ShoppingCartIcon,
-} from '@/assets/icons'
+import { BestSellerIcon, DetailsIcon, DiscountIcon, ShoppingCartIcon } from '@/assets/icons'
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
 import { addProductToShoppingCart } from '@/store/features/checkout'
 import Link from 'next/link'
@@ -130,74 +125,85 @@ const ProductCard = ({ product }: { product: Product }) => {
                 : 'bg-transparent opacity-0 pointer-events-none'
             }`}
         >
-          <>
-            {product?.havePriceRange ? (
-              <GenericButton
-                variant="white"
-                styleClass="uppercase [&>div>svg]:hover:stroke-bordo gap-[6px] min-w-[146px]"
-                click={() => {
-                  dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
-                  dispatch(
-                    setNotification({
-                      showNotification: true,
-                      message: !!productExistsInCart
-                        ? `Kъм (${product?.title}) беше дованен 1 брой`
-                        : `(${product?.title}) беше добавен в количката`,
-                      type: 'success',
-                    }),
-                  )
+          {product.quantity === 0 ? (
+            <GenericParagraph
+              pType="regular"
+              fontStyle="font-sansation font-[700]"
+              textColor="text-white"
+              extraClass="uppercase"
+            >
+              Изчерапана наличност
+            </GenericParagraph>
+          ) : (
+            <>
+              {product?.havePriceRange ? (
+                <GenericButton
+                  variant="white"
+                  styleClass="uppercase [&>div>svg]:hover:stroke-bordo gap-[6px] min-w-[146px]"
+                  click={() => {
+                    dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
+                    dispatch(
+                      setNotification({
+                        showNotification: true,
+                        message: !!productExistsInCart
+                          ? `Kъм (${product?.title}) беше дованен 1 брой`
+                          : `(${product?.title}) беше добавен в количката`,
+                        type: 'success',
+                      }),
+                    )
 
-                  if (!!userId) {
-                    addToCart(product?.id, userId!)
-                  } else {
-                    addToLocalStorage(product)
-                  }
-                }}
-                type="button"
-                ariaLabel="Добави"
-              >
-                <p>Добави</p>
-                <div
-                  className="w-[24px] h-[24px] flex justify-center items-center
-          [&>svg_path]:fill-white [&>svg_path]:transition-all duration-300 ease-in-out"
+                    if (!!userId) {
+                      addToCart(product?.id, userId!)
+                    } else {
+                      addToLocalStorage(product)
+                    }
+                  }}
+                  type="button"
+                  ariaLabel="Добави"
                 >
-                  <ShoppingCartIcon />
-                </div>
-              </GenericButton>
-            ) : (
-              <GenericButton
-                variant="white"
-                styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
-                click={() => {
-                  dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
-                  dispatch(
-                    setNotification({
-                      showNotification: true,
-                      message: !!productExistsInCart
-                        ? `Kъм (${product?.title}) беше дованен 1 брой`
-                        : `(${product?.title}) беше добавен в количката`,
-                      type: 'success',
-                    }),
-                  )
-                  if (!!userId) {
-                    addToCart(product?.id, userId!)
-                  } else {
-                    addToLocalStorage(product)
-                  }
-                }}
-                type="button"
-                ariaLabel="Добави"
-              >
-                <p>Добави</p>
-                <div
-                  className="w-[24px] h-[24px] flex justify-center items-center
+                  <p>Добави</p>
+                  <div
+                    className="w-[24px] h-[24px] flex justify-center items-center
           [&>svg_path]:fill-white [&>svg_path]:transition-all duration-300 ease-in-out"
+                  >
+                    <ShoppingCartIcon />
+                  </div>
+                </GenericButton>
+              ) : (
+                <GenericButton
+                  variant="white"
+                  styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
+                  click={() => {
+                    dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
+                    dispatch(
+                      setNotification({
+                        showNotification: true,
+                        message: !!productExistsInCart
+                          ? `Kъм (${product?.title}) беше дованен 1 брой`
+                          : `(${product?.title}) беше добавен в количката`,
+                        type: 'success',
+                      }),
+                    )
+                    if (!!userId) {
+                      addToCart(product?.id, userId!)
+                    } else {
+                      addToLocalStorage(product)
+                    }
+                  }}
+                  type="button"
+                  ariaLabel="Добави"
                 >
-                  <ShoppingCartIcon />
-                </div>
-              </GenericButton>
-            )}
-          </>
+                  <p>Добави</p>
+                  <div
+                    className="w-[24px] h-[24px] flex justify-center items-center
+          [&>svg_path]:fill-white [&>svg_path]:transition-all duration-300 ease-in-out"
+                  >
+                    <ShoppingCartIcon />
+                  </div>
+                </GenericButton>
+              )}
+            </>
+          )}
 
           <Link prefetch={true} href={`/produkt/${product?.slug}`}>
             <GenericButton

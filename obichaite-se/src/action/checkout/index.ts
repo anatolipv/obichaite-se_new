@@ -53,7 +53,7 @@ export async function makeOrder(
     const payload = await getPayload({ config: configPromise })
 
     const orderItems = items.map((item) => {
-      const quantity = item.quantity > 0 ? item.quantity : 1
+      const quantity = item.orderQuantity > 0 ? item.orderQuantity : 1
 
       let unitPrice = 0
       if (!!item.promoPrice || !!item.price) {

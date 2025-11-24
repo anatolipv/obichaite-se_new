@@ -129,47 +129,58 @@ const SingleCardMain = ({ product }: { product: Product }) => {
         </div>
 
         <div className="w-full">
-          <button
-            className="w-full rounded-[24px] flex  justify-center items-center red_background py-4 px-4
+          {product.quantity === 0 ? (
+            <GenericParagraph
+              pType="regular"
+              fontStyle="font-sansation font-[700]"
+              textColor="text-bordo"
+              extraClass="uppercase"
+            >
+              Изчерапана наличност
+            </GenericParagraph>
+          ) : (
+            <button
+              className="w-full rounded-[24px] flex  justify-center items-center red_background py-4 px-4
                       [&>div>div>svg]:hover:animate-bounce disabled:cursor-not-allowed disabled:opacity-50
                       "
-            aria-label="Добави в Количка"
-            title="Добави в Количка"
-            onClick={() => {
-              dispatch(addProductToShoppingCart({ ...product, orderQuantity: orderQuantity }))
-              dispatch(
-                setNotification({
-                  showNotification: true,
-                  message: existsInCart
-                    ? `Kъм (${product?.title}) бяха добавени ${orderQuantity} ${orderQuantity > 1 ? 'единици' : 'единица'}`
-                    : `(${product?.title}) беше добавен в количката`,
-                  type: 'success',
-                }),
-              )
-              if (!!userId) {
-                addToCart(product.id, userId)
-              } else {
-                addToLocalStorage(product)
-              }
-            }}
-            disabled={orderQuantity === 0}
-            aria-disabled={orderQuantity === 0}
-          >
-            <div className="flex justify-center items-center">
-              <GenericParagraph
-                fontStyle="font-sansation font-[700]"
-                pType="small"
-                textColor="text-white"
-                extraClass="uppercase"
-              >
-                Добави в Количка
-              </GenericParagraph>
+              aria-label="Добави в Количка"
+              title="Добави в Количка"
+              onClick={() => {
+                dispatch(addProductToShoppingCart({ ...product, orderQuantity: orderQuantity }))
+                dispatch(
+                  setNotification({
+                    showNotification: true,
+                    message: existsInCart
+                      ? `Kъм (${product?.title}) бяха добавени ${orderQuantity} ${orderQuantity > 1 ? 'единици' : 'единица'}`
+                      : `(${product?.title}) беше добавен в количката`,
+                    type: 'success',
+                  }),
+                )
+                if (!!userId) {
+                  addToCart(product.id, userId)
+                } else {
+                  addToLocalStorage(product)
+                }
+              }}
+              disabled={orderQuantity === 0}
+              aria-disabled={orderQuantity === 0}
+            >
+              <div className="flex justify-center items-center">
+                <GenericParagraph
+                  fontStyle="font-sansation font-[700]"
+                  pType="small"
+                  textColor="text-white"
+                  extraClass="uppercase"
+                >
+                  Добави в Количка
+                </GenericParagraph>
 
-              <div className="w-[20px] h-[20px] flex justify-center items-center ml-1">
-                <ArrowIcon color="white" />
+                <div className="w-[20px] h-[20px] flex justify-center items-center ml-1">
+                  <ArrowIcon color="white" />
+                </div>
               </div>
-            </div>
-          </button>
+            </button>
+          )}
         </div>
       </div>
     </div>

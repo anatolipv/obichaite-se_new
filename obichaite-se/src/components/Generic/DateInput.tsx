@@ -1,24 +1,24 @@
-import React from "react";
+import React from 'react'
+import ErrorMessageBox from './ErrorMessage'
 
 export type DateInputProps<T> = {
-  name: string;
-  label: string;
-  formValues: object;
-  setFormValues: React.Dispatch<React.SetStateAction<T>>;
-  placeholder: string;
-  error?: {
-    [key: string]: string | null;
-  };
-  extraClass?: string;
-  required?: boolean;
-  voice?: boolean;
-};
+  name: string
+  label: string
+  formValues: object
+  setFormValues: React.Dispatch<React.SetStateAction<T>>
+  placeholder: string
+  error?: string
+  extraClass?: string
+  required?: boolean
+  voice?: boolean
+}
 
 const DateInput = <T,>({
   name,
   label,
   formValues,
   setFormValues,
+  error,
   extraClass,
   required = false,
 }: DateInputProps<T>) => {
@@ -26,8 +26,8 @@ const DateInput = <T,>({
     setFormValues((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
-    }));
-  };
+    }))
+  }
   return (
     <div className="flex w-full flex-col gap-2">
       <label htmlFor="date" className="font-kolka font-[500] text-brown">
@@ -42,8 +42,10 @@ const DateInput = <T,>({
         onChange={(e) => onChangeHandler(e)}
         className={`w-full rounded-lg border border-brown/80 bg-brown/20 p-[10px] font-clash-medium text-brown outline-none ${extraClass}`}
       />
-    </div>
-  );
-};
 
-export default DateInput;
+      {!!error && <ErrorMessageBox error={error} />}
+    </div>
+  )
+}
+
+export default DateInput

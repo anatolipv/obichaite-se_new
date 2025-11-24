@@ -6,6 +6,7 @@ import { setIsLoading, setUser } from '@/store/features/root'
 import React, { useState, useTransition } from 'react'
 import { DateInput, GenericButton, TextInput } from '../Generic'
 import { addFriendForCurrentUser } from '@/action/friends'
+import dayjs from 'dayjs'
 
 const AddFriendComponent = ({
   showFormHandler,
@@ -26,6 +27,7 @@ const AddFriendComponent = ({
   const [errors, setErrors] = useState({
     name: '',
     email: '',
+    date: '',
   })
 
   function onSubmit(e: React.FormEvent) {
@@ -34,11 +36,14 @@ const AddFriendComponent = ({
     const nameError = formValues.name.length < 3 ? 'Името трябва да е поне 3 символа' : ''
     const emailError =
       !formValues.email || !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(formValues.email)
+    //if date is in the feature add validation with dayjs
+    const dateError = dayjs(formValues.date).isAfter(dayjs(), 'day')
 
-    if (nameError || emailError) {
+    if (nameError || emailError || dateError) {
       setErrors({
         name: nameError ? 'Името трябва да е поне 3 символа' : '',
         email: emailError ? 'Въведете валиден имейл' : '',
+        date: dateError ? 'Въведете валидна дата' : '',
       })
 
       return
@@ -107,6 +112,7 @@ const AddFriendComponent = ({
               setFormValues={setFormValues}
               extraClass="w-full"
               placeholder="DD-MM-YYYY"
+              error={errors.date}
               required={true}
             />
           </div>
