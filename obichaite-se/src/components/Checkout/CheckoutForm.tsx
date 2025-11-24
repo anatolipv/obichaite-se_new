@@ -39,6 +39,7 @@ const CheckoutForm = () => {
   const totalPrice = userHaveDiscount ? calculateTotalPrice() * 0.9 : calculateTotalPrice()
   const [pending, startTransition] = useTransition()
   const [isSuccess, setIsSuccess] = useState(false)
+  const [orderNumber, setOrderNumber] = useState('')
 
   const checkoutValuesInitialState: {
     name: string
@@ -136,6 +137,7 @@ const CheckoutForm = () => {
       const response = await makeOrder(requestBody, userId as number | null)
 
       if (response.ok) {
+        setOrderNumber(response.orderNumber as string)
         setIsSuccess(true)
         dispatch(
           setNotification({ showNotification: true, message: 'Успешна поръчка', type: 'success' }),
@@ -184,8 +186,7 @@ const CheckoutForm = () => {
     paymentInfoText = 'Вашата поръчка е заплатена успешно'
   }
   if (formValues.paymentMethod === 'needBankTransfer') {
-    paymentInfoText =
-      'Банков транфер, ще получите допълнителна информация, за извършане на банков транфер на вашата електронна поща, при изготвяне на поръчката'
+    paymentInfoText = `Банков транфер, ще получите проформа фактура на посочения имейл адрес, по която да извършите плащане. Не правете плашане без да сте получили проформата. В графата "Основание за плащане" ЗАДЪЛЖИТЕЛНО трябва да попълните номер на проформата фактура. Ако не сте попълнили номер за индетификацията на превода да се затроднява обработката на поръчката и е възможно тя да не бъде активирана, тъй като няма да знаем за какво е плащането. Ако имате някакви въпроси относно направената от Вас поръчка, ще се радваме да ви помогнем.`
   }
 
   return (
@@ -441,7 +442,8 @@ const CheckoutForm = () => {
             textColor="text-brown"
             extraClass="text-center py-4 w-full"
           >
-            Вашата поръчка е приета! Благодарим ви за изборът! <br />
+            Вашата поръчка е приета! <br /> Номер на поръчка {orderNumber} Благодарим ви за изборът!{' '}
+            <br />
             Плащане: {paymentInfoText}
             <br />
             Ще получите съобщение по email за статуса на поръчката.

@@ -180,6 +180,18 @@ export const Product: CollectionConfig = {
       },
     },
     {
+      name: "otherSubCategories",
+      type: 'relationship',
+      relationTo: "sub-category",
+      hasMany: true,
+      admin: {
+        position: 'sidebar',
+        allowCreate: false,
+        allowEdit: false,
+        appearance: 'drawer',
+      },
+    },
+    {
       name: 'price',
       type: 'number',
       required: true,

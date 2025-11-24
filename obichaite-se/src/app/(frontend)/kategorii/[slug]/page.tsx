@@ -18,7 +18,7 @@ export async function generateStaticParams() {
   const categories = await payload.find({
     collection: 'category',
     draft: false,
-    limit: 1000,
+    limit: 2000,
     overrideAccess: false,
     pagination: false,
     select: {
@@ -59,7 +59,7 @@ export default async function Category({ params: paramsPromise }: Args) {
   const products = await payload.find({
     collection: 'product',
     draft: false,
-    limit: 1000,
+    limit: 2000,
     overrideAccess: false,
     pagination: false,
     where: {
@@ -82,7 +82,7 @@ export default async function Category({ params: paramsPromise }: Args) {
   const subcategories = await payload.find({
     collection: 'sub-category',
     draft: false,
-    limit: 1000,
+    limit: 2000,
     overrideAccess: false,
     pagination: false,
     where: {

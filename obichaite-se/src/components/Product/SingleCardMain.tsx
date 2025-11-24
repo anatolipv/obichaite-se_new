@@ -23,9 +23,29 @@ const SingleCardMain = ({ product }: { product: Product }) => {
   const shoppingCartProducts = useAppSelector((state) => state.checkout.products)
   const existsInCart = shoppingCartProducts.find((item) => item.id === product.id)
   const [orderQuantity, setOrderQuantity] = useState(existsInCart?.orderQuantity || 1)
-  const { category, title, subCategory } = product
+  const { category, title, subCategory, otherSubCategories } = product
 
   const currentCategory = category as Category
+
+  const otherSubCategoriesContent = otherSubCategories?.map((subCategory) => {
+    const sub = subCategory as SubCategory
+    const parent = sub.parentCategory as Category
+
+    return (
+      <div className="my-2" key={sub.id}>
+        <Link prefetch={true} href={`/kategorii/${parent.slug}/${(sub as SubCategory)?.slug}`}>
+          <GenericParagraph
+            fontStyle="font-sansation font-[700]"
+            pType="regular"
+            textColor="text-mixPink"
+            extraClass="cursor-pointer"
+          >
+            {sub.title}
+          </GenericParagraph>
+        </Link>
+      </div>
+    )
+  })
 
   return (
     <div className="flex-1 relative order-2 md:order-1">
@@ -45,6 +65,7 @@ const SingleCardMain = ({ product }: { product: Product }) => {
             {(subCategory as SubCategory).title}
           </GenericParagraph>
         </Link>
+        <div>{otherSubCategoriesContent}</div>
         {!!title && (
           <GenericHeading
             align="text-left"

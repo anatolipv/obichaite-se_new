@@ -119,7 +119,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     : await payload.find({
         collection: 'product',
         draft: false,
-        limit: 1000,
+        limit: 2000,
         overrideAccess: false,
         pagination: false,
         where: {

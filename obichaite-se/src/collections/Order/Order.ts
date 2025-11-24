@@ -34,6 +34,15 @@ export const Order: CollectionConfig = {
       },
     },
     {
+      name: 'freeShipping',
+      type: 'checkbox',
+      label: 'Безплатна доставка',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'orderNumber',
       type: 'text',
       label: 'Номер на поръчка',

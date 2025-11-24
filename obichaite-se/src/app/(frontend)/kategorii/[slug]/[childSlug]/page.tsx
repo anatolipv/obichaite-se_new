@@ -18,7 +18,7 @@ export async function generateStaticParams() {
   const subCategories = await payload.find({
     collection: 'sub-category',
     draft: false,
-    limit: 1000,
+    limit: 2000,
     overrideAccess: false,
     pagination: false,
     select: {
@@ -58,30 +58,61 @@ export default async function SubCategory({ params: paramsPromise }: Args) {
   const products = await payload.find({
     collection: 'product',
     draft: false,
-    limit: 1000,
+    limit: 2000,
     overrideAccess: false,
     pagination: false,
     where: {
       and: [
         {
-          subCategory: {
-            equals: subCategory?.id,
-          },
-        },
-        {
           _status: {
             equals: 'published',
           },
+        },
+        {
+          or: [
+            {
+              subCategory: {
+                equals: subCategory?.id,
+              },
+            },
+            {
+              otherSubCategories: {
+                contains: subCategory?.id,
+              },
+            },
+          ],
         },
       ],
     },
   })
 
+  // const otherProducts = await payload.find({
+  //   collection: 'product',
+  //   draft: false,
+  //   limit: 2000,
+  //   overrideAccess: false,
+  //   pagination: false,
+  //   where: {
+  //     and: [
+  //       {
+  //         otherSubCategories: {
+  //           contains: subCategory?.id,
+  //         },
+  //       },
+  //       {
+  //         _status: {
+  //           equals: 'published',
+  //         },
+  //       },
+  //     ],
+  //   },
+  // })
+
   //get all subcategories in this category
   const otherSubcategories = await payload.find({
     collection: 'sub-category',
     draft: false,
-    limit: 1000,
+    limit: 2000,
     overrideAccess: false,
     pagination: false,
     where: {
@@ -103,7 +134,10 @@ export default async function SubCategory({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <div className="w-full pt-[52px] md:pt-[140px]">
-        <ProductsCardGridWithFilters products={products.docs} heading={subCategory.title} />
+        <ProductsCardGridWithFilters
+          products={[...products.docs]}
+          heading={subCategory.title}
+        />
       </div>
 
       {!!otherSubcategories?.docs && (

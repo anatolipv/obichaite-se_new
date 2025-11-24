@@ -10,7 +10,7 @@ export default async function Categories() {
   const categories = await payload.find({
     collection: 'category',
     draft: false,
-    limit: 1000,
+    limit: 2000,
     overrideAccess: false,
     pagination: false,
     where: {

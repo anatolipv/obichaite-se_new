@@ -15,7 +15,7 @@ export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const blogs = await payload.find({
     collection: 'product',
-    limit: 1000,
+    limit: 2000,
     select: {
       slug: true,
     },
@@ -57,7 +57,7 @@ export default async function ProductSinglePage({ params: paramsPromise }: Args)
   const allPromotionsAndBestSellers = await payload.find({
     collection: 'product',
     draft: false,
-    limit: 1000,
+    limit: 2000,
     overrideAccess: false,
     pagination: false,
     where: {
@@ -98,7 +98,7 @@ export default async function ProductSinglePage({ params: paramsPromise }: Args)
   const allRelatedProducts = await payload.find({
     collection: 'product',
     draft: false,
-    limit: 1000,
+    limit: 2000,
     overrideAccess: false,
     pagination: false,
     where: {

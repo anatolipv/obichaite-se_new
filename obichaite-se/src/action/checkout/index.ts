@@ -80,6 +80,8 @@ export async function makeOrder(
       .toString()
       .padStart(4, '0')}`
 
+    const itsFreeShipping = total >= 100
+
     const payloadBody: {
       collection: 'order'
       data: {
@@ -106,6 +108,7 @@ export async function makeOrder(
         }
         clientNotes: string | undefined
         user?: number
+        freeShipping?: boolean
       }
       overrideAccess: true
     } = {
@@ -118,7 +121,7 @@ export async function makeOrder(
 
         items: orderItems,
         total,
-
+        freeShipping: itsFreeShipping,
         customerName,
         customerEmail,
         customerPhone,

@@ -246,6 +246,7 @@ export interface Product {
   };
   category: number | Category;
   subCategory: number | SubCategory;
+  otherSubCategories?: (number | SubCategory)[] | null;
   price?: number | null;
   quantity: number;
   promoPrice?: number | null;
@@ -526,6 +527,7 @@ export interface ContentBlock {
 export interface Order {
   id: number;
   orderDate?: string | null;
+  freeShipping?: boolean | null;
   orderNumber?: string | null;
   status?: ('pending' | 'processing' | 'shipped' | 'delivered' | 'returned' | 'cancelled') | null;
   paymentStatus?: ('unpaid' | 'paid' | 'refunded' | 'needBankTransfer') | null;
@@ -1064,6 +1066,7 @@ export interface ProductSelect<T extends boolean = true> {
       };
   category?: T;
   subCategory?: T;
+  otherSubCategories?: T;
   price?: T;
   quantity?: T;
   promoPrice?: T;
@@ -1105,6 +1108,7 @@ export interface SubCategorySelect<T extends boolean = true> {
  */
 export interface OrderSelect<T extends boolean = true> {
   orderDate?: T;
+  freeShipping?: T;
   orderNumber?: T;
   status?: T;
   paymentStatus?: T;
