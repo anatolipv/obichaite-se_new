@@ -23,8 +23,8 @@ type SendNewOrderEmailInput = {
 export async function sendNewOrderEmailAction({ orderId, items, total }: SendNewOrderEmailInput) {
   const payload = await getPayload({ config: configPromise })
 
-  const adminOrderUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/order/${orderId}`
-  const to = process.env.ADMIN_EMAIL! // сложи си го в .env
+  const adminOrderUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}admin/order/${orderId}`
+  const to = process.env.ADMIN_EMAIL!
 
   const subject = emailTemplates.orders.newOrderNotification.subject({ orderId })
   const html = emailTemplates.orders.newOrderNotification.html({

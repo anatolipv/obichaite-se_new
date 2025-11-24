@@ -70,16 +70,16 @@ export default buildConfig({
   sharp,
   plugins: [payloadCloudPlugin(), ...plugins],
   email: nodemailerAdapter({
-    defaultFromAddress: process.env.EMAIL_FROM_ADDRESS!,
-    defaultFromName: process.env.EMAIL_FROM_NAME!,
-    transportOptions: {
-      host: process.env.SMTP_HOST, //TODO! actual smtp data for the superhosting website
-      port: 465,
-      secure: '465',
-      auth: {
-        user: 'rudashkimoni@gmail.com',
-        pass: 'izyawmspdnmfasgi',
-      },
+  defaultFromAddress: process.env.EMAIL_FROM_ADDRESS!,
+  defaultFromName: process.env.EMAIL_FROM_NAME!,
+  transportOptions: {
+    host: process.env.SMTP_HOST,
+    port: Number(process.env.SMTP_PORT) || 465,
+    secure: true, // true for 465, false for 587
+    auth: {
+      user: process.env.SMTP_USER!,
+      pass: process.env.SMTP_PASS!,
     },
-  }),
+  },
+})
 })

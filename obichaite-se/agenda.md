@@ -55,7 +55,6 @@
 [done] create form
 [done] form submission logic
 
-- cron job or something similar to handle the daily sending emails
 
 [pending] meta image to all or fallback - (try to use images of each page)
 
@@ -69,20 +68,17 @@
 [done] При смяна на поръчка със статус изпратена клиента да получава мейл
 [done] възможност за плащане по банка - да изписва, че ще се свързжат с потребителя за допълнителна информация
 [done] дата на раждане да не може да е в бъдещето за приятели
+
 - още една категория персонализирани подаръци
 - емейл provider-а да бъде сайтът
-
-- update admin pages with Seo information and etc
+- cron job or something similar to handle the daily sending emails
 - TODOS
-- prefetch to all links
-- да прегледаме документа от клиента кои части са изпълнени и да се вградяд които не са изпълнени
 - sitemap
 - add basic Seo jsonld and make each page with correct metadata
 - pwa if its possible
 
 _emails_
-
-- all needed emails that will be send from the front end and the admin
+  [done] all needed emails that will be send from the front end and the admin
   [done] when user make order - email to client with link to admin orders
 
 _migration scripts_
@@ -110,17 +106,9 @@ _migration scripts_
 - bg-english texts
 
 **BEFORE HANDOVER**
-
+- да се отключи stripe в продуктион и да се тества
 - да се преместят тези от продукти/общи където са и местата от потребителя - [admin]
 
 **BACKUP**
 
 - backup jsons in backup-json branch
-
-**DONE**
-[done] продукти - когато продукта има quantity 0 - да пише изчерпана наличност и да не може да влиза количка
-[done] при поръчка на неригистриран потребител да не излиза линк към профилна страница
-[done] при поръчка потребителя да получава имейл
-[done] При смяна на поръчка със статус изпратена клиента да получава мейл
-[done] възможност за плащане по банка - да изписва, че ще се свързжат с потребителя за допълнителна информация
-[done] дата на раждане да не може да е в бъдещето за приятели
