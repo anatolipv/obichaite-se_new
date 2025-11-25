@@ -54,14 +54,9 @@
 [done] create config - collection or inner
 [done] create form
 [done] form submission logic
-
-
 [pending] meta image to all or fallback - (try to use images of each page)
-
 [QC] revalidate sub category (YA project for ref)
-
 [done] update single product with sku or fallback 'id'
-
 [done] продукти - когато продукта има quantity 0 - да пише изчерпана наличност и да не може да влиза количка
 [done] при поръчка на неригистриран потребител да не излиза линк към профилна страница
 [done] при поръчка потребителя да получава имейл
@@ -70,10 +65,10 @@
 [done] дата на раждане да не може да е в бъдещето за приятели
 
 - още една категория персонализирани подаръци
-- емейл provider-а да бъде сайтът
-- cron job or something similar to handle the daily sending emails
-- TODOS
+[done] емейл provider-а да бъде сайтът
 - sitemap
+- TODOS
+- cron job or something similar to handle the daily sending emails
 - add basic Seo jsonld and make each page with correct metadata
 - pwa if its possible
 

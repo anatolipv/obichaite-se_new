@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Disallow: /admin/*
+
+# Host
+Host: http://localhost:3000/
+
+# Sitemaps
+Sitemap: http://localhost:3000/sitemap.xml
+Sitemap: http://localhost:3000//pages-sitemap.xml
+Sitemap: http://localhost:3000//produkt-sitemap.xml
+Sitemap: http://localhost:3000//subCategory-sitemap.xml
+Sitemap: http://localhost:3000//category-sitemap.xml

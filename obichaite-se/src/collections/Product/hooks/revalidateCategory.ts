@@ -15,7 +15,7 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = ({
       payload.logger.info(`Revalidating post at path: ${path}`)
 
       revalidatePath(path)
-      revalidateTag('product-sitemap')
+      revalidateTag('produkt-sitemap')
     }
 
     // If the post was previously published, we need to revalidate the old path
@@ -39,7 +39,7 @@ export const revalidateDeleteProduct: CollectionAfterDeleteHook<Product> = ({
     const path = `/produkt/${doc?.slug}`
 
     revalidatePath(path)
-    revalidateTag('product-sitemap')
+    revalidateTag('produkt-sitemap')
   }
 
   return doc

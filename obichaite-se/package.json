@@ -8,6 +8,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
@@ -17,7 +18,8 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "seed:subcategories": "payload run scripts/sub-categories.ts",
-    "seed:products": "payload run scripts/products.ts"
+    "seed:products": "payload run scripts/products.ts",
+    "manual:sitemap": "next-sitemap --config next-sitemap.config.cjs"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.60.0",
@@ -42,6 +44,7 @@
     "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.2",
     "next": "15.4.4",
+    "next-sitemap": "^4.2.3",
     "nodemailer": "^7.0.9",
     "payload": "3.60.0",
     "react": "19.1.0",

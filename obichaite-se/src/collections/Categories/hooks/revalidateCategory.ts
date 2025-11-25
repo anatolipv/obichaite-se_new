@@ -10,7 +10,7 @@ export const revalidateCategory: CollectionAfterChangeHook<Category> = ({
 }) => {
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
-      const path = `/category/${doc.slug}`
+      const path = `/kategogii/${doc.slug}`
 
       payload.logger.info(`Revalidating post at path: ${path}`)
 
@@ -20,7 +20,7 @@ export const revalidateCategory: CollectionAfterChangeHook<Category> = ({
 
     // If the post was previously published, we need to revalidate the old path
     if (previousDoc._status === 'published' && doc._status !== 'published') {
-      const oldPath = `/category/${previousDoc.slug}`
+      const oldPath = `/kategogii/${previousDoc.slug}`
 
       payload.logger.info(`Revalidating old post at path: ${oldPath}`)
 
@@ -36,7 +36,7 @@ export const revalidateDeleteCategory: CollectionAfterDeleteHook<Category> = ({
   req: { context },
 }) => {
   if (!context.disableRevalidate) {
-    const path = `/category/${doc?.slug}`
+    const path = `/kategogii/${doc?.slug}`
 
     revalidatePath(path)
     revalidateTag('category-sitemap')
