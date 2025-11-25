@@ -1,7 +1,7 @@
 'use client'
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
-import { setIsLoading, setUser } from '@/store/features/root'
+import { setUser } from '@/store/features/root'
 
 import React, { useState, useTransition } from 'react'
 import { DateInput, GenericButton, TextInput } from '../Generic'
