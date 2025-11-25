@@ -138,7 +138,13 @@ const UserFriendList = () => {
             <AddFriendComponent showFormHandler={showFormHandler} />
           </div>
         ) : (
-          <GenericButton styleClass="w-full md:w-fit" type="button" click={() => setShowForm(true)}>
+          <GenericButton
+            styleClass="w-full md:w-fit"
+            type="button"
+            click={() => {
+              setShowForm(true)
+            }}
+          >
             Добави приятел
           </GenericButton>
         )}

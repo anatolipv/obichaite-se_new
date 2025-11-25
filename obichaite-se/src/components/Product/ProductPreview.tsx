@@ -14,10 +14,6 @@ const ProductPreview = ({ mediaArray }: { mediaArray: Product['mediaArray'] }) =
   const disabledRightArrow = indexOfImageToShow === (!!mediaArray && mediaArray?.length - 1)
   const disabledLeftArrow = indexOfImageToShow === 0
 
-  //FLOWS //TODO
-  // 1. only one image
-  // 2. more then one slider
-
   const calculateTransitionValue = () => {
     if (!isBrowser) return 409
 

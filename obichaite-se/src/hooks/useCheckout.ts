@@ -19,7 +19,7 @@ export function useCheckout() {
   }
 
   const calculateRemainSum = () => {
-    const BASE_SUM = 100 //todo
+    const BASE_SUM = 100
 
     const differences = BASE_SUM - calculateTotalPrice()
 
@@ -27,10 +27,15 @@ export function useCheckout() {
   }
 
   const addToLocalStorage = (product: Product) => {
-    const currentLocalStorageProducts = JSON.parse(localStorage.getItem('cardProductsObichaiteSe') || '[]')
+    const currentLocalStorageProducts = JSON.parse(
+      localStorage.getItem('cardProductsObichaiteSe') || '[]',
+    )
 
     if (currentLocalStorageProducts.length === 0) {
-      localStorage.setItem('cardProductsObichaiteSe', JSON.stringify([{ ...product, orderQuantity: 1 }]))
+      localStorage.setItem(
+        'cardProductsObichaiteSe',
+        JSON.stringify([{ ...product, orderQuantity: 1 }]),
+      )
       return
     }
 
@@ -48,7 +53,9 @@ export function useCheckout() {
   }
 
   const removeFromLocalStorage = (product: Product) => {
-    const currentLocalStorageProducts = JSON.parse(localStorage.getItem('cardProductsObichaiteSe') || '[]')
+    const currentLocalStorageProducts = JSON.parse(
+      localStorage.getItem('cardProductsObichaiteSe') || '[]',
+    )
 
     const productExistsInLocalStorage = currentLocalStorageProducts.find(
       (x: ExtendedProduct) => x.id === product.id,

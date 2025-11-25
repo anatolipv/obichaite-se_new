@@ -66,11 +66,11 @@
 
 - още една категория персонализирани подаръци
 [done] емейл provider-а да бъде сайтът
-- sitemap
+[done] sitemap
+[done] cron job or something similar to handle the daily sending emails
 - TODOS
-- cron job or something similar to handle the daily sending emails
-- add basic Seo jsonld and make each page with correct metadata
-- pwa if its possible
+?? add basic Seo jsonld and make each page with correct metadata ??
+?? pwa if its possible ??
 
 _emails_
   [done] all needed emails that will be send from the front end and the admin

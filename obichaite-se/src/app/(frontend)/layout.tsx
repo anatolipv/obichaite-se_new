@@ -149,8 +149,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         },
       })
 
-  //"U2FsdGVkX180DpA3DnRZMlOypno7F8UYVkYgD9PMZVAoItaTNrDKncNjMmL/lXr4HGrsbrwUpHawzBTZXqgQU0me4NnQsYGEiKfEac6o9k8xvbuukJ8s9drxSYV4yVb6OK/fYAtUyOhg2o49wieoAZuLG2OUgZA4CsUjtSsTwncIx6gxG17nUAo2nHBj8hgT"
-
   return (
     <StoreProvider>
       <html lang="bg" className={`${kolka.variable} ${sansation.variable}`}>
@@ -158,8 +156,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           <link href="/favicon.ico" rel="icon" sizes="32x32" />
           <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
 
-          {/* TODO prefetch to domain */}
-          <link rel="preconnect prefetch" href="https://obichaite-se-new.vercel.app/" />
+          <link rel="preconnect prefetch" href="https://obichaite-se.com/" />
         </head>
         <body>
           <main id="content" className="min-h-[100svh] overflow-x-clip">

@@ -13,7 +13,7 @@ import { Category, Product } from '@/payload-types'
 import { PromotionsCardsGrid } from '@/components/Product'
 import BenefitsSection from '@/components/Custom/BenefitsSection'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
-// import { AboutUsJsonLd, HomePageJsonLd, OrganizationJsonLd } from '@/components/SEO' //TODO?
+// import { AboutUsJsonLd, HomePageJsonLd, OrganizationJsonLd } from '@/components/SEO'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -187,7 +187,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   return (
     <>
-      {/* //TODO? {slug === 'home' && (
+      {/* {slug === 'home' && (
         <>
           <OrganizationJsonLd />
           <HomePageJsonLd />

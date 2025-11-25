@@ -83,7 +83,10 @@ const AddFriendComponent = ({
           <GenericButton
             styleClass="w-full md:w-fit"
             type="button"
-            click={() => showFormHandler(true)}
+            click={() => {
+              showFormHandler(true)
+              setOk(false)
+            }}
           >
             Добави приятел
           </GenericButton>
@@ -137,7 +140,7 @@ const AddFriendComponent = ({
               styleClass="w-full"
               variant="primary"
               click={() => {
-                dispatch(setIsLoading(true))
+                setError(null)
               }}
             >
               {pending ? <span className="animate-pulse">Зареждане</span> : 'Добави'}
