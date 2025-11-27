@@ -18,7 +18,7 @@ import {
   FixedToolbarFeature,
   InlineToolbarFeature,
 } from '@payloadcms/richtext-lexical'
-import { revalidateDeleteProduct, revalidateProduct } from './hooks/revalidateCategory'
+import { revalidateDeleteProduct, revalidateProduct } from './hooks/revalidateProduct'
 
 export const Product: CollectionConfig = {
   slug: 'product',
@@ -180,9 +180,9 @@ export const Product: CollectionConfig = {
       },
     },
     {
-      name: "otherSubCategories",
+      name: 'otherSubCategories',
       type: 'relationship',
-      relationTo: "sub-category",
+      relationTo: 'sub-category',
       hasMany: true,
       admin: {
         position: 'sidebar',
@@ -253,8 +253,8 @@ export const Product: CollectionConfig = {
       },
     },
     {
-      name: "sku",
-      type: "text",
+      name: 'sku',
+      type: 'text',
       required: false,
       admin: {
         position: 'sidebar',
