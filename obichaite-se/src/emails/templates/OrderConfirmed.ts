@@ -8,13 +8,15 @@ type NewOrderEmailArgs = {
   items: OrderItem[]
   total: number
   currency?: string
-  userName: string,
+  userName: string
   orderNumber?: string
 }
 
 const getBaseUrl = () => process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
 const getLogoUrl = () => `${getBaseUrl()}_next/image?url=%2Flogo-full.png&w=1920&q=75`
+const getPdfLink = () => `${getBaseUrl}/pdf-obichaite-se.pdf`
+const pdfLink = getPdfLink()
 
 export const OrderConfirmed = {
   subject: ({ orderId }: { orderId: number }) => `Поръчката ви е потвърдена #${orderId}`,
@@ -117,6 +119,10 @@ export const OrderConfirmed = {
                   Общи условия
                 </a>
               </p>
+
+              <a href=${pdfLink}>
+                Изтегли Общите условия (PDF)
+              </a>
 
               <p style="margin:10px 0 0 0; font-style:italic;">
                 С обич и внимание към всеки детайл – екипът на Obichaite-se.

@@ -18,6 +18,7 @@ import { Metadata } from 'next'
 import GenericNotification from '@/components/Generic/GenericNotification'
 import { ShoppingCartManager } from '@/components/StateManagers'
 import SetCurrentUser from '@/components/StateManagers/SetCurrentUser'
+import CustomConsent from '@/components/Custom/CustomConsent'
 
 const SITE_NAME = 'Обичайте се'
 
@@ -179,6 +180,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <ShoppingCartManager />
 
             <SetCurrentUser />
+
+            <CustomConsent />
           </main>
         </body>
       </html>

@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux-hooks'
 import RadioSelect from '../Generic/RadioSelect'
 import { useCheckout } from '@/hooks/useCheckout'
 import { priceToEuro } from '@/utils/calculatePriceFromLvToEuro'
-import { ArrowIcon } from '@/assets/icons'
+import { ArrowIcon, CheckBoxIcon } from '@/assets/icons'
 import ErrorMessageBox from '../Generic/ErrorMessage'
 import { makeOrder, MakeOrderInput } from '@/action/checkout'
 import Link from 'next/link'
@@ -40,6 +40,10 @@ const CheckoutForm = () => {
   const [pending, startTransition] = useTransition()
   const [isSuccess, setIsSuccess] = useState(false)
   const [orderNumber, setOrderNumber] = useState('')
+
+  const [acceptTerms, setAcceptTerms] = useState(false)
+  const [acceptPrivacy, setAcceptPrivacy] = useState(false)
+  const [acceptNextContacts, setAcceptNextContacts] = useState(false)
 
   const checkoutValuesInitialState: {
     name: string
@@ -88,6 +92,10 @@ const CheckoutForm = () => {
       formValues.deliveryTown.length < 3 ? 'Населено място трябва да е поне 3 символа' : ''
     const deliveryOfficeError =
       formValues.deliveryOffice.length < 3 ? 'Полето трябва да е коректно попълнено' : ''
+
+    if (!acceptTerms || !acceptPrivacy) {
+      setError('Трябва да се съгласите с задължителните условия, за потвърждаване на поръчката')
+    }
 
     if (nameError || phoneError || emailError || deliveryTownError || deliveryOfficeError) {
       setErrors({
@@ -390,6 +398,43 @@ const CheckoutForm = () => {
                       />
                     </div>
                   )}
+
+                  <button
+                    className="w-full flex gap-2"
+                    onClick={() => setAcceptTerms(!acceptTerms)}
+                    type="button"
+                  >
+                    <div className="size-4 md:size-5 border-[1px] bg-bordo border-bordo rounded-[4px] flex justify-center items-center">
+                      {acceptTerms && <CheckBoxIcon />}
+                    </div>
+                    <GenericParagraph pType="small" extraClass='text-left'>Съгласен с общите условия*</GenericParagraph>
+                  </button>
+
+                  <button
+                    className="w-full flex gap-2"
+                    onClick={() => setAcceptPrivacy(!acceptPrivacy)}
+                    type="button"
+                  >
+                    <div className="size-4 md:size-5 border-[1px] bg-bordo border-bordo rounded-[4px] flex justify-center items-center">
+                      {acceptPrivacy && <CheckBoxIcon />}
+                    </div>
+                    <GenericParagraph pType="small" extraClass='text-left'>
+                      Съгласен с политиката за поверителност*
+                    </GenericParagraph>
+                  </button>
+
+                  <button
+                    className="w-full flex gap-2"
+                    onClick={() => setAcceptNextContacts(!acceptNextContacts)}
+                    type="button"
+                  >
+                    <div className="size-4 md:size-5 border-[1px] bg-bordo border-bordo rounded-[4px] flex justify-center items-center">
+                      {acceptNextContacts && <CheckBoxIcon />}
+                    </div>
+                    <GenericParagraph pType="small" extraClass='text-left'>
+                      Съгласен с последващите контакти (опционално)
+                    </GenericParagraph>
+                  </button>
 
                   <div className="w-full py-2">
                     <button

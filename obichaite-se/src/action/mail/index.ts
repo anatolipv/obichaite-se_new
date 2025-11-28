@@ -5,6 +5,8 @@ import { getPayload } from 'payload'
 import configPromise from '@/payload.config'
 import { emailTemplates } from '@/emails/OrderToAdminEmail'
 
+const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL
+
 type OrderItem = {
   name: string
   quantity: number
@@ -67,6 +69,13 @@ export async function sendConfirmedOrderEmail({
     to: userEmail,
     subject,
     html,
+    attachments: [
+      {
+        filename: 'pdf-obichaite-se.pdf',
+        path: `${baseUrl}/pdf-obichaite-se.pdf`,
+        contentType: 'application/pdf',
+      },
+    ],
   })
 
   return { ok: true }

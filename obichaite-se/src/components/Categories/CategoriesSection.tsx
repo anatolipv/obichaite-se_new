@@ -52,7 +52,7 @@ const CategoriesSection = ({ categories }: { categories: Category[] }) => {
             <GenericParagraph
               fontStyle="font-kolka font-[500]"
               textColor="text-pink"
-              extraClass="text-center md:text-left"
+              extraClass={`text-center ${isIndexOdd ? 'md:text-left' : 'md:text-right'}`}
             >
               <RichText data={category.description}></RichText>
             </GenericParagraph>

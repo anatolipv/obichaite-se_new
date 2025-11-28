@@ -17,9 +17,9 @@ export const setOrderNumber: CollectionAfterChangeHook = async ({
   //   depth: 0,
   // })
 
-  console.log('***logs***')
+  // console.log('***logs***')
   console.log('previousDoc', previousDoc)
-  console.log('doc', doc)
+  // console.log('doc', doc)
 
   return doc
 }

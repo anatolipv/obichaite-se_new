@@ -9,6 +9,7 @@ export interface RootInitialState {
   heroAppearAnimationDone: boolean | 'pending'
   heroAnimationDone: boolean
   openSearch: boolean
+  consentActive: boolean
 }
 
 const rootInitialState: RootInitialState = {
@@ -19,6 +20,7 @@ const rootInitialState: RootInitialState = {
   heroAppearAnimationDone: 'pending',
   heroAnimationDone: false,
   openSearch: false,
+  consentActive: true,
 }
 
 export const rootSlice = createSlice({
@@ -46,6 +48,9 @@ export const rootSlice = createSlice({
     setUser: (state, { payload }: PayloadAction<User | null>) => {
       state.user = payload
     },
+    setConsentActive: (state, { payload }: PayloadAction<boolean>) => {
+      state.consentActive = payload
+    },
   },
 })
 
@@ -57,6 +62,7 @@ export const {
   setHeroAppearAnimationDone,
   setOpenSearch,
   setUser,
+  setConsentActive,
 } = rootSlice.actions
 
 export default rootSlice.reducer
