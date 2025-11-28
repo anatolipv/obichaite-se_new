@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GenericButton, GenericImage, GenericParagraph } from '../Generic'
 import { Product } from '@/payload-types'
 import { containsQuery } from '@/utils/translate'
@@ -27,6 +27,13 @@ const Search = ({ products }: { products: Product[] }) => {
 
     setSearchResults(productResults)
   }
+
+  useEffect(() => {
+    if (searchOpen) return
+
+    setInputValue('')
+    setSearchResults(null)
+  }, [searchOpen])
 
   return (
     <section

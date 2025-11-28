@@ -142,7 +142,6 @@ const ProductCard = ({ product }: { product: Product }) => {
                   styleClass="uppercase [&>div>svg]:hover:stroke-bordo gap-[6px] min-w-[146px]"
                   click={() => {
                     dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
-                    dispatch(setOpenSearch(false))
                     dispatch(
                       setNotification({
                         showNotification: true,
@@ -176,7 +175,7 @@ const ProductCard = ({ product }: { product: Product }) => {
                   styleClass="uppercase [&>div>svg_path]:hover:fill-bordo gap-[6px]"
                   click={() => {
                     dispatch(addProductToShoppingCart({ ...product, orderQuantity: 1 }))
-                    dispatch(setOpenSearch(false))
+
                     dispatch(
                       setNotification({
                         showNotification: true,
