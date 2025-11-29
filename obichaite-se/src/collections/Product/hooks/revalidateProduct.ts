@@ -96,7 +96,9 @@ export const revalidateDeleteProduct: CollectionAfterDeleteHook<Product> = async
   doc,
   req: { payload, context },
 }) => {
-  if (!context.disableRevalidate) {
+  // console.log('Revalidate Delete Product Hook Triggered')
+  console.log('Deleted context:', context)
+  if (!context.disableRevalidate && doc.slug) {
     const path = `/produkt/${doc?.slug}`
 
     revalidatePath(path)
