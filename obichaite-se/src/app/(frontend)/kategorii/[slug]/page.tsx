@@ -6,12 +6,14 @@ import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 
-import type { Category } from '@/payload-types'
+import type { Category, Product } from '@/payload-types'
 
 import { generateMeta } from '@/utils/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import ProductsCardGridWithFilters from '@/components/Product/ProductsCardGridWithFilters'
 import { SubCategorySlider } from '@/components/Product'
+
+const THEMATIC_ID = 3
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -78,6 +80,32 @@ export default async function Category({ params: paramsPromise }: Args) {
     },
   })
 
+  let otherThematicProducts: Product[] = []
+  if (category.id === THEMATIC_ID) {
+    const thematics = await payload.find({
+      collection: 'product',
+      draft: false,
+      limit: 2000,
+      overrideAccess: false,
+      pagination: false,
+      where: {
+        and: [
+          {
+            _status: {
+              equals: 'published',
+            },
+          },
+          {
+            isInThematic: {
+              equals: true,
+            },
+          },
+        ],
+      },
+    })
+    otherThematicProducts = thematics.docs
+  }
+
   //get all subcategories in this category
   const subcategories = await payload.find({
     collection: 'sub-category',
@@ -97,6 +125,8 @@ export default async function Category({ params: paramsPromise }: Args) {
   if (subcategories?.docs?.length > 10) subCategoryLoopDuration = 30
   if (subcategories?.docs?.length >= 20) subCategoryLoopDuration = 60
 
+  const productsToRender = [...products.docs, ...otherThematicProducts]
+
   return (
     <article className="w-full bg-brown">
       <PayloadRedirects disableNotFound url={url} />
@@ -104,7 +134,7 @@ export default async function Category({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <div className="w-full pt-[52px] md:pt-[140px]">
-        <ProductsCardGridWithFilters products={products.docs} heading={category.title} />
+        <ProductsCardGridWithFilters products={productsToRender} heading={category.title} />
       </div>
 
       {!!subcategories?.docs && (

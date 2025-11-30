@@ -8,7 +8,7 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = async ({
   previousDoc,
   req: { payload, context },
 }) => {
-  console.log('Revalidate Product Hook Triggered', doc)
+  // console.log('Revalidate Product Hook Triggered', doc)
   if (!context.disableRevalidate) {
     if (doc._status === 'published') {
       const path = `/produkt/${doc.slug}`
@@ -29,6 +29,10 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = async ({
       revalidateTag('produkt-sitemap')
 
       // revalidate category page
+
+      if (doc.isInThematic) {
+        revalidatePath('/kategorii/tematichni-podarytsi')
+      }
 
       // console.log('Revalidating product doc:', doc)
       const category =
@@ -97,7 +101,7 @@ export const revalidateDeleteProduct: CollectionAfterDeleteHook<Product> = async
   req: { payload, context },
 }) => {
   // console.log('Revalidate Delete Product Hook Triggered')
-  console.log('Deleted context:', context)
+  // console.log('Deleted context:', context)
   if (!context.disableRevalidate && doc.slug) {
     const path = `/produkt/${doc?.slug}`
 

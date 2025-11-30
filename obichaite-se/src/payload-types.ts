@@ -260,6 +260,10 @@ export interface Product {
    */
   priceRange?: string | null;
   sku?: string | null;
+  /**
+   * Ако това поле бъде активирано, продуктът ще излиза в страница Тематични
+   */
+  isInThematic?: boolean | null;
   publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -1074,6 +1078,7 @@ export interface ProductSelect<T extends boolean = true> {
   havePriceRange?: T;
   priceRange?: T;
   sku?: T;
+  isInThematic?: T;
   publishedAt?: T;
   slug?: T;
   slugLock?: T;

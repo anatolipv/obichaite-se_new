@@ -261,6 +261,16 @@ export const Product: CollectionConfig = {
       },
     },
     {
+      name: 'isInThematic',
+      label: 'Присъства в страница Тематични',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Ако това поле бъде активирано, продуктът ще излиза в страница Тематични',
+      },
+    },
+    {
       name: 'publishedAt',
       type: 'date',
       admin: {
