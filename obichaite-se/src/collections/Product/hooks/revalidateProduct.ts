@@ -23,6 +23,8 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = async ({
     if (previousDoc._status === 'published' && doc._status !== 'published') {
       const oldPath = `/produkt/${previousDoc.slug}`
 
+      console.log('REVALIDATE ALL')
+
       payload.logger.info(`Revalidating old post at path: ${oldPath}`)
 
       revalidatePath(oldPath)
