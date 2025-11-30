@@ -9,6 +9,9 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = async ({
   req: { payload, context },
 }) => {
   const revalidateAll = async () => {
+
+    console.log("TRIGGERED REVALIDATION")
+
     revalidatePath('/kategorii/tematichni-podarytsi')
 
     const category =
