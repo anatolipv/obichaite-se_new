@@ -45,6 +45,8 @@ const GenericImage = ({
   const mobileUrlScr = updatedAt ? `${mobileUrl}?v=${updatedAt}` : mobileUrl
   const desktopUrlSrc = updatedAt ? `${src}?v=${updatedAt}` : src
 
+  //TODO! change unoptimized to be dynamic
+
   return (
     <div className={`${wrapperClassName} overflow-x-clip`}>
       {!loaded && placeholderImage && (
@@ -68,7 +70,7 @@ const GenericImage = ({
           onLoad={() => {
             setLoaded(true)
           }}
-          unoptimized={unoptimized}
+          unoptimized={true}
           style={{ objectPosition: objPos }}
           fetchPriority={fetchPriority}
           aria-hidden={unoptimized ? true : false}
