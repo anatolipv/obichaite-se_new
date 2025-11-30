@@ -9,9 +9,7 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = async ({
   req: { payload, context },
 }) => {
   const revalidateAll = async () => {
-    if (doc.isInThematic) {
-      revalidatePath('/kategorii/tematichni-podarytsi')
-    }
+    revalidatePath('/kategorii/tematichni-podarytsi')
 
     const category =
       (await payload.find({
@@ -46,11 +44,22 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = async ({
         return res.docs[0]
       }),
     )
-    revalidatePath(`/kategorii/${category.docs[0].slug}`)
-    revalidatePath(`/kategorii/${subCategory.docs[0].slug}`)
-    otherSubCategories?.forEach((subCat) => {
-      revalidatePath(`/kategorii/${subCat.slug}`)
-    })
+
+    try {
+      revalidatePath(`/kategorii/${category.docs[0].slug}`)
+      revalidatePath(`/kategorii/produkti/${subCategory.docs[0].slug}`)
+      revalidatePath(`/kategorii/emotsionalni-iznenadi/${subCategory.docs[0].slug}`)
+      revalidatePath(`/kategorii/tematichni-podarytsi/${subCategory.docs[0].slug}`)
+      revalidatePath(`/kategorii/rychnoizraboteni-podarytsi/${subCategory.docs[0].slug}`)
+      otherSubCategories?.forEach((subCat) => {
+        revalidatePath(`/kategorii/produkti/${subCat.slug}`)
+        revalidatePath(`/kategorii/emotsionalni-iznenadi/${subCat.slug}`)
+        revalidatePath(`/kategorii/tematichni-podarytsi/${subCat.slug}`)
+        revalidatePath(`/kategorii/rychnoizraboteni-podarytsi/${subCat.slug}`)
+      })
+    } catch (error) {
+      console.error(error)
+    }
     revalidateTag('produkt-sitemap')
   }
 
