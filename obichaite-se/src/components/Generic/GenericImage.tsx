@@ -70,7 +70,7 @@ const GenericImage = ({
           onLoad={() => {
             setLoaded(true)
           }}
-          unoptimized={true}
+          unoptimized={unoptimized}
           style={{ objectPosition: objPos }}
           fetchPriority={fetchPriority}
           aria-hidden={unoptimized ? true : false}
