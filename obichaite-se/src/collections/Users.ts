@@ -16,7 +16,7 @@ export const Users: CollectionConfig = {
         const baseUrl = isDev ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_SERVER_URL || ''
         const url = `${baseUrl}/auth/verify?token=${t}`
         const email = user?.email || ''
-        const logoUrl = `${baseUrl}_next/image?url=%2Flogo-full.png&w=1920&q=75`
+        const logoUrl = `${baseUrl}/_next/image?url=%2Flogo-full.png&w=1920&q=75`
 
         return `<!DOCTYPE html>
 <html lang="bg">
@@ -87,7 +87,7 @@ export const Users: CollectionConfig = {
         const baseUrl = isDev ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_SERVER_URL || ''
 
         const email = args?.user?.email ?? ''
-        const logoUrl = `${baseUrl}_next/image?url=%2Flogo-full.png&w=1920&q=75`
+        const logoUrl = `${baseUrl}/_next/image?url=%2Flogo-full.png&w=1920&q=75`
         return `<!DOCTYPE html>
 <html lang="bg">
   <head>

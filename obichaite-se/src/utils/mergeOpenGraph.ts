@@ -6,7 +6,7 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   description: 'Обичайте се - подаръци, които се помнят',
   images: [
     {
-      url: `${getServerSideURL()}hero-image.png`,
+      url: `${getServerSideURL()}/hero-image.png`,
     },
   ],
   siteName: 'Обичайте се',

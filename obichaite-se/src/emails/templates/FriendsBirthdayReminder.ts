@@ -1,6 +1,6 @@
 const getBaseUrl = () => process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 
-const getLogoUrl = () => `${getBaseUrl()}_next/image?url=%2Flogo-full.png&w=1920&q=75`
+const getLogoUrl = () => `${getBaseUrl()}/_next/image?url=%2Flogo-full.png&w=1920&q=75`
 
 export const FriendBirthday = {
   subject: ({ friendName }: { friendName: string }) => `Празника на ${friendName}!`,

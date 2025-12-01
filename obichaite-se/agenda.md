@@ -112,3 +112,6 @@ _migration scripts_
 
 **BACKUP**
 - backup jsons in backup-json branch
+
+на адрес - obichaite-se.com
+А - 185.45.66.207
