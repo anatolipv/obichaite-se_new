@@ -64,7 +64,6 @@
 [done] възможност за плащане по банка - да изписва, че ще се свързжат с потребителя за допълнителна информация
 [done] дата на раждане да не може да е в бъдещето за приятели
 
-- още една категория персонализирани подаръци
 [done] емейл provider-а да бъде сайтът
 [done] sitemap
 [done] cron job or something similar to handle the daily sending emails
@@ -101,13 +100,16 @@ _migration scripts_
 -- each new user "admin", needs to be verifiied manually - [database]
 
 **AFTER LIVE**
-
 - bg-english texts
 
 **BEFORE HANDOVER**
+- да може да се трие продукт
+- да се ревалидират категориите
+- да погледна защо организиране на събития е с цена
+- да видя дали може да се редят ??
 - да се отключи stripe в продуктион и да се тества
-- да се преместят тези от продукти/общи където са и местата от потребителя - [admin]
+- да се създаде vercel na клиент
+- да се създаде Neon на клиент
 
 **BACKUP**
-
 - backup jsons in backup-json branch

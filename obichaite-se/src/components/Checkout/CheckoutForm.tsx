@@ -197,6 +197,18 @@ const CheckoutForm = () => {
     paymentInfoText = `Банков транфер, ще получите проформа фактура на посочения имейл адрес, по която да извършите плащане. Не правете плашане без да сте получили проформата. В графата "Основание за плащане" ЗАДЪЛЖИТЕЛНО трябва да попълните номер на проформата фактура. Ако не сте попълнили номер за индетификацията на превода да се затроднява обработката на поръчката и е възможно тя да не бъде активирана, тъй като няма да знаем за какво е плащането. Ако имате някакви въпроси относно направената от Вас поръчка, ще се радваме да ви помогнем.`
   }
 
+  const paymentOptions =
+    totalPrice > 0
+      ? [
+          { label: 'Наложен платеж', value: 'cash' },
+          { label: 'Кредитна/дебитна карта', value: 'card' },
+          { label: 'Плащане по банков път', value: 'needBankTransfer' },
+        ]
+      : [
+          { label: 'Наложен платеж', value: 'cash' },
+          { label: 'Плащане по банков път', value: 'needBankTransfer' },
+        ]
+
   return (
     <>
       {!isSuccess ? (
@@ -221,7 +233,7 @@ const CheckoutForm = () => {
                   textColor="text-bordo"
                   extraClass="text-center pt-6"
                 >
-                  <h2>За да финазирате поръчката трябва да добавите продукти</h2>
+                  <h2>За да финализирате поръчката трябва да добавите продукти</h2>
                 </GenericHeading>
               </>
             ) : (
@@ -377,11 +389,7 @@ const CheckoutForm = () => {
 
                   <div className="w-full">
                     <RadioSelectMultiple
-                      options={[
-                        { label: 'Наложен платеж', value: 'cash' },
-                        { label: 'Кредитна/дебитна карта', value: 'card' },
-                        { label: 'Плащане по банков път', value: 'needBankTransfer' },
-                      ]}
+                      options={paymentOptions}
                       label="Начин на плащане"
                       formValues={formValues}
                       setFormValues={setFormValues}
@@ -407,7 +415,9 @@ const CheckoutForm = () => {
                     <div className="size-4 md:size-5 border-[1px] bg-bordo border-bordo rounded-[4px] flex justify-center items-center">
                       {acceptTerms && <CheckBoxIcon />}
                     </div>
-                    <GenericParagraph pType="small" extraClass='text-left'>Съгласен с общите условия*</GenericParagraph>
+                    <GenericParagraph pType="small" extraClass="text-left">
+                      Съгласен с общите условия*
+                    </GenericParagraph>
                   </button>
 
                   <button
@@ -418,7 +428,7 @@ const CheckoutForm = () => {
                     <div className="size-4 md:size-5 border-[1px] bg-bordo border-bordo rounded-[4px] flex justify-center items-center">
                       {acceptPrivacy && <CheckBoxIcon />}
                     </div>
-                    <GenericParagraph pType="small" extraClass='text-left'>
+                    <GenericParagraph pType="small" extraClass="text-left">
                       Съгласен с политиката за поверителност*
                     </GenericParagraph>
                   </button>
@@ -431,7 +441,7 @@ const CheckoutForm = () => {
                     <div className="size-4 md:size-5 border-[1px] bg-bordo border-bordo rounded-[4px] flex justify-center items-center">
                       {acceptNextContacts && <CheckBoxIcon />}
                     </div>
-                    <GenericParagraph pType="small" extraClass='text-left'>
+                    <GenericParagraph pType="small" extraClass="text-left">
                       Съгласен с последващите контакти (опционално)
                     </GenericParagraph>
                   </button>

@@ -9,8 +9,7 @@ export const revalidateProduct: CollectionAfterChangeHook<Product> = async ({
   req: { payload, context },
 }) => {
   const revalidateAll = async () => {
-
-    console.log("TRIGGERED REVALIDATION")
+    console.log('TRIGGERED REVALIDATION')
 
     revalidatePath('/kategorii/tematichni-podarytsi')
 
@@ -98,59 +97,71 @@ export const revalidateDeleteProduct: CollectionAfterDeleteHook<Product> = async
   doc,
   req: { payload, context },
 }) => {
-  if (!context.disableRevalidate && doc.slug) {
-    const path = `/produkt/${doc?.slug}`
+  console.log('Revalidate Product Hook Triggered', doc)
+  if (context.disableRevalidate || !doc.slug) return doc
 
+  try {
+    const path = `/produkt/${doc.slug}`
     revalidatePath(path)
 
-    const category = await payload.find({
-      collection: 'category',
-      where: {
-        id: {
-          equals: doc.category,
-        },
-      },
-    })
+    // category
+    const category =
+      typeof doc.category === 'string'
+        ? await payload.findByID({
+            collection: 'category',
+            id: doc.category,
+          })
+        : null
 
-    const subCategory = await payload.find({
-      collection: 'sub-category',
-      where: {
-        id: {
-          equals: doc.subCategory,
-        },
-      },
-    })
+    if (category?.slug) {
+      payload.logger.info(`Revalidating category: /kategorii/${category.slug}`)
+      revalidatePath(`/kategorii/${category.slug}`)
+    }
 
-    const otherSubCategories = await Promise.all(
-      (doc.otherSubCategories || []).map(async (subCatId) => {
-        const res = await payload.find({
-          collection: 'sub-category',
-          where: {
-            id: {
-              equals: subCatId,
-            },
-          },
-        })
-        return res.docs[0]
-      }),
-    )
+    // subCategory (if you still have a single one)
+    const subCategory =
+      typeof doc.subCategory === 'string'
+        ? await payload.findByID({
+            collection: 'sub-category',
+            id: doc.subCategory,
+          })
+        : null
 
-    payload.logger.info(`Revalidating old post at path: ${`/kategorii/${category.docs[0].slug}`}`)
-    revalidatePath(`/kategorii/${category.docs[0].slug}`)
+    if (subCategory?.slug && category?.slug) {
+      payload.logger.info(`Revalidating subCategory: /kategorii/${subCategory.slug}`)
+      revalidatePath(`/kategorii/${category?.slug}/${subCategory.slug}`)
+    }
 
-    payload.logger.info(
-      `Revalidating old post at path: ${`/kategorii/${subCategory.docs[0].slug}`}`,
-    )
-    revalidatePath(`/kategorii/${subCategory.docs[0].slug}`)
+    // otherSubCategories
+    const otherSubCategories =
+      Array.isArray(doc.otherSubCategories) && doc.otherSubCategories.length
+        ? await Promise.all(
+            doc.otherSubCategories.map(async (subCatId) => {
+              if (typeof subCatId !== 'string') return null
+              return payload.findByID({
+                collection: 'sub-category',
+                id: subCatId,
+              })
+            }),
+          )
+        : []
 
-    otherSubCategories?.forEach((subCat) => {
-      payload.logger.info(`Revalidating old post at path: ${`/kategorii/${subCat.slug}`}`)
-      revalidatePath(`/kategorii/${subCat.slug}`)
-    })
+    otherSubCategories
+      .filter((subCat) => !!subCat?.slug)
+      .forEach((subCat) => {
+        const subSlug = subCat?.slug
+        if (!subSlug || !category?.slug) return
+        payload.logger.info(
+          `Revalidating otherSubCategory: /kategorii/${category?.slug}/${subSlug}`,
+        )
+        revalidatePath(`/kategorii/${category?.slug}/${subSlug}`)
+      })
 
     revalidateTag('produkt-sitemap')
-
     revalidateTag('category-sitemap')
+  } catch (error) {
+    payload.logger.error('revalidateDeleteProduct failed', error)
+    // important: don't rethrow, or the transaction will fail
   }
 
   return doc

@@ -22,7 +22,9 @@ function calculateTotalAmount(items: ExtendedProduct[], discount: number = 0): n
     total *= discount
   }
 
-  return total * 100
+  total = Math.round(total * 100)
+
+  return total
 }
 
 export async function createPaymentIntentAction(products: ExtendedProduct[], discount: number = 0) {
