@@ -23,7 +23,7 @@ import CustomConsent from '@/components/Custom/CustomConsent'
 const SITE_NAME = 'Обичайте се'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://obichaite-se-new.vercel.app/'),
+  metadataBase: new URL('https://obichaite-se.com/'),
   applicationName: SITE_NAME,
   title: {
     default: SITE_NAME,

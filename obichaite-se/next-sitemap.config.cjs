@@ -1,4 +1,4 @@
-const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'https://obichaite-se-new.vercel.app'
+const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'https://obichaite-se.com/'
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {

@@ -6,7 +6,7 @@ import { unstable_cache } from 'next/cache'
 const getBlogSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
-    const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'https://obichaite-se-new.vercel.app'
+    const SITE_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'https://obichaite-se.com/'
 
     const results = await payload.find({
       collection: 'product',

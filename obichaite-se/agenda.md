@@ -103,12 +103,12 @@ _migration scripts_
 - bg-english texts
 
 **BEFORE HANDOVER**
-- да се отключи stripe в продуктион и да се тества
-- да се създаде vercel na клиент
-- да се създаде Neon на клиент
-- да се оптимизират снимките (unoptimize да бъде динамично)
-- да се изтрият поръчките
-- да променя всичко от ...vercel.app към live domain и env в нов Vercel URL..
+[done] да се отключи stripe в продуктион и да се тества
+[done] да се създаде vercel na клиент
+[done] да се създаде Neon на клиент
+[done] да се оптимизират снимките (unoptimize да бъде динамично)
+[done] да се изтрият поръчките
+[done] да променя всичко от ...vercel.app към live domain и env в нов Vercel URL..
 
 **BACKUP**
 - backup jsons in backup-json branch
