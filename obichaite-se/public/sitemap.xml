@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<sitemap><loc>http://localhost:3000//pages-sitemap.xml</loc></sitemap>
-<sitemap><loc>http://localhost:3000//produkt-sitemap.xml</loc></sitemap>
-<sitemap><loc>http://localhost:3000//subCategory-sitemap.xml</loc></sitemap>
-<sitemap><loc>http://localhost:3000//category-sitemap.xml</loc></sitemap>
+<sitemap><loc>https://www.obichaite-se.com/pages-sitemap.xml</loc></sitemap>
+<sitemap><loc>https://www.obichaite-se.com/produkt-sitemap.xml</loc></sitemap>
+<sitemap><loc>https://www.obichaite-se.com/subCategory-sitemap.xml</loc></sitemap>
+<sitemap><loc>https://www.obichaite-se.com/category-sitemap.xml</loc></sitemap>
 </sitemapindex>
